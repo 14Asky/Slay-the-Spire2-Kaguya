@@ -21,7 +21,6 @@ public class HinaModsMoonBarrier() : HinaModsCard(2,
     TargetType.Self)
 {
     // 防御标签 保留
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     // 官方标准 BlockVar：基础格挡13
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(13m, ValueProp.Move)];

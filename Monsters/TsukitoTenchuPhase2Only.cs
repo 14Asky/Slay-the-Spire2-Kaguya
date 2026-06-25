@@ -139,7 +139,7 @@ namespace Kaguya.Monsters
             await base.AfterAddedToRoom();
             UpdateVisual(VisualPath);
             var choiceContext = new ThrowingPlayerChoiceContext();
-            await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Creature, 8, Creature, null);
+            await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Creature, 4, Creature, null);
         }
     }
 }

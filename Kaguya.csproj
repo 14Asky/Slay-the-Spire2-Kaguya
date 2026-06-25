@@ -30,6 +30,6 @@
 	  <HintPath>libs\sts2.dll</HintPath>
 	</Reference>
 	  <!-- NuGet获取，注意版本是否一致，不一致手动更改Version -->
-	  <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.8" />
+	  <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.3.0" />
   </ItemGroup>
 </Project>

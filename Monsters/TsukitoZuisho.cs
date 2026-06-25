@@ -337,7 +337,7 @@ namespace Kaguya.Monsters
                     await PowerCmd.Apply(choiceContext, gluttony, Creature, 1, Creature, null);
                 }
             await PowerCmd.Apply<ZuishoPhaseTransitionPower>(choiceContext, Creature, 1, Creature, null);
-            await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Creature, 8, Creature, null);
+            await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Creature, 5, Creature, null);
 
             // 播放循环音乐（Moon.mp3）
             var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Moon.mp3");

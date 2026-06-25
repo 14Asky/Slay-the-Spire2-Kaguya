@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -250,7 +250,7 @@ public static class UpdateChecker
                     continue;
 
                 LatestVersion = release.TagName;
-                ReleaseUrl = release.HtmlUrl ?? string.Empty;
+                ReleaseUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3747548629";
 
                 bool hasUpdate = CompareVersions(CurrentVersion, LatestVersion) < 0;
 

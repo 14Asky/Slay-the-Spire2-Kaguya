@@ -1,4 +1,5 @@
 using Godot;
+using Kaguya;
 using HarmonyLib;
 using Kaguya.Encounters;
 using Kaguya.Monsters;

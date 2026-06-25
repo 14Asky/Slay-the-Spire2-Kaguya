@@ -169,7 +169,7 @@
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]もと光る竹、月夜の輝きを宿す。[/gold]",
 
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "かぐやのスマホ",
-	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "毎ターン、カードを[blue]5[/blue]枚プレイした時、{Energy:energyIcons()}を得る。",
+	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "毎ターン、カードを[blue]5[/blue]枚プレイした時、1エネルギーを得る。",
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.flavor": "[blue]かぐやのお気に入りのスマホ…[/blue]",
 
 	"KAGUYA-SUN_HEADDRESS_RELIC.title": "太陽のヘアバンド",

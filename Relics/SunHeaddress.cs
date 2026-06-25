@@ -1,5 +1,8 @@
-using BaseLib.Abstracts;
+﻿using BaseLib.Abstracts;
 using BaseLib.Utils;
+using Kaguya.HinaMods;
+using Kaguya.HinaMods.Cards;
+using Kaguya.HinaMods.Character;
 using Kaguya.RelicPools;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -31,7 +34,7 @@ namespace Kaguya.Relics
 
         protected override IEnumerable<DynamicVar> CanonicalVars => new[]
         {
-            new EnergyVar(2)   // 修改为 2 点能量
+            new EnergyVar(2)
         };
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => new[]
@@ -43,19 +46,20 @@ namespace Kaguya.Relics
         protected override string PackedIconOutlinePath => "res://images/relics/sun_headdress_outline.png";
         protected override string BigIconPath => "res://images/relics/sun_headdress_big.png";
 
-        // 永久增加最大能量上限（每回合开始时会获得该上限值）
         public override decimal ModifyMaxEnergy(Player player, decimal amount)
         {
             if (player != Owner) return amount;
             return amount + DynamicVars.Energy.BaseValue;
         }
 
-        // 自动打牌阶段（与月亮头饰完全一致，每回合触发）
+        // 自动打牌阶段（每回合触发，接管全部回合）
         public override async Task AfterAutoPrePlayPhaseEnteredLate(PlayerChoiceContext choiceContext, Player player)
         {
             if (player != Owner) return;
             ICombatState combatState = player.Creature.CombatState;
             Flash();
+
+            bool isKaguya = Owner.Character is HinaCharacter;
 
             int cardsPlayed = 0;
             using (CardSelectCmd.PushSelector(new SunCardSelector()))
@@ -68,49 +72,17 @@ namespace Kaguya.Relics
 
                     bool played = false;
 
-                    var partnerCard = hand.FirstOrDefault(c => c.Tags.Contains((CardTag)1004) && c.CanPlay());
-                    if (partnerCard != null)
+                    if (isKaguya)
                     {
-                        var matchingNonPartner = hand.FirstOrDefault(c =>
-                            !c.Tags.Contains((CardTag)1004) &&
-                            c.Type == partnerCard.Type &&
-                            c.CanPlay());
-                        if (matchingNonPartner != null)
-                        {
-                            await PlayCard(choiceContext, matchingNonPartner, combatState);
-                            cardsPlayed++;
-                            played = true;
-                            if (cardsPlayed < MaxCardsToPlay && !CombatManager.Instance.IsOverOrEnding)
-                            {
-                                var freshPartner = PileType.Hand.GetPile(Owner).Cards
-                                    .FirstOrDefault(c => c == partnerCard || (c.Tags.Contains((CardTag)1004) && c.CanPlay()));
-                                if (freshPartner != null)
-                                {
-                                    await PlayCard(choiceContext, freshPartner, combatState);
-                                    cardsPlayed++;
-                                    played = true;
-                                }
-                            }
-                            if (played) continue;
-                        }
+                        int kaguyaPlayed = await TryPlayKaguyaLogic(choiceContext, hand, combatState);
+                        cardsPlayed += kaguyaPlayed;
+                        played = kaguyaPlayed > 0;
                     }
-
-                    var attackCard = hand.FirstOrDefault(c => c.Type == CardType.Attack && c.CanPlay());
-                    if (attackCard != null)
+                    else
                     {
-                        await PlayCard(choiceContext, attackCard, combatState);
-                        cardsPlayed++;
-                        played = true;
-                        continue;
-                    }
-
-                    var anyCard = hand.FirstOrDefault(c => c.CanPlay());
-                    if (anyCard != null)
-                    {
-                        await PlayCard(choiceContext, anyCard, combatState);
-                        cardsPlayed++;
-                        played = true;
-                        continue;
+                        int defaultPlayed = await TryPlayDefaultLogic(choiceContext, hand, combatState);
+                        cardsPlayed += defaultPlayed;
+                        played = defaultPlayed > 0;
                     }
 
                     if (!played) break;
@@ -125,6 +97,119 @@ namespace Kaguya.Relics
                     : new LocString("relics", "SUN_HEADDRESS.approval");
                 TalkCmd.Play(line, Owner.Creature, VfxColor.Purple);
             }
+        }
+
+        // ====================== 辉夜出牌逻辑 ======================
+
+        private async Task<int> TryPlayKaguyaLogic(
+            PlayerChoiceContext choiceContext, List<CardModel> hand,
+            ICombatState combatState)
+        {
+            // P1: SUPPORT 链 —— 打出 SUPPORT 牌，紧接着打同类型非 SUPPORT 牌
+            var supportCard = hand.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SUPPORT) && c.CanPlay());
+            if (supportCard != null)
+            {
+                await PlayCard(choiceContext, supportCard, combatState);
+                int played = 1;
+
+                if (CombatManager.Instance.IsOverOrEnding) return played;
+
+                var freshHand = PileType.Hand.GetPile(Owner).Cards.ToList();
+                var followCard = freshHand.FirstOrDefault(c =>
+                    !HasCustomTag(c, CustomCardTags.SUPPORT) &&
+                    c.Type == supportCard.Type &&
+                    c.CanPlay());
+
+                if (followCard != null)
+                {
+                    await PlayCard(choiceContext, followCard, combatState);
+                    played++;
+                    return played;
+                }
+                return played;
+            }
+
+            // P2 + P3: SINGER 优先 + 基础优先级
+            var playable = hand.Where(c => c.CanPlay()).ToList();
+            if (playable.Count == 0) return 0;
+
+            CardModel? bestCard = null;
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Skill);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Attack);
+            bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
+            bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Skill);
+            bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Attack);
+
+            if (bestCard != null)
+            {
+                await PlayCard(choiceContext, bestCard, combatState);
+                return 1;
+            }
+
+            return 0;
+        }
+
+        // ====================== 原版出牌逻辑 ======================
+
+        private async Task<int> TryPlayDefaultLogic(
+            PlayerChoiceContext choiceContext, List<CardModel> hand,
+            ICombatState combatState)
+        {
+            // 1. 伙伴配对
+            var partnerCard = hand.FirstOrDefault(c => c.Tags.Contains((CardTag)1004) && c.CanPlay());
+            if (partnerCard != null)
+            {
+                var matchingNonPartner = hand.FirstOrDefault(c =>
+                    !c.Tags.Contains((CardTag)1004) &&
+                    c.Type == partnerCard.Type &&
+                    c.CanPlay());
+                if (matchingNonPartner != null)
+                {
+                    await PlayCard(choiceContext, matchingNonPartner, combatState);
+                    int played = 1;
+
+                    if (!CombatManager.Instance.IsOverOrEnding)
+                    {
+                        var freshPartner = PileType.Hand.GetPile(Owner).Cards
+                            .FirstOrDefault(c => c == partnerCard || (c.Tags.Contains((CardTag)1004) && c.CanPlay()));
+                        if (freshPartner != null)
+                        {
+                            await PlayCard(choiceContext, freshPartner, combatState);
+                            played++;
+                            return played;
+                        }
+                    }
+                    return played;
+                }
+            }
+
+            // 2. 打攻击牌
+            var attackCard = hand.FirstOrDefault(c => c.Type == CardType.Attack && c.CanPlay());
+            if (attackCard != null)
+            {
+                await PlayCard(choiceContext, attackCard, combatState);
+                return 1;
+            }
+
+            // 3. 打其他可打牌
+            var anyCard = hand.FirstOrDefault(c => c.CanPlay());
+            if (anyCard != null)
+            {
+                await PlayCard(choiceContext, anyCard, combatState);
+                return 1;
+            }
+
+            return 0;
+        }
+
+        // ====================== 通用辅助方法 ======================
+
+        private static bool HasCustomTag(CardModel card, string tag)
+        {
+            if (card is HinaModsCard hinaCard)
+                return hinaCard.CustomTags?.Contains(tag) == true;
+            return false;
         }
 
         private async Task PlayCard(PlayerChoiceContext choiceContext, CardModel card, ICombatState combatState)
@@ -158,7 +243,6 @@ namespace Kaguya.Relics
 
         public CardRewardSelection GetSelectedCardReward(IReadOnlyList<CardCreationResult> options, IReadOnlyList<CardRewardAlternative> alternatives)
         {
-            // 自动打牌阶段不会调用此方法，返回默认结构体即可
             return default(CardRewardSelection);
         }
 

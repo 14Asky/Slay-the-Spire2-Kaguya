@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://fc5x7hciyofl"]
+[gd_scene load_steps=4 format=3 uid="uid://fc5x7hciyofl"]
 
 [ext_resource type="Script" uid="uid://dk3vusxqr0nph" path="res://Others/CustomRestSite.cs" id="1_wbx55"]
 [ext_resource type="Texture2D" uid="uid://den44sowxcoj1" path="res://images/hinamods/Visual/hinamods_rest_site.png" id="2_8qukl"]
+[ext_resource type="Script" uid="uid://oa75n1xvfs08" path="res://Others/CustomSelection.cs" id="3_1xo3g"]
 
 [node name="hinamodsRestSite" type="Node2D"]
 position = Vector2(-2, 42)
@@ -18,6 +19,15 @@ texture = ExtResource("2_8qukl")
 [node name="ControlRoot" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+
+[node name="SelectionReticle" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -182.8933
+offset_top = -348.68146
+offset_right = 303.94495
+offset_bottom = 313.15546
+script = ExtResource("3_1xo3g")
 
 [node name="Hitbox" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true

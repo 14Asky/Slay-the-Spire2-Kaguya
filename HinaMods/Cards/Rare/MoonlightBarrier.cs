@@ -32,7 +32,6 @@ public sealed class MoonlightBarrier : HinaModsCard
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     // 防御标签（完全保留）
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     // 🔥 官方标准BlockVar，适配{Block:diff()}语法（完全保留）
     protected override IEnumerable<DynamicVar> CanonicalVars =>

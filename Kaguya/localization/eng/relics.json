@@ -165,7 +165,7 @@
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "At the end of your turn, gain [gold]Moonlight[/gold] equal to the number of cards you played this turn divided by 3.",
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]Original Light Bamboo, bearing the radiance of the moonlight.[/gold]",
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "Kaguya's Smartphone",
-	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "The first time you play [blue]5[/blue] cards in a turn, gain {Energy:energyIcons()}.",
+	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "The first time you play [blue]5[/blue] cards in a turn, gain 1 energy.",
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.flavor": "[blue]Kaguya's beloved phone...[/blue]",
 	"KAGUYA-SUN_HEADDRESS_RELIC.title": "Sun Headdress",
 	"KAGUYA-SUN_HEADDRESS_RELIC.description": "When your [gold]draw pile[/gold] is empty, your hand is played an additional time.",

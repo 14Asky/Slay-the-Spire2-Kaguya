@@ -1,4 +1,5 @@
 using Godot;
+using Kaguya;
 using HarmonyLib;
 using Kaguya.Encounters;
 using Kaguya.Monsters;
@@ -15,7 +16,7 @@ namespace Kaguya.Encounters
     {
         public override RoomType RoomType => RoomType.Boss;
 
-        public override string CustomBgm => null; // 可替换为自定义音乐
+        public override string CustomBgm => null;
 
         public override string BossNodePath => "res://images/packed/map/tsukito_tenchu_icon";
 

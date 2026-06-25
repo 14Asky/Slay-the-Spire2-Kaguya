@@ -18,7 +18,6 @@ public sealed class SingerSupportGuard : HinaModsCard
 {
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
 
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

@@ -88,4 +88,9 @@ public sealed class FinalAct : ActModel
             return true;
         }
     }
+    public override int Index => 2;
+
+    public override bool IsDefault => true;
+
+    public override bool IsUnlocked(UnlockState unlockState) => true;
 }

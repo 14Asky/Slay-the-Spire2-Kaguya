@@ -32,7 +32,6 @@ public sealed class SingerHoldLine : HinaModsCard
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
 
     // 防御标签（照搬参考格式）
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     // 🔥 完全对标 HinaModsClearGame：动态变量 BlockVar（基础5点格挡）
     protected override IEnumerable<DynamicVar> CanonicalVars =>

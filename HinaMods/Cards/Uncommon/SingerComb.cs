@@ -34,8 +34,6 @@ public class SingerComb : HinaModsCard
     // 歌者专属标签
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
 
-    // 官方标准打击标签
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
     // 100%复刻官方动态变量 + 修复静态委托/可空类型（无报错）
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

@@ -1,4 +1,4 @@
-﻿using BaseLib.Abstracts;
+using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
 using Godot;
 using Kaguya;
@@ -42,9 +42,7 @@ namespace Kaguya.Monsters
 
         private const int PHASE1_MAX_HP = 200000;
         private const int PHASE2_MAX_HP = 1000000;
-        private const int PHASE1_DAMAGE_ON_MINION_DEATH = 50000;
-        private const int PHASE2_DAMAGE_ON_MINION_DEATH = 333334;
-
+        
         private int _turnCount = 0;
         private int _respawns = 0;
         private bool _hasSummoned;
@@ -187,7 +185,7 @@ namespace Kaguya.Monsters
             _kaguyaTextTimer.Autostart = true;
             NCombatRoom.Instance.AddChild(_kaguyaTextTimer);
             _kaguyaTextTimer.Timeout += SpawnMoonTextLine;
-            await PowerCmd.Apply<HighDimensionalBeingPower>(ctx, Creature, 15, Creature, null);
+            await PowerCmd.Apply<HighDimensionalBeingPower>(ctx, Creature, 12, Creature, null);
 
             // 重置回合计数为 1 层，重新开始计数
             _turnCounterPower = await PowerCmd.Apply<TurnCounterPower>(ctx, Creature, 1, Creature, null) as TurnCounterPower;
@@ -233,9 +231,8 @@ namespace Kaguya.Monsters
 
             if (creature != Creature && IsMoonPerson(creature))
             {
-                int damage = (_respawns == 0) ? PHASE1_DAMAGE_ON_MINION_DEATH : PHASE2_DAMAGE_ON_MINION_DEATH;
-                int playerCount = Creature.CombatState?.Players.Count(p => p.Creature.IsAlive) ?? 1;
-                int totalDamage = damage * playerCount;
+                decimal fraction = (_respawns == 0) ? 0.25m : (1m / 3m);
+                int totalDamage = (int)Math.Round(Creature.MaxHp * fraction, MidpointRounding.AwayFromZero);
                 await CreatureCmd.Damage(choiceContext, Creature, totalDamage, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
 
                 // 击杀月人减少计数（每次-2，最低保持为 1）

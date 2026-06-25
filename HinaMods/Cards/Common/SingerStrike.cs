@@ -25,8 +25,6 @@ public sealed class SingerStrike() : HinaModsCard(1,
 	// 自定义标签（保留不变）
 	public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
 
-	// 官方打击标签（保留不变）
-	protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
 	// 核心：弃牌堆检测逻辑 + 官方动态伤害计算
 	protected override IEnumerable<DynamicVar> CanonicalVars =>

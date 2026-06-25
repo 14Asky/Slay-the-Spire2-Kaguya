@@ -1,6 +1,7 @@
 {
+	"KAGUYA-NON_KAGUYA_CHARACTERS_SEE_KAGUYA_CONTENT.title": "輝夜姫以外のキャラクターも輝夜姫の追加コンテンツに遭遇する",
 	"KAGUYA-UPDATE_POPUP.title": "新しいバージョンがあります！",
-	"KAGUYA-UPDATE_POPUP.body": "現在：{0}\n最新：{1}\nGitHubで最新バージョンをダウンロードしてください。",
+	"KAGUYA-UPDATE_POPUP.body": "現在：{0}\n最新：{1}\nSteamで最新バージョンをダウンロードしてください。",
 	"KAGUYA-UPDATE_POPUP.download": "ダウンロード",
 	"KAGUYA-UPDATE_POPUP.close": "後で"
 }

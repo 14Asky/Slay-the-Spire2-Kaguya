@@ -160,5 +160,27 @@
 	"FUSHI_ANCIENT.talk.firstVisitEver.0-1.char": "...",
 	"FUSHI_ANCIENT.talk.firstVisitEver.0-1.next": "Continue",
 	"FUSHI_ANCIENT.talk.firstVisitEver.0-2.ancient": "Go rewrite it all!",
-	"FUSHI_ANCIENT.talk.ANY.0-0r.ancient": "She has always believed in you..."
+	"FUSHI_ANCIENT.talk.ANY.0-0r.ancient": "She has always believed in you...",
+	"THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.0-0.next": "Continue",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.0-1.ancient": "A visitor from the moon, yet you tread the Spire for mortal obsessions, breaking the rules.",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.0-1.next": "Answer",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.0-2.char": "It was Iroha's singing that brought me here! Only after meeting her did I understand my feelings. I must find her.",
+
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.1-0r.char": "I'm back! This place is strange but fun, but I'm still going to find Iroha. Don't stop me.",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.1-0r.next": "Continue",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.1-1r.ancient": "To travel through time and space for an illusory bond is merely to court bewilderment.",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.1-1r.next": "Refute",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.1-2r.char": "It's not bewilderment! Iroha is the most important person to me. No matter how many times I have to travel for her, it's worth it.",
+
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.2-0r.char": "I understand you uphold order and don't want trouble... but don't stop me from seeing Iroha.",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.2-0r.next": "Continue",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.2-1r.ancient": "Outsiders have no right to defy the Spire's laws. Your obsession will eventually cause you to dissipate.",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.2-1r.next": "Declare War",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.2-2r.char": "I won't dissipate! The singing in my bracelet guides me back. No one can stop me.",
+
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-0r.ancient": "[jitter]Haaah![/jitter]\n[jitter][red]A lunar echo trapped by emotion, utterly ridiculous. Disappear now![/red][/jitter]",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-0r.next": "Continue",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-1r.ancient": "Defying destiny and order through sheer willfulness is far too naive![jitter][/jitter]",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-1r.next": "Continue",
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-2r.char": "This is not naivety! Iroha's singing is my power. I will break the order and return to her side!"
 }

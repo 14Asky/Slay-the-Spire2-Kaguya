@@ -21,12 +21,6 @@ namespace Kaguya.HinaMods.Cards;
 /// </summary>
 public sealed class SingerWaitBlock : HinaModsCard
 {
-    // 官方标准动态变量：CardsVar
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new CardsVar(1)
-    ];
-
     // 1费 技能 稀有
     public SingerWaitBlock()
         : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
@@ -34,16 +28,20 @@ public sealed class SingerWaitBlock : HinaModsCard
 
     // 歌者标签
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+
+    //固定选择1张，无需数值
+    protected override IEnumerable<DynamicVar> CanonicalVars => [];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Player player = Owner;
         if (player == null) return;
 
-        // 完全对标官方动画写法
+        // 官方动画
         await CreatureCmd.TriggerAnim(player.Creature, "Cast", player.Character.CastAnimDelay);
 
-        // 筛选消耗堆歌者牌
+        // 筛选消耗堆中的歌者牌
         CardPile exhaustPile = PileType.Exhaust.GetPile(player);
         List<CardModel> singerCards = exhaustPile.Cards
             .OfType<HinaModsCard>()
@@ -54,11 +52,8 @@ public sealed class SingerWaitBlock : HinaModsCard
         if (!singerCards.Any())
             return;
 
-        int selectCount = DynamicVars.Cards.IntValue;
-
-        // 🔥 官方标准写法：使用卡牌自身的本地化提示 + 0~N选择（防卡死）
-        // 对标 Nightmare 源码，Min=0，Max=动态数值
-        CardSelectorPrefs prefs = new CardSelectorPrefs(base.SelectionScreenPrompt, 0, selectCount);
+        //固定选择 1 张
+        CardSelectorPrefs prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1, 1);
 
         IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromSimpleGrid(
             context: choiceContext,
@@ -67,17 +62,16 @@ public sealed class SingerWaitBlock : HinaModsCard
             prefs: prefs
         );
 
-        // 移入手牌 + 保留
+        // 打出选中的卡牌
         foreach (CardModel card in selectedCards)
         {
-            await CardPileCmd.Add(card, PileType.Hand);
-            CardCmd.ApplyKeyword(card, CardKeyword.Retain);
+            // 从消耗堆打出卡牌
+            await CardCmd.AutoPlay(choiceContext, card, null);
         }
     }
 
-    // 升级：数量+1
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        RemoveKeyword(CardKeyword.Ethereal);
     }
 }

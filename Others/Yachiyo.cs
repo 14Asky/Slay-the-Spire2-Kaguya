@@ -24,7 +24,7 @@ namespace Kaguya
         public override Color ButtonColor => new Color(0f, 0.1f, 0.2f, 0.5f);
         public override Color DialogueColor => new Color("28454F");
 
-        // 选项池1：三个遗物中随机一个
+        // 选项�?：三个遗物中随机一�?
         private List<EventOption> OptionPool1 => new List<EventOption>
         {
             RelicOption<YachiyoShrine>(),
@@ -32,7 +32,7 @@ namespace Kaguya
             RelicOption<KaguyaAccount>()
         };
 
-        // 选项池2：三个遗物中随机一个
+        // 选项�?：三个遗物中随机一�?
         private List<EventOption> OptionPool2 => new List<EventOption>
         {
             RelicOption<LiveStreaming>(),
@@ -41,7 +41,7 @@ namespace Kaguya
             RelicOption<YacchoSpecialCare>()
         };
 
-        // 选项池3：固定一个遗物
+        // 选项�?：固定一个遗�?
         private List<EventOption> OptionPool3 => new List<EventOption>
         {
             RelicOption<GashaponMachineL1>()
@@ -68,7 +68,7 @@ namespace Kaguya
             return new List<EventOption> { option1, option2, option3 };
         }
 
-        // 进入事件房间时给予“记忆碎片·起始”
+        // 进入事件房间时给予“记忆碎片·起始�?
         public override void OnRoomEnter()
         {
             base.OnRoomEnter();
@@ -96,6 +96,8 @@ namespace Kaguya
     {
         static void Postfix(ref IEnumerable<AncientEventModel> __result)
         {
+            if (!KaguyaContentFilter.ShouldShowKaguyaContent())
+                return;
             __result = new[] { ModelDb.AncientEvent<YachiyoAncient>() };
         }
     }
@@ -105,6 +107,8 @@ namespace Kaguya
     {
         static void Postfix(ref IEnumerable<AncientEventModel> __result)
         {
+            if (!KaguyaContentFilter.ShouldShowKaguyaContent())
+                return;
             __result = new[] { ModelDb.AncientEvent<YachiyoAncient>() };
         }
     }

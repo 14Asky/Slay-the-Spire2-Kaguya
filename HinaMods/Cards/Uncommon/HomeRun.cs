@@ -41,7 +41,6 @@ public sealed class HomeRun : HinaModsCard
             .WithMultiplier((CardModel card, Creature _) => 1)
     ];
 
-    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Strike };
 
     // 核心：全体攻击
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

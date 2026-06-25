@@ -1,4 +1,4 @@
-ï»¿using Godot;
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Audio.Debug;
 using Kaguya.Cards;
@@ -23,14 +23,14 @@ namespace Kaguya.Events
 
         protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
         {
-            new StringVar("Boring", "æ¯ç‡¥"),
-            new StringVar("BlockTheDoor", "å µé—¨"),
-            new StringVar("BabyRelic", "è¥è¤“ä¸­çš„å¥³å©´")
+            new StringVar("Boring", "¿İÔï"),
+            new StringVar("BlockTheDoor", "¶ÂÃÅ"),
+            new StringVar("BabyRelic", "ñßñÙÖĞµÄÅ®Ó¤")
         };
 
         public override bool IsAllowed(IRunState runState) => true;
 
-        // è¿›å…¥äº‹ä»¶æˆ¿é—´æ—¶æ’­æ”¾éŸ³ä¹
+        // ½øÈëÊÂ¼ş·¿¼äÊ±²¥·ÅÒôÀÖ
         public override void OnRoomEnter()
         {
             base.OnRoomEnter();
@@ -63,7 +63,7 @@ namespace Kaguya.Events
             var blockTheDoor = Owner.RunState.CreateCard<BlockTheDoor>(Owner);
             var addResult2 = await CardPileCmd.Add(blockTheDoor, PileType.Deck);
             CardCmd.PreviewCardPileAdd(new[] { addResult1, addResult2 }, 2f);
-            // å¾ªç¯é¡µé¢ï¼ŒéŸ³ä¹ç»§ç»­æ’­æ”¾
+            // Ñ­»·Ò³Ãæ£¬ÒôÀÖ¼ÌĞø²¥·Å
             SetEventState(
                 L10NLookup("RAINBOW_TELEPHONE_POLE.pages.INITIAL.description"),
                 GenerateInitialOptions()
@@ -80,12 +80,14 @@ namespace Kaguya.Events
         }
     }
 
-    // è¡¥ä¸ï¼šå°†äº‹ä»¶æ·»åŠ åˆ°ç¬¬ä¸€å±‚ï¼ˆå¯†æ—ï¼‰å’Œç¬¬äºŒå±‚ï¼ˆåº•å±‚ï¼‰
+    // ²¹¶¡£º½«ÊÂ¼şÌí¼Óµ½µÚÒ»²ã£¨ÃÜÁÖ£©ºÍµÚ¶ş²ã£¨µ×²ã£©
     [HarmonyPatch(typeof(Overgrowth), nameof(Overgrowth.AllEvents), MethodType.Getter)]
     public static class Overgrowth_AllEvents_Patch
     {
         static void Postfix(ref IEnumerable<EventModel> __result)
         {
+            if (!KaguyaContentFilter.ShouldShowKaguyaContent())
+                return;
             __result = __result.Concat(new EventModel[]
             {
                 ModelDb.Event<RainbowTelephonePole>(),
@@ -100,6 +102,8 @@ namespace Kaguya.Events
     {
         static void Postfix(ref IEnumerable<EventModel> __result)
         {
+            if (!KaguyaContentFilter.ShouldShowKaguyaContent())
+                return;
             __result = __result.Concat(new EventModel[]
             {
                 ModelDb.Event<RainbowTelephonePole>(),

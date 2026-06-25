@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cl8okh5eogxeq"]
+[gd_scene load_steps=4 format=3 uid="uid://cl8okh5eogxeq"]
 
 [ext_resource type="Script" uid="uid://dk3vusxqr0nph" path="res://Others/CustomRestSite.cs" id="1_rn5sa"]
 [ext_resource type="Texture2D" uid="uid://sdhk67hmikfe" path="res://images/packed/char/sakayori_iroha_rest_site.png" id="2_osamu"]
+[ext_resource type="Script" uid="uid://oa75n1xvfs08" path="res://Others/CustomSelection.cs" id="3_dj1oj"]
 
 [node name="SakayoriIrohaRestSite" type="Node2D"]
 script = ExtResource("1_rn5sa")
@@ -26,6 +27,7 @@ offset_left = -226.0
 offset_top = -314.0
 offset_right = 280.0
 offset_bottom = 115.0
+script = ExtResource("3_dj1oj")
 
 [node name="Hitbox" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true

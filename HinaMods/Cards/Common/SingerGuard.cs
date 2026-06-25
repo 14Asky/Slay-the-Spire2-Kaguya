@@ -27,7 +27,6 @@ public sealed class SingerGuard : HinaModsCard
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
 
     // 官方防御标签（保留）
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     // 动态变量：基础7点格挡（标准官方写法）
     protected override IEnumerable<DynamicVar> CanonicalVars =>

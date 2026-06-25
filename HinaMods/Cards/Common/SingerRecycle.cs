@@ -27,7 +27,6 @@ public sealed class SingerRecycle : HinaModsCard
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
 
     // 格挡标签
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     // 动态变量：基础6点格挡
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -39,7 +38,6 @@ public sealed class SingerRecycle : HinaModsCard
     public SingerRecycle()
         : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     { }
-
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

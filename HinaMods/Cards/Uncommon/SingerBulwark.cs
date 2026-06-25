@@ -23,7 +23,6 @@ public sealed class SingerBulwark : HinaModsCard
     public override List<CardKeyword> CanonicalKeywords => [
           CardKeyword.Retain
     ];
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     // 动态变量：基础14点格挡（官方标准配置）
     protected override IEnumerable<DynamicVar> CanonicalVars =>

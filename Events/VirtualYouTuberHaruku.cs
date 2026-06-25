@@ -1,4 +1,5 @@
-ï»¿using Godot;
+using Godot;
+using Kaguya;
 using HarmonyLib;
 using Kaguya.Cards;
 using Kaguya.Events;
@@ -31,7 +32,7 @@ namespace Kaguya.Events
             {
                 new EventOption(this, HotSpringTherapy, InitialOptionKey("HOT_SPRING")),
                 new EventOption(this, PsychologicalCounseling, InitialOptionKey("COUNSELING"),
-                    HoverTipFactory.FromCardWithCardHoverTips<Boring>()), // æ·»åŠ æ¯ç‡¥å¡ç‰Œæ‚¬æµ®æç¤º
+                    HoverTipFactory.FromCardWithCardHoverTips<Boring>()), // Ìí¼Ó¿İÔï¿¨ÅÆĞü¸¡ÌáÊ¾
                 new EventOption(this, GentleListening, InitialOptionKey("LISTENING"))
             };
         }
@@ -52,7 +53,7 @@ namespace Kaguya.Events
             {
                 await CardPileCmd.RemoveFromDeck(card);
             }
-            // æ·»åŠ ä¸€å¼ æ¯ç‡¥å¡ç‰Œå¹¶é¢„è§ˆ
+            // Ìí¼ÓÒ»ÕÅ¿İÔï¿¨ÅÆ²¢Ô¤ÀÀ
             var boring = Owner.RunState.CreateCard<Boring>(Owner);
             var addResult = await CardPileCmd.Add(boring, PileType.Deck);
             CardCmd.PreviewCardPileAdd(new[] { addResult }, 2f);
@@ -82,6 +83,8 @@ public static class Hive_AllEvents_Patch
 {
     static void Postfix(ref IEnumerable<EventModel> __result)
     {
+            if (!KaguyaContentFilter.ShouldShowKaguyaContent())
+                return;
         __result = __result.Concat(new EventModel[]
         {
             ModelDb.Event<VirtualYouTuberHaruku>(),

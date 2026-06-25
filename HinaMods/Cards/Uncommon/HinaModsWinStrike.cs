@@ -66,7 +66,7 @@ public sealed class HinaModsWinStrike : HinaModsCard
             for (int i = 0; i < 3; i++)
             {
                 CardModel newCard = CombatState.CreateCard<SupportStrike>(Owner);
-                await CardPileCmd.Add(newCard, PileType.Hand);
+                await CardPileCmd.AddGeneratedCardToCombat(newCard, PileType.Hand, Owner);
             }
         }
     }

@@ -1,4 +1,4 @@
-ï»¿using Godot;
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Audio.Debug;
@@ -61,7 +61,7 @@ namespace Kaguya.Events
             };
         }
 
-        // ---------- éŸ³æ•ˆä¸èƒŒæ™¯å›¾ ----------
+        // ---------- ÒôĞ§Óë±³¾°Í¼ ----------
         private void PlaySound(string soundName)
         {
             if (!LocalContext.IsMe(Owner)) return;
@@ -93,7 +93,7 @@ namespace Kaguya.Events
 
         private async Task StartTransforming()
         {
-            // æ’­æ”¾ e1.mp3
+            // ²¥·Å e1.mp3
             PlaySound("e1.mp3");
             UpdatePortraitByStage(0);
             await ShowTransformPage();
@@ -117,17 +117,17 @@ namespace Kaguya.Events
 
             if (_isFinalStage)
             {
-                // æœ€ç»ˆé˜¶æ®µä»…æœ‰â€œåœæ­¢â€é€‰é¡¹
+                // ×îÖÕ½×¶Î½öÓĞ¡°Í£Ö¹¡±Ñ¡Ïî
                 options.Add(new EventOption(this, StopTransforming,
                     "EIGHT_THOUSAND_YEARS_MEMORY.pages.TRANSFORM.options.STOP"));
             }
             else
             {
-                // å˜åŒ–é˜¶æ®µï¼šå§‹ç»ˆæœ‰â€œå˜åŒ–ä¸€å¼ ç‰Œâ€
+                // ±ä»¯½×¶Î£ºÊ¼ÖÕÓĞ¡°±ä»¯Ò»ÕÅÅÆ¡±
                 options.Add(new EventOption(this, DoTransform,
                     "EIGHT_THOUSAND_YEARS_MEMORY.pages.TRANSFORM.options.TRANSFORM"));
 
-                // ä»ç¬¬4æ¬¡å˜åŒ–é¡µé¢å¼€å§‹ï¼ˆ_currentTransform >= 3ï¼‰æ‰æ˜¾ç¤ºâ€œåœæ­¢â€
+                // ´ÓµÚ4´Î±ä»¯Ò³Ãæ¿ªÊ¼£¨_currentTransform >= 3£©²ÅÏÔÊ¾¡°Í£Ö¹¡±
                 if (_currentTransform >= 3)
                 {
                     options.Add(new EventOption(this, StopTransforming,
@@ -140,10 +140,10 @@ namespace Kaguya.Events
 
         private async Task DoTransform()
         {
-            // æ‰£é™¤ç”Ÿå‘½ä¸Šé™
+            // ¿Û³ıÉúÃüÉÏÏŞ
             await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, HpLoss, false);
 
-            // é€‰æ‹©ä¸€å¼ ç‰Œè¿›è¡Œå˜åŒ–
+            // Ñ¡ÔñÒ»ÕÅÅÆ½øĞĞ±ä»¯
             var prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 1, 1)
             {
                 Cancelable = false,
@@ -153,14 +153,14 @@ namespace Kaguya.Events
             if (selected.Count == 1)
                 await CardCmd.TransformToRandom(selected[0], Owner.RunState.Rng.Niche);
 
-            // è®¡æ•°å™¨é€’å¢
+            // ¼ÆÊıÆ÷µİÔö
             _currentTransform++;
 
-            // æ’­æ”¾éŸ³æ•ˆï¼šç¬¬ k æ¬¡å˜åŒ–æ’­æ”¾ e(k+1).mp3ï¼ˆå³ e2~e9ï¼‰
+            // ²¥·ÅÒôĞ§£ºµÚ k ´Î±ä»¯²¥·Å e(k+1).mp3£¨¼´ e2~e9£©
             int soundIndex = _currentTransform + 1;
             PlaySound($"e{soundIndex}.mp3");
 
-            // æ¢èƒŒæ™¯å›¾
+            // »»±³¾°Í¼
             UpdatePortraitByStage(_currentTransform);
 
             if (_currentTransform < MaxTransformCount)
@@ -169,7 +169,7 @@ namespace Kaguya.Events
             }
             else
             {
-                // ç¬¬å…«æ¬¡å®Œæˆï¼Œè¿›å…¥æœ€ç»ˆé˜¶æ®µ
+                // µÚ°Ë´ÎÍê³É£¬½øÈë×îÖÕ½×¶Î
                 _isFinalStage = true;
                 await ShowTransformPage();
             }
@@ -179,7 +179,7 @@ namespace Kaguya.Events
         {
             if (_isFinalStage)
             {
-                // æœ€ç»ˆé˜¶æ®µï¼šç»™äºˆç¥åŒ–
+                // ×îÖÕ½×¶Î£º¸øÓèÉñ»¯
                 var apotheosisCard = Owner.RunState.CreateCard<Apotheosis>(Owner);
                 if (apotheosisCard != null)
                 {
@@ -214,6 +214,8 @@ namespace Kaguya.Events
     {
         static void Postfix(ref IEnumerable<EventModel> __result)
         {
+            if (!KaguyaContentFilter.ShouldShowKaguyaContent())
+                return;
             __result = __result.Concat(new[] { ModelDb.Event<EightThousandYearsMemory>() });
         }
     }

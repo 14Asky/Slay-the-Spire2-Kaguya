@@ -1,4 +1,4 @@
-锘縰sing Godot;
+using Godot;
 using HarmonyLib;
 using Kaguya.Potions;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -114,12 +114,14 @@ namespace Kaguya.Events
         }
     }
 
-    // 灏嗕簨浠舵坊鍔犲埌 Glory 绔犺妭鐨勪簨浠舵睜
+    // 将事件添加到 Glory 章节的事件池
     [HarmonyPatch(typeof(Glory), nameof(Glory.AllEvents), MethodType.Getter)]
     public static class Glory_AllEvents_Patch
     {
         static void Postfix(ref IEnumerable<EventModel> __result)
         {
+            if (!KaguyaContentFilter.ShouldShowKaguyaContent())
+                return;
             __result = __result.Concat(new[] { ModelDb.Event<FireworksFestival>() });
         }
     }

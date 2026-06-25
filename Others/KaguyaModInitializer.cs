@@ -1,4 +1,5 @@
-﻿using BaseLib.Utils;
+using BaseLib.Config;
+using BaseLib.Utils;
 using Godot;
 using Godot.Bridge;
 using HarmonyLib;
@@ -83,7 +84,8 @@ namespace KaguyaMod
                 Log.Error("KaguyaMod - 加载失败: " + e.Message);
                 return;
             }
-            Log.Info("KaguyaMod - 加载成功!");
+            ModConfigRegistry.Register("Kaguya", new KaguyaModConfig());
+                        Log.Info("KaguyaMod - 加载成功!");
         }
     }
 }

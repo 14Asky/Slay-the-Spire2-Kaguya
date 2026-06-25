@@ -24,7 +24,6 @@ namespace Kaguya.HinaMods.Cards;
 public sealed class ParryParry : HinaModsCard
 {
     // 防御标签（标准格挡卡配置）
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     // 动态变量：基础5点格挡
     protected override IEnumerable<DynamicVar> CanonicalVars =>
