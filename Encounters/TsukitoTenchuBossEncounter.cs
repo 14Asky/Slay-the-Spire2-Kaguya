@@ -16,7 +16,7 @@ namespace Kaguya.Encounters
     {
         public override RoomType RoomType => RoomType.Boss;
 
-        public override string CustomBgm => null;
+        public override string CustomBgm => string.Empty;
 
         public override string BossNodePath => "res://images/packed/map/tsukito_tenchu_icon";
 

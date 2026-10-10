@@ -28,7 +28,7 @@ public class HinaModsAttack() : HinaModsCard(1,
 	// 打出卡牌时执行：对目标造成标准卡牌攻击伤害
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+		await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 	}
 
 	// 卡牌升级效果：伤害值提升2点

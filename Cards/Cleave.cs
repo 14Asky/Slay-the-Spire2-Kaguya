@@ -35,7 +35,7 @@ public class Cleave : CustomCardModel
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)                 // 造成 2 次伤害
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
             .WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
             .Execute(choiceContext);

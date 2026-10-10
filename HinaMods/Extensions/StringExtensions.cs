@@ -15,13 +15,13 @@ public static class StringExtensions
     // 拼接卡牌图片资源路径
     public static string CardImagePath(this string path)
     {
-        return Path.Join("images", "hinamods", "Cards", path);
+        return $"res://images/hinamods/Cards/{path.Replace('\\', '/')}";
     }
 
     // 拼接大卡牌图片资源路径
     public static string BigCardImagePath(this string path)
     {
-        return Path.Join("images", "hinamods", "Cards", "Big", path);
+        return $"res://images/hinamods/Cards/Big/{path.Replace('\\', '/')}";
     }
 
     // 拼接能力图标资源路径

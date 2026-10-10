@@ -99,7 +99,7 @@ namespace Kaguya.Relics
             }
         }
 
-        public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+        public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
         {
             if (!props.IsPoweredAttack())
                 return 1m;
@@ -154,3 +154,4 @@ namespace Kaguya.Relics
         }
     }
 }
+

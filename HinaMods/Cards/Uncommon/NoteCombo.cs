@@ -54,7 +54,7 @@ public sealed class NoteCombo : HinaModsCard
         // 官方Ricochet 原版链式伤害调用
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(totalHits)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingRandomOpponents(base.CombatState)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

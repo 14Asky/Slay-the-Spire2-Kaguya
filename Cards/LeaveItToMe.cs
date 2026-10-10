@@ -71,7 +71,7 @@ public class LeaveItToMe : CustomCardModel
     {
         // 造成伤害
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
             .Execute(choiceContext);
@@ -80,16 +80,16 @@ public class LeaveItToMe : CustomCardModel
         await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
     }
 
-    protected override PileType GetResultPileTypeForCardPlay()
+    protected override CardLocation GetResultLocationForCardPlay()
     {
         var lastCard = GetPreviousPlayedCard();
         if (lastCard != null)
         {
             bool isPartner = lastCard.Tags.Contains((CardTag)1004);
             if (!isPartner && lastCard.Type == this.Type)
-                return PileType.Hand; // 满足条件时返回手牌（即保留在手牌中，相当于回手）
+                return new CardLocation(Owner, PileType.Hand, CardPilePosition.Top); // 满足条件时返回手牌（即保留在手牌中，相当于回手）
         }
-        return base.GetResultPileTypeForCardPlay(); // 否则使用默认弃牌逻辑
+        return base.GetResultLocationForCardPlay(); // 否则使用默认弃牌逻辑
     }
 
     protected override void OnUpgrade()
@@ -100,3 +100,4 @@ public class LeaveItToMe : CustomCardModel
 
     public override string PortraitPath => $"res://images/packed/card_portraits/kaguya/{nameof(LeaveItToMe)}.png";
 }
+

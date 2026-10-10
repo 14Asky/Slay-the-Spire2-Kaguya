@@ -24,7 +24,7 @@ namespace Kaguya.Powers
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             if (cardPlay.Card.Owner.Creature != Owner) return;
-            await CreatureCmd.Damage(choiceContext, Owner, 3, ValueProp.Unpowered, Owner, null);
+            await CreatureCmd.Damage(choiceContext, Owner, 3, ValueProp.Unpowered, Owner, null, null);
         }
 
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

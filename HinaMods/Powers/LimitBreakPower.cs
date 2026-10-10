@@ -25,7 +25,7 @@ public sealed class LimitBreakPower : CustomPowerModel
     public override string CustomPackedIconPath => "res://images/powers/limit_break.png";
     public override string CustomBigIconPath => "res://images/powers/limit_break.png";
 
-    public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
     {
         if (dealer == Owner && props.HasFlag(ValueProp.Move))
             return 2m;
@@ -76,3 +76,4 @@ public sealed class LimitBreakPower : CustomPowerModel
         await Task.CompletedTask;
     }
 }
+

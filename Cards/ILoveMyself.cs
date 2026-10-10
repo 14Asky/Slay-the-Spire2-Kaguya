@@ -60,7 +60,7 @@ namespace Kaguya.Cards
                 // 使用多段攻击，确保每段独立享受力量加成
                 await DamageCmd.Attack(damage)
                     .WithHitCount(exhaustCount)
-                    .FromCard(this)
+                    .FromCard(this, cardPlay)
                     .TargetingRandomOpponents(CombatState)
                     .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
                     .Execute(choiceContext);

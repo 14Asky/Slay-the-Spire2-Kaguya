@@ -42,7 +42,7 @@ public sealed class GenerateSupportStrike : HinaModsCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 1. 造成伤害（不变）
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 
         // 2. 获取支援打击卡牌（不变）
         CardModel supportCard = ModelDb.Card<SupportStrike>();

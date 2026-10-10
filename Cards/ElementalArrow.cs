@@ -63,7 +63,7 @@ public class ElementalArrow : CustomCardModel
 
         int damage = (int)DynamicVars["Damage"].BaseValue;
         await DamageCmd.Attack(damage)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(target)
             .WithHitFx("vfx/vfx_attack_slash", null, "blunt_attack.mp3")
             .Execute(choiceContext);

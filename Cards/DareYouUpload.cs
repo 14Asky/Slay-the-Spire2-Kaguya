@@ -47,7 +47,7 @@ public class DareYouUpload : CustomCardModel
 
         // 造成伤害
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

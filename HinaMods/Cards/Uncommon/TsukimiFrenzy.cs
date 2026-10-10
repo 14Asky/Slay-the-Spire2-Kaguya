@@ -38,7 +38,7 @@ public class TsukimiFrenzy() : HinaModsCard(1,
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(totalHits)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
             .WithHitFx("vfx/vfx_attack_slash", null, "slash_attack.mp3")
             .SpawningHitVfxOnEachCreature()

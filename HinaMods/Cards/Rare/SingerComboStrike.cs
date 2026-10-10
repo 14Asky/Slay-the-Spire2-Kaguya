@@ -31,7 +31,7 @@ public class SingerComboStrike() : HinaModsCard(1,
         if (Owner == null) return;
 
         // ✅ 修复1：强制指定 Creature? 重载，彻底解决调用二义性
-        await CommonActions.CardAttack(this, (Creature)null).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 
         // 检测消耗堆是否存在歌者牌
         bool hasSinger = PileType.Exhaust.GetPile(Owner).Cards
@@ -41,7 +41,7 @@ public class SingerComboStrike() : HinaModsCard(1,
         // 满足条件：额外再打一次全体伤害
         if (hasSinger)
         {
-            await CommonActions.CardAttack(this, (Creature)null).Execute(choiceContext);
+            await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         }
     }
 

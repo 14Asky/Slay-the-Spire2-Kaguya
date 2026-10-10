@@ -56,7 +56,7 @@ namespace Kaguya.Relics
             RemainingTriggers--;
             Flash();
 
-            CardCmd.Exhaust(choiceContext, card);
+            await CardCmd.Exhaust(choiceContext, card);
             await CardPileCmd.Draw(choiceContext, 1, Owner);
         }
 

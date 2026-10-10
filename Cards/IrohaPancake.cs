@@ -1,4 +1,4 @@
-﻿using BaseLib.Abstracts;
+using BaseLib.Abstracts;
 using BaseLib.Utils;
 using Kaguya.CardPools;
 using MegaCrit.Sts2.Core.Commands;
@@ -46,7 +46,7 @@ public class IrohaMuffin : CustomCardModel
     {
         // 失去生命
         decimal hpLoss = DynamicVars["HpLoss"].BaseValue;
-        await CreatureCmd.Damage(choiceContext, Owner.Creature, hpLoss, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, hpLoss, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, null, this, null);
         // 获得再生
         decimal regenAmount = DynamicVars["RegenPower"].BaseValue;
         await PowerCmd.Apply<RegenPower>(choiceContext, Owner.Creature, regenAmount, Owner.Creature, this);

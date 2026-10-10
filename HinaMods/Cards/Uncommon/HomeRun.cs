@@ -45,7 +45,7 @@ public sealed class HomeRun : HinaModsCard
     // 核心：全体攻击
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
     }
 
     // 当打出支援攻击牌时，增加伤害

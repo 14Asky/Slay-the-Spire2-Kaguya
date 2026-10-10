@@ -48,13 +48,7 @@ public sealed class SingerFugue : HinaModsCard
 
             // ✅ 核心修复：正确异步调用 + 原生ToList()，无任何扩展方法报错
             IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(
-                amount: damageValue,
-                choiceContext: choiceContext,
-                targets: new List<Creature> { target },
-                props: ValueProp.Move,
-                dealer: attacker,
-                cardSource: this
-            );
+                choiceContext: choiceContext, targets: new List<Creature> { target }, amount: damageValue, props: ValueProp.Move, cardSource: this, dealer: attacker, cardPlay: null);
             List<DamageResult> results = damageResults.ToList();
 
             // 命中判定：未格挡伤害>0 获得1能量

@@ -1,7 +1,10 @@
 {
 	"KAGUYA-NON_KAGUYA_CHARACTERS_SEE_KAGUYA_CONTENT.title": "Non-Kaguya characters also encounter Kaguya content",
 	"KAGUYA-UPDATE_POPUP.title": "Update Available!",
-	"KAGUYA-UPDATE_POPUP.body": "Current: {0}\nLatest: {1}\nVisit WorkShop to download the latest version.",
+	"KAGUYA-UPDATE_POPUP.body": "Current: {0}\nLatest: {1}\nVisit WorkShop to download the latest version.\n(If you are not a Beta branch player, please ignore this notification.)",
 	"KAGUYA-UPDATE_POPUP.download": "Download",
-	"KAGUYA-UPDATE_POPUP.close": "Later"
+	"KAGUYA-UPDATE_POPUP.close": "Later",
+	"KAGUYA-PLAY_PROCESS_ANIMATIONS.title": "Play Cutscene Animations",
+	"KAGUYA-ALLOW_ANCIENT_COEXISTENCE.title": "Allow mod Ancients to coexist with vanilla (excl. Yachiyo)",
+	"KAGUYA-ALLOW_MEMORY_FRAGMENT_FOR_ALL_CHARACTERS.title": "Allow non-Kaguya characters to obtain Memory Fragment"
 }

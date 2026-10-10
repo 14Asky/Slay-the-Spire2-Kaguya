@@ -55,7 +55,7 @@ public class Bankruptcy : CustomCardModel
             await PlayerCmd.LoseGold(10, Owner);
 
             await DamageCmd.Attack(damagePerHit)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(CombatState)
                 .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
                 .Execute(choiceContext);

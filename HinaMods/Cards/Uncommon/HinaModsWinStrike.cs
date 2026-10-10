@@ -49,13 +49,7 @@ public sealed class HinaModsWinStrike : HinaModsCard
         Creature attacker = Owner.Creature;
 
         IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(
-            amount: damageValue,
-            choiceContext: choiceContext,
-            targets: new List<Creature> { target },
-            props: ValueProp.Move,
-            dealer: attacker,
-            cardSource: this
-        );
+            choiceContext: choiceContext, targets: new List<Creature> { target }, amount: damageValue, props: ValueProp.Move, cardSource: this, dealer: attacker, cardPlay: null);
 
         // ✅ 完全还原原逻辑：判断是否击杀目标
         bool wasKilled = damageResults.Any(result => result != null && result.WasTargetKilled);

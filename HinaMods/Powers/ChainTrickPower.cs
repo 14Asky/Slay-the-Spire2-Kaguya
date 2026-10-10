@@ -33,7 +33,7 @@ public sealed class ChainTrickPower : CustomPowerModel
         if (enemies.Count == 0) return;
 
         int damage = (int)Amount; // 层数即为伤害值
-        await CreatureCmd.Damage(choiceContext, enemies, damage, ValueProp.Unpowered, Owner, null);
+        await CreatureCmd.Damage(choiceContext, enemies, damage, ValueProp.Unpowered, Owner, null, null);
 
         // 播放特效和音效
         VfxCmd.PlayOnCreatureCenters(enemies, "vfx/vfx_attack_slash");

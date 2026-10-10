@@ -3,6 +3,8 @@ using Godot;
 using HarmonyLib;
 using Kaguya;
 using Kaguya.Relics;
+using Kaguya.HinaMods.Character;
+using Kaguya.Characters;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Ancients;
 using MegaCrit.Sts2.Core.Events;
@@ -24,7 +26,7 @@ namespace Kaguya
         public override Color ButtonColor => new Color(0f, 0.1f, 0.2f, 0.5f);
         public override Color DialogueColor => new Color("28454F");
 
-        // 选项�?：三个遗物中随机一�?
+        // 选项�?：三个遗物中随机一�?
         private List<EventOption> OptionPool1 => new List<EventOption>
         {
             RelicOption<YachiyoShrine>(),
@@ -32,7 +34,7 @@ namespace Kaguya
             RelicOption<KaguyaAccount>()
         };
 
-        // 选项�?：三个遗物中随机一�?
+        // 选项�?：三个遗物中随机一�?
         private List<EventOption> OptionPool2 => new List<EventOption>
         {
             RelicOption<LiveStreaming>(),
@@ -41,7 +43,7 @@ namespace Kaguya
             RelicOption<YacchoSpecialCare>()
         };
 
-        // 选项�?：固定一个遗�?
+        // 选项�?：固定一个遗�?
         private List<EventOption> OptionPool3 => new List<EventOption>
         {
             RelicOption<GashaponMachineL1>()
@@ -68,7 +70,7 @@ namespace Kaguya
             return new List<EventOption> { option1, option2, option3 };
         }
 
-        // 进入事件房间时给予“记忆碎片·起始�?
+        // 进入事件房间时给予“记忆碎片·起始�?
         public override void OnRoomEnter()
         {
             base.OnRoomEnter();
@@ -81,6 +83,10 @@ namespace Kaguya
         {
             foreach (var player in Owner.RunState.Players)
             {
+                if (!KaguyaModConfig.AllowMemoryFragmentForAllCharacters
+                    && player.Character is not HinaCharacter
+                    && player.Character is not SakayoriIroha)
+                    continue;
                 if (!player.Relics.Any(r => r is MemoryFragmentStart))
                 {
                     var relic = ModelDb.Relic<MemoryFragmentStart>().ToMutable();

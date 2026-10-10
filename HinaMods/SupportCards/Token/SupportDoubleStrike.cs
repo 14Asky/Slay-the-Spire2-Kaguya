@@ -43,7 +43,7 @@ public sealed class SupportDoubleStrike : HinaModsCard
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(3)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(base.CombatState)
             .Execute(choiceContext);
         // 🔥 修复1：补全官方强制5参数 + decimal数值规范

@@ -22,7 +22,7 @@ public sealed class DeterminationPower : CustomPowerModel
     public override string CustomBigIconPath => "res://images/powers/determination.png";
 
     // 攻击牌伤害翻倍
-    public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
     {
         if (dealer == Owner && cardSource != null && cardSource.Type == CardType.Attack && Amount > 0)
             return 2m;
@@ -41,3 +41,4 @@ public sealed class DeterminationPower : CustomPowerModel
             await PowerCmd.ModifyAmount(choiceContext, this, -1, null, null);
     }
 }
+

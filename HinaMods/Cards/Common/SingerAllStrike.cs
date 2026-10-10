@@ -38,7 +38,7 @@ public class SingerAllStrike() : HinaModsCard(1,
         // 官方多段伤害写法
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(base.CombatState)
             .Execute(choiceContext);
     }

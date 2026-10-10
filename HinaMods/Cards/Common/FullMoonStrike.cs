@@ -46,7 +46,7 @@ public sealed class FullMoonStrike : HinaModsCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 1. 对全体敌人造成伤害
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 
         // 2. 生成 满月横扫 并加入手牌
         CardModel fullMoonCard = CardScope.CreateCard<FullMoonSweepCard>(Owner);

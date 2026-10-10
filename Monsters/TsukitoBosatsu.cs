@@ -153,7 +153,8 @@ namespace Kaguya.Monsters
                 mp3.Loop = true;
             _musicHandle = NDebugAudioManager.Instance.Play("Shun.mp3");
 
-            await VideoPlayerHelper.PlayFullscreenVideo("res://videoes/BosatsuStart.ogv");
+            if (KaguyaModConfig.PlayProcessAnimations)
+                await VideoPlayerHelper.PlayFullscreenVideo("res://videoes/BosatsuStart.ogv");
 
             int playerCount = Creature.CombatState?.Players.Count(p => p.Creature.IsAlive) ?? 1;
             int scaledHp = PHASE1_MAX_HP * playerCount;
@@ -393,7 +394,8 @@ namespace Kaguya.Monsters
             {
                 var room = NCombatRoom.Instance;
                 if (room != null)
-                    await KaguyaFlashbackOverlay.PlayNumberedAsync(room, "res://images/events/flashback_", ".png", 6, tailText: "彩叶，最喜欢你了...");
+                    if (KaguyaModConfig.PlayProcessAnimations)
+                        await KaguyaFlashbackOverlay.PlayNumberedAsync(room, "res://images/events/flashback_", ".png", 6, tailText: "彩叶，最喜欢你了...");
                 var ngCtx = new ThrowingPlayerChoiceContext();
                 foreach (var player in Creature.CombatState.Players)
                 {

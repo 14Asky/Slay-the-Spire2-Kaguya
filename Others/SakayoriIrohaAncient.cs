@@ -20,7 +20,7 @@ namespace Kaguya
         public override Color ButtonColor => new Color(0f, 0.5f, 0.8f, 0.6f);
         public override Color DialogueColor => new Color("1E3A5F");
 
-        // 选项�?：PartingGift, Ideal, OrdinaryHappiness 中随机一�?
+        // 选项�?：PartingGift, Ideal, OrdinaryHappiness 中随机一�?
         private List<EventOption> OptionPool1 => new List<EventOption>
         {
             RelicOption<PartingGift>(),
@@ -28,7 +28,7 @@ namespace Kaguya
             RelicOption<OrdinaryHappiness>()
         };
 
-        // 选项�?：FushiDoll, IrohaIpad, IrohaSchedule 中随机一�?
+        // 选项�?：FushiDoll, IrohaIpad, IrohaSchedule 中随机一�?
         private List<EventOption> OptionPool2 => new List<EventOption>
         {
             RelicOption<FushiDoll>(),
@@ -36,7 +36,7 @@ namespace Kaguya
             RelicOption<IrohaSchedule>()
         };
 
-        // 选项�?：固定为 GashaponMachineL3
+        // 选项�?：固定为 GashaponMachineL3
         private List<EventOption> OptionPool3 => new List<EventOption>
         {
             RelicOption<GashaponMachineL3>()
@@ -65,7 +65,7 @@ namespace Kaguya
     }
 }
 
-// 补丁：覆�?Glory 章节的先古之民池
+// 补丁：覆�?Glory 章节的先古之民池
 [HarmonyPatch(typeof(Glory), nameof(Glory.AllAncients), MethodType.Getter)]
 public static class Glory_AllAncients_Patch
 {
@@ -73,10 +73,14 @@ public static class Glory_AllAncients_Patch
     {
             if (!KaguyaContentFilter.ShouldShowKaguyaContent())
                 return;
-        __result = new AncientEventModel[]
+        var modAncients = new AncientEventModel[]
         {
             ModelDb.AncientEvent<SakayoriIrohaAncient>(),
             ModelDb.AncientEvent<RokaAndMamiAncient>()
         };
+        if (KaguyaModConfig.AllowAncientCoexistence)
+            __result = __result.Concat(modAncients);
+        else
+            __result = modAncients;
     }
 }

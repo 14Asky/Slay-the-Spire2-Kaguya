@@ -38,7 +38,7 @@ public sealed class SupportStrike : HinaModsCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 标准攻击逻辑
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         // 🔥 修复1：补全官方5参数 + decimal数值
         await PowerCmd.Apply<SupportAttackPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }

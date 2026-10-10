@@ -35,7 +35,7 @@ public sealed class HeavyStrikeCard : HinaModsCard
     // 打出：单体伤害 + 获得支援打击BUFF
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         // 🔥 修复2：补全官方强制5参数 + 数值改为decimal(1m)
         await PowerCmd.Apply<SupportAttackPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }

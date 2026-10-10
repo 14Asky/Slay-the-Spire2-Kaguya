@@ -57,7 +57,7 @@ public sealed class HinaModsClearGame : HinaModsCard
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
     }

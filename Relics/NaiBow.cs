@@ -83,9 +83,7 @@ namespace Kaguya.Relics
                         {
                             Flash();
                             // 造成伤害
-                            await CreatureCmd.Damage(context, target, DamagePerProc,
-                                ValueProp.Unpowered | ValueProp.Unblockable | ValueProp.SkipHurtAnim,
-                                Owner.Creature, null);
+                            await CreatureCmd.Damage(context, target, DamagePerProc, ValueProp.Unpowered | ValueProp.Unblockable | ValueProp.SkipHurtAnim, Owner.Creature, null, null);
 
                             // 击晕效果：每场战斗仅一次
                             if (!_hasStunnedThisCombat)

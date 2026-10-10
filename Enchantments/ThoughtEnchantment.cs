@@ -1,4 +1,4 @@
-using BaseLib.Abstracts;
+﻿using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Enchantments;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -16,16 +16,16 @@ namespace Kaguya.Enchantments
 
         protected override string CustomIconPath => "res://images/enchantments/thought_enchantment.png";
 
-        public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(
-            CardModel card, bool isAutoPlay, ResourceInfo resources, PileType pileType, CardPilePosition position)
+        public override CardLocation ModifyCardPlayResultLocation(
+            CardModel card, bool isAutoPlay, ResourceInfo resources, CardLocation cardLocation)
         {
-            if (card != Card) return (pileType, position);
-            if (_usedThisTurn) return (pileType, position);
-            if (pileType == PileType.Discard || pileType == PileType.Exhaust)
+            if (card != Card) return cardLocation;
+            if (_usedThisTurn) return cardLocation;
+            if (cardLocation.pileType == PileType.Discard || cardLocation.pileType == PileType.Exhaust)
             {
-                return (PileType.Hand, position);
+                return new CardLocation(cardLocation.player, PileType.Hand, cardLocation.position);
             }
-            return (pileType, position);
+            return cardLocation;
         }
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

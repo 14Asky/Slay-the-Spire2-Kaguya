@@ -70,7 +70,7 @@ public sealed class MoonlightSlash : HinaModsCard
 
         // 官方标准单体攻击
         AttackCommand attack = DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash");
 

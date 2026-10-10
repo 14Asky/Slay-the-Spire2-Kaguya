@@ -55,7 +55,7 @@ public class DoneIsDone : CustomCardModel
 
         await DamageCmd.Attack(damage)
             .WithHitCount(overworkAmount)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingRandomOpponents(CombatState)
             .WithHitFx("vfx/vfx_starry_impact")
             .Execute(choiceContext);

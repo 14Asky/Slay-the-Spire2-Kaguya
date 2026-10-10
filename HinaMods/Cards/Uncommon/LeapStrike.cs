@@ -45,7 +45,7 @@ public class LeapStrike() : HinaModsCard(1,
         if (Owner == null) return;
 
         // 基础单体伤害
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 
         // ==============================================
         // 【修改点】判断：自身拥有 月夜(FortunePower) 时触发

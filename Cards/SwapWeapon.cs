@@ -106,7 +106,7 @@ public class WeaponSwap : CustomCardModel
         // 造成伤害
         int damage = (int)DynamicVars["Damage"].BaseValue;
         await DamageCmd.Attack(damage)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
             .Execute(choiceContext);

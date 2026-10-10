@@ -1,4 +1,4 @@
-using BaseLib.Abstracts;
+﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Godot;
@@ -125,14 +125,14 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	// ================================================================================
 	// ✅ 歌者核心机制1：打出后进入消耗堆（无修改）
 	// ================================================================================
-	protected override PileType GetResultPileTypeForCardPlay()
+	protected override CardLocation GetResultLocationForCardPlay()
 	{
 		if (CustomTags.Contains(CustomCardTags.SINGER))
 		{
-			return PileType.Exhaust;
+			return new CardLocation(Owner, PileType.Exhaust, CardPilePosition.Bottom);
 		}
 
-		return base.GetResultPileTypeForCardPlay();
+		return base.GetResultLocationForCardPlay();
 	}
 
 	// 🔥 仅新增：参考余音代码，标记【手动打出】的歌者牌
@@ -184,7 +184,7 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	}
 
 	// ================================================================================
-	// 卡牌图片路径（无修改）
+	// 普通预览复用现有专属大图，避免落到缺失的小图路径。
 	// ================================================================================
 	public override string CustomPortraitPath
 	{
@@ -199,8 +199,7 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	{
 		get
 		{
-			var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			return ResourceLoader.Exists(path) ? path : "card.png".CardImagePath();
+			return CustomPortraitPath;
 		}
 	}
 
@@ -209,7 +208,7 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 		get
 		{
 			var path = $"Beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
-			return ResourceLoader.Exists(path) ? path : "Beta/card.png".CardImagePath();
+			return ResourceLoader.Exists(path) ? path : PortraitPath;
 		}
 	}
 }

@@ -51,7 +51,7 @@ public sealed class MoonlightStrikeCard : HinaModsCard
         // 🔥 1:1 参考 SingerFugue 官方攻击写法
         AttackCommand attack = DamageCmd.Attack(moonStacks)
             .WithHitCount(xValue) // 核心：攻击次数 = X值
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target) // 官方原生单体目标
             .WithHitFx("vfx/vfx_attack_slash"); // 统一攻击特效
 

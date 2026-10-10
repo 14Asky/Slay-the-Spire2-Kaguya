@@ -57,7 +57,7 @@ public class HinaModsBreakEvil : HinaModsCard
 
 		// 官方标准攻击方式，动态变量自动结算最终伤害
 		await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-			.FromCard(this)
+			.FromCard(this, cardPlay)
 			.Targeting(cardPlay.Target)
 			.WithHitFx(null, null, "heavy_attack.mp3")
 			.WithHitVfxNode((Creature t) => NBigSlashVfx.Create(t))

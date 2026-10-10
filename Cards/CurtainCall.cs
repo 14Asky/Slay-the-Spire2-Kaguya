@@ -37,7 +37,7 @@ public class CurtainCall : CustomCardModel
     {
         // 对所有敌人造成伤害
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

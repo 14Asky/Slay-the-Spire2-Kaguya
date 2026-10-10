@@ -43,7 +43,7 @@ public class HinaModsMoonEclipseStrike() : HinaModsCard(2,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Attack", 0.2f);
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 
         if (cardPlay.IsFirstInSeries)
         {

@@ -53,7 +53,7 @@ public sealed class Confluence : HinaModsCard
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
@@ -78,7 +78,7 @@ public sealed class Confluence : HinaModsCard
 
         // 官方伤害修正钩子
         damage = Hook.ModifyDamage(Owner.RunState, Owner.Creature.CombatState, null,
-            Owner.Creature, damage, ValueProp.Move, supportCard, ModifyDamageHookType.All,
+            Owner.Creature, damage, ValueProp.Move, supportCard, null, ModifyDamageHookType.All,
             CardPreviewMode.None, out IEnumerable<AbstractModel> _);
 
         // 累加伤害到汇流

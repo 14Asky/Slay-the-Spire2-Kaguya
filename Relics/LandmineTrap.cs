@@ -61,9 +61,7 @@ namespace Kaguya.Relics
             {
                 // 创建临时上下文，确保伤害命令能够执行
                 var tempContext = new BlockingPlayerChoiceContext();
-                _ = CreatureCmd.Damage(tempContext, enemies, halfDamage,
-                    ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.SkipHurtAnim,
-                    Owner.Creature, null);
+                _ = CreatureCmd.Damage(tempContext, enemies, halfDamage, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.SkipHurtAnim, Owner.Creature, null, null);
             }
 
             // 免疫本次伤害

@@ -27,6 +27,13 @@ Thumbs.db
 
 # Temporary / scratch files
 _*
+/.tmp_docs.html
+/docx_render/
+/chinese_docx_render/
+
+# Personal documents unrelated to this mod
+/English Class Reflection Summary.docx
+/英语课堂总结 中文版.docx
 
 # Debug audio files (not for distribution)
 debug_audio/

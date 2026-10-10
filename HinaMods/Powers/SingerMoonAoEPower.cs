@@ -35,23 +35,16 @@ public sealed class SingerMoonAoEPower : CustomPowerModel
         // 核心：检测月夜力量发生变化（获得/消耗 都触发）
         if (power is FortunePower && power.Owner == this.Owner && amount != 0)
         {
-            await DealDamageToAllEnemies();
+            await DealDamageToAllEnemies(choiceContext);
         }
     }
 
     /// <summary>
     /// ✅ 官方标准：对全体敌人造成伤害（照搬BlackHole）
     /// </summary>
-    private async Task DealDamageToAllEnemies()
+    private async Task DealDamageToAllEnemies(PlayerChoiceContext choiceContext)
     {
         Flash(); // 力量闪光特效
-        await CreatureCmd.Damage(
-            new BlockingPlayerChoiceContext(),
-            CombatState.HittableEnemies,
-            3,
-            ValueProp.Unpowered,
-            Owner,
-            null
-        );
+        foreach (var enemy in CombatState.HittableEnemies) { await CreatureCmd.Damage(new BlockingPlayerChoiceContext(), enemy, 3, ValueProp.Unpowered, Owner, null, null); }
     }
 }

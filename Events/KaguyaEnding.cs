@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Events;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves;
 
 namespace Kaguya.Events
 {
@@ -16,6 +18,7 @@ namespace Kaguya.Events
         public override async void OnRoomEnter()
         {
             base.OnRoomEnter();
+            if (KaguyaModConfig.PlayProcessAnimations)
             await VideoPlayerHelper.PlayFullscreenVideo("res://videoes/Ray.ogv");
         }
 
@@ -38,7 +41,8 @@ namespace Kaguya.Events
         {
             SetEventFinished(L10NLookup("KAGUYA_ENDING.pages.END.description"));
             await Cmd.Wait(0.5f);
-            RunManager.Instance.ActChangeSynchronizer.SetLocalPlayerReady();
+            SerializableRun serializableRun = RunManager.Instance.OnEnded(isVictory: true);
+            NRun.Instance.ShowGameOverScreen(serializableRun);
         }
     }
 }

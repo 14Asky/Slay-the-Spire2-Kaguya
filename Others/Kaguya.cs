@@ -28,7 +28,7 @@ namespace Kaguya
             RelicOption<TearsOfMemory>()
         };
 
-        // 基础池（不含太阳头饰�?
+        // 基础池（不含太阳头饰�?
         private List<EventOption> OptionPool2Base => new List<EventOption>
         {
             RelicOption<KaguyaHammer>(),
@@ -47,7 +47,7 @@ namespace Kaguya
             RelicOption<GashaponMachineL2>()
         };
 
-        // 所有可能出现的选项（用于图鉴和对话生成�?
+        // 所有可能出现的选项（用于图鉴和对话生成�?
         public override IEnumerable<EventOption> AllPossibleOptions =>
             OptionPool1.Concat(OptionPool2Base).Concat(OptionPool2Sun).Concat(OptionPool3);
         public override void OnRoomEnter()
@@ -70,7 +70,7 @@ namespace Kaguya
         {
             var option1 = Rng.NextItem(OptionPool1);
 
-            // 选项2�?0%概率出现太阳头饰�?0%概率从基础池中随机
+            // 选项2�?0%概率出现太阳头饰�?0%概率从基础池中随机
             EventOption option2;
             if (Rng.NextDouble() < 0.1)
             {
@@ -94,10 +94,14 @@ public static class Hive_AllAncients_Patch
     {
             if (!KaguyaContentFilter.ShouldShowKaguyaContent())
                 return;
-        __result = new AncientEventModel[]
+        var modAncients = new AncientEventModel[]
         {
             ModelDb.AncientEvent<KaguyaAncient>(),
             ModelDb.AncientEvent<BlackOnyxAncient>()
         };
+        if (KaguyaModConfig.AllowAncientCoexistence)
+            __result = __result.Concat(modAncients);
+        else
+            __result = modAncients;
     }
 }

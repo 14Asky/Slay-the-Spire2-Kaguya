@@ -66,7 +66,7 @@ public class SingerComb : HinaModsCard
         // 官方原版攻击逻辑 → 改为全体攻击（对齐你的SingerComboStrike）
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(base.CombatState)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

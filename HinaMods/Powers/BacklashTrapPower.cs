@@ -31,7 +31,7 @@ namespace Kaguya.Powers
             _hasTriggered = true;
 
             // 造成 12 点普通伤害
-            await CreatureCmd.Damage(choiceContext, Owner, 12, ValueProp.Unpowered, Owner, null);
+            await CreatureCmd.Damage(choiceContext, Owner, 12, ValueProp.Unpowered, Owner, null, null);
         }
 
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

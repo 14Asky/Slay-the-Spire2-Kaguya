@@ -25,7 +25,7 @@ namespace Kaguya.Powers
             if (cardPlay.Card.Owner.Creature != Owner) return;
 
             // 造成 3 点普通伤害（可被格挡），不播放额外特效
-            await CreatureCmd.Damage(choiceContext, Owner, 3, ValueProp.Unpowered, Owner, null);
+            await CreatureCmd.Damage(choiceContext, Owner, 3, ValueProp.Unpowered, Owner, null, null);
         }
 
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

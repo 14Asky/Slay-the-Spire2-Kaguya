@@ -1,13 +1,11 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Models.Relics;
-using MegaCrit.Sts2.Core.Rooms;
 using Kaguya.HinaMods.Character;
 using Kaguya.Characters;
 using MegaCrit.Sts2.Core.Runs;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -58,16 +56,4 @@ public static class KaguyaContentFilter
     [HarmonyPostfix]
     static void EventIsAllowed(EventModel __instance, IRunState state, ref bool __result)
         => Postfix(__instance, state, ref __result);
-
-    [HarmonyPatch(typeof(ActModel), nameof(ActModel.GenerateRooms))]
-    [HarmonyPostfix]
-    static void GenerateRoomsPostfix(ActModel __instance)
-    {
-        if (ShouldShowKaguyaContent())
-            return;
-        var rooms = Traverse.Create(__instance).Field("_rooms").GetValue<RoomSet>();
-        if (rooms == null) return;
-        rooms.normalEncounters.RemoveAll(e => e.GetType().Assembly == KaguyaAssembly);
-        rooms.eliteEncounters.RemoveAll(e => e.GetType().Assembly == KaguyaAssembly);
-    }
 }

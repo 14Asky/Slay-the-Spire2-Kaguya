@@ -16,6 +16,9 @@ public static class MainMenuLogoPatch
 	[HarmonyPostfix]
 	static void ReadyPostfix(NMainMenuBg __instance)
 	{
+		if (!KaguyaModConfig.AllowMainMenuSceneReplacement)
+			return;
+
 		// 隐藏原版背景
 		var bgContainer = __instance.GetNodeOrNull<Control>("BgContainer");
 		if (bgContainer != null)

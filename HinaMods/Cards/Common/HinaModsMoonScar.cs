@@ -50,7 +50,7 @@ public sealed class HinaModsMoonScar : HinaModsCard
         ArgumentNullException.ThrowIfNull(cardPlay, nameof(cardPlay));
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 
         FortunePower fortunePower = Owner.Creature.GetPower<FortunePower>();
         if (fortunePower != null && fortunePower.Amount >= 1)
@@ -62,7 +62,7 @@ public sealed class HinaModsMoonScar : HinaModsCard
                 -1m,
                 Owner.Creature,
                 this);
-            await CommonActions.CardAttack(this, cardPlay.Target).Execute(choiceContext);
+            await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
         }
     }
 

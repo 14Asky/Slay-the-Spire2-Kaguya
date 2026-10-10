@@ -29,7 +29,7 @@ namespace Kaguya.Powers
             if (card.Owner.Creature != Owner) return;
 
             // 对能力拥有者造成3点伤害（可被格挡）
-            await CreatureCmd.Damage(choiceContext, Owner, 2, ValueProp.Unpowered, Owner, null);
+            await CreatureCmd.Damage(choiceContext, Owner, 2, ValueProp.Unpowered, Owner, null, null);
         }
 
         // 回合结束时移除自身

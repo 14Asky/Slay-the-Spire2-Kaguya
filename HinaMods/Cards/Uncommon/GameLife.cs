@@ -64,7 +64,7 @@ public sealed class GameLife : HinaModsCard
 
         // 伤害（动态变量）
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);
 
