@@ -1,19 +1,14 @@
-using BaseLib.Utils;
-using Godot;
-using Kaguya.HinaMods.Powers;
-using Kaguya.HinaMods.SupportCards.Common;
+using Kaguya.HinaMods;
+using Kaguya.HinaMods.Cards;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.MonsterMoves.Intents;
-using MegaCrit.Sts2.Core.Rooms;
-using Kaguya.HinaMods.Cards;
-using Kaguya.HinaMods.Relics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,114 +16,77 @@ using System.Threading.Tasks;
 namespace Kaguya.HinaMods.Relics;
 
 /// <summary>
-/// 八千代的折扇
-/// 专属遗物
-/// 每回合开始时，每有一名带有攻击意图的敌人，将一张【招架】加入你的手牌
+/// 八千代的折扇（YachiyoFanRelic）
+/// 本地化键：KAGUYA-YACHIYO_FAN_RELIC.title / .description
+/// 卡面：每回合当你的能量变为0时，随机获得1张升级后的0费[blue]支援[/blue]牌。
+/// 代码实测：每回合限一次；判定 = 花费能量后当前能量为 0；
+///           随机池 = 全部 0 费支援牌；入手前先升级。
 /// </summary>
 public sealed class YachiyoFanRelic : HinaRelics
 {
-    // ====================== 基础配置 ======================
     public override RelicRarity Rarity => RelicRarity.Rare;
-    public override bool ShowCounter => false;
 
-    // 图标路径
     public override string PackedIconPath => "res://images/hinamods/relics/yachiyo_fan_relic.png";
     protected override string PackedIconOutlinePath => "res://images/hinamods/relics/yachiyo_fan_relic.png";
     protected override string BigIconPath => "res://images/hinamods/relics/yachiyo_fan_relic.png";
 
+    private bool _hasTriggeredThisTurn;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
-    {
-        HoverTipFactory.FromCard<SupportHeavyBlock>()
-    };
-
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
-    {
-        await base.AfterSideTurnStart(side, participants, combatState);
-
-        // 仅自身回合生效
-        if (side != Owner?.Creature.Side || combatState == null)
-            return;
-
-        // 🔥 修改：统计【带有攻击意图的敌人数量】
-        int attackEnemyCount = CountAttackIntentEnemies(combatState);
-        if (attackEnemyCount <= 0)
-            return;
-
-        // 🔥 修改：根据敌人数量，生成对应张数的招架
-        await CreateParryCards(combatState, attackEnemyCount);
-
-        // 遗物闪光特效
-        Flash();
-    }
-
-    // ====================== 🔥 修改：统计攻击意图敌人数量（替代原bool判断） ======================
-    private int CountAttackIntentEnemies(ICombatState combatState)
-    {
-        int count = 0;
-        if (combatState.Enemies == null || !combatState.Enemies.Any())
-            return count;
-
-        foreach (Creature enemy in combatState.Enemies)
-        {
-            if (enemy.IsDead || !enemy.IsMonster)
-                continue;
-
-            var intents = enemy.Monster.NextMove?.Intents;
-            if (intents == null)
-                continue;
-
-            // 只要该敌人有攻击意图，计数+1
-            foreach (var intent in intents)
-            {
-                if (intent.IntentType == IntentType.Attack)
-                {
-                    count++;
-                    break; // 一个敌人只计数一次
-                }
-            }
-        }
-        return count;
-    }
-
-    // ====================== 🔥 修改：批量生成招架卡牌 ======================
-    private async Task CreateParryCards(ICombatState combatState, int count)
-    {
-        if (Owner == null || count <= 0)
-            return;
-
-        List<CardModel> parryCards = new List<CardModel>();
-        // 根据数量创建多张招架
-        for (int i = 0; i < count; i++)
-        {
-            CardModel parryCard = combatState.CreateCard<SupportHeavyBlock>(Owner);
-            parryCards.Add(parryCard);
-        }
-
-        // 批量加入手牌
-        await CardPileCmd.AddGeneratedCardsToCombat(parryCards, PileType.Hand, Owner);
-    }
-
-    // ====================== 固定空实现（无修改） ======================
     public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature))
             return Task.CompletedTask;
+
+        _hasTriggeredThisTurn = false;
         return Task.CompletedTask;
     }
 
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    /// <summary>花费能量后检查：当前能量为 0 且本回合未触发过 → 给 1 张升级后的 0 费支援牌。</summary>
+    public override async Task AfterEnergySpent(CardModel card, int amount)
     {
-        await base.AfterCardPlayed(choiceContext, cardPlay);
-    }
+        await base.AfterEnergySpent(card, amount);
 
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
-    {
-        await base.AfterSideTurnEnd(choiceContext, side, participants);
-    }
+        if (_hasTriggeredThisTurn) return;
+        // ★ 必须【真正花费了能量】才继续：引擎的 SpendEnergy 里 amount == 0 时
+        //   不会扣能量，但 Hook.AfterEnergySpent 仍会被调用（0 费牌打出时 amount = 0）。
+        //   若不拦这一条，能量本来就为 0 时打出任意 0 费牌都会误触发「能量变为 0」。
+        if (amount <= 0) return;
+        if (Owner?.PlayerCombatState == null) return;
+        // 多人安全：只处理【自己】打出卡牌花费的能量（card 为 null 时不触发）
+        if (card?.Owner != Owner) return;
+        if (Owner.PlayerCombatState.Energy != 0) return;
 
-    public override Task AfterCombatEnd(CombatRoom _)
-    {
-        return Task.CompletedTask;
+        Player player = Owner;
+        if (player.Creature == null || !player.Creature.IsAlive) return;
+
+        List<CardModel> pool = ModelDb.AllCards
+            .OfType<HinaModsCard>()
+            .Where(c => c.CustomTags?.Contains(CustomCardTags.SUPPORT) == true
+                        && c.EnergyCost.Canonical == 0
+                        && !c.EnergyCost.CostsX)
+            .Cast<CardModel>()
+            .ToList();
+
+        if (pool.Count == 0) return;
+
+        List<CardModel> cards = CardFactory.GetDistinctForCombat(
+            player, pool, 1, player.RunState.Rng.CombatCardGeneration).ToList();
+
+        if (cards.Count == 0) return;
+
+        _hasTriggeredThisTurn = true;
+        Flash();
+
+        foreach (CardModel gift in cards)
+        {
+            // 升级（战斗中可变克隆，幂等）
+            if (gift.IsMutable && gift.IsUpgradable && !gift.IsUpgraded)
+            {
+                gift.UpgradeInternal();
+                gift.FinalizeUpgradeInternal();
+            }
+
+            await CardPileCmd.AddGeneratedCardToCombat(gift, PileType.Hand, player, CardPilePosition.Top);
+        }
     }
 }

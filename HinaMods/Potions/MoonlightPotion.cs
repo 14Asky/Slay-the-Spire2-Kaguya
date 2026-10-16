@@ -8,40 +8,39 @@ using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Kaguya.HinaMods.Potions;
 
+/// <summary>
+/// 月亮药水（MoonPotion）
+/// 本地化键：KAGUYA-MOON_POTION.title / .description
+/// 卡面：获得6层[gold]月夜[/gold]。
+/// 代码实测：MoonlightPower=6
+/// </summary>
 [Pool(typeof(HinaModsPotionPool))]
 public sealed class MoonPotion : CustomPotionModel
 {
-    // 官方标准配置
     public override PotionRarity Rarity => PotionRarity.Common;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
 
-    // 🔥 完全对标你的松饼卡牌，标准动态变量写法（无报错）
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new PowerVar<FortunePower>(3m)
+        new PowerVar<MoonlightPower>(6m)
     };
 
-    // 图标路径
     public override string CustomPackedImagePath => "res://images/hinamods/Potions/moon_potion.png";
     public override string CustomPackedOutlinePath => "res://images/hinamods/Potions/moon_potion_outline.png";
 
-    // 🔥 极简官方写法，无参数前缀，对标参考代码
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature target)
     {
-        // 核心：读取动态变量，施加月夜（和你的卡牌完全一致）
-        await PowerCmd.Apply<FortunePower>(
+        await PowerCmd.Apply<MoonlightPower>(
             choiceContext,
             Owner.Creature,
-            base.DynamicVars["FortunePower"].BaseValue,
+            DynamicVars["MoonlightPower"].BaseValue,
             Owner.Creature,
-            null
-        );
+            null);
     }
 }

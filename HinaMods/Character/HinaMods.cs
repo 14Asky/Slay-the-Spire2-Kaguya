@@ -15,6 +15,11 @@ using Kaguya.HinaMods.Relics;
 namespace Kaguya.HinaMods.Character;
 
 // 自定义角色核心类，继承游戏官方占位符角色模型
+/// <summary>
+/// 辉夜（HinaCharacter）
+/// 本地化键：KAGUYA-HINA_CHARACTER.title / .description
+/// 卡面：她是好奇心旺盛的少女，从月亮而来，于七色游戏电线杆中现身。性格开朗爱撒娇，有时略显随心所欲。遇彩叶后，她理解了人类情感、懂得爱与抗争，曾回月亮，却因彩叶的歌声决心重返地球。
+/// </summary>
 public class HinaCharacter: PlaceholderCharacterModel
 {
 	// 角色唯一ID
@@ -42,16 +47,16 @@ public class HinaCharacter: PlaceholderCharacterModel
 
 	// 初始卡组：2张攻击牌 + 1张防御牌
 	public override IEnumerable<CardModel> StartingDeck => [
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsMoonLeverage>(),
-		ModelDb.Card<HinaModsMoonStrike>(),
+		ModelDb.Card<Strike>(),
+		ModelDb.Card<Strike>(),
+		ModelDb.Card<Strike>(),
+		ModelDb.Card<Strike>(),
+		ModelDb.Card<Block>(),
+		ModelDb.Card<Block>(),
+		ModelDb.Card<Block>(),
+		ModelDb.Card<Block>(),
+		ModelDb.Card<ActCute>(),
+		ModelDb.Card<Playful>(),
 		
 	];
 

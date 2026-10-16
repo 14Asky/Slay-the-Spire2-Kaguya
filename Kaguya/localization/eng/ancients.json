@@ -182,5 +182,8 @@
   "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-0r.next": "Continue",
   "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-1r.ancient": "Defying destiny and order through sheer willfulness is far too naive![jitter][/jitter]",
   "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-1r.next": "Continue",
-  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-2r.char": "This is not naivety! Iroha's singing is my power. I will break the order and return to her side!"
+  "THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.3-2r.char": "This is not naivety! Iroha's singing is my power. I will break the order and return to her side!",
+	"THE_ARCHITECT.talk.KAGUYA-HINA_CHARACTER.0-0.char": "I'm Kaguya, from the moon. I jumped down here along the seven-colored pillar of light, and I'm busy looking for Iroha.",
+	"YACHIYO_ANCIENT.pages.INITIAL.options.THOUGHT_ENCHANTMENT.title": "Thought Hairband",
+	"BLACK_ONYX.pages.INITIAL.options.CHALLENGE_LETTER.title": "Challenge Letter"
 }

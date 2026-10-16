@@ -307,7 +307,7 @@ unique_name_in_owner = true
 position = Vector2(-19, -170)
 scale = Vector2(0.4322582, 0.45163694)
 sprite_frames = SubResource("SpriteFrames_yhpm5")
-animation = &"MoonsHit"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Bounds" type="Control" parent="."]

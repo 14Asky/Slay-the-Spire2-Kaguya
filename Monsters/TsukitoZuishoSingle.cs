@@ -159,7 +159,7 @@ namespace Kaguya.Monsters
                     gluttony.Target = player.Creature;
                     await PowerCmd.Apply(choiceContext, gluttony, Creature, 1, Creature, null);
                 }
-            await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Creature, 5, Creature, null);
+            await PowerCmd.Apply<HigherDimensionalBeingPower>(choiceContext, Creature, 5, Creature, null);
         }
     }
 }

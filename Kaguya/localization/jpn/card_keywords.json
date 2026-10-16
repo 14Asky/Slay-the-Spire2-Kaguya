@@ -23,16 +23,10 @@
 	"KAGUYA-ELEMENT.title": "エレメントチェンジ",
 	"KAGUYA-MEMORYOPTION.description": "失われた記憶を思い出す。\n[gold]月人[/gold]に勝利すれば、過去の経験を思い出せるかもしれない？\n[gold]思考を拾い上げる時こそ、結末を書き換える日となる。[/gold]",
 	"KAGUYA-MEMORYOPTION.title": "想起",
-	"SINGER.title": "歌声",
-	"SINGER.description": "プレイ時に[gold]廃棄札[/gold]に置く、そしてターン終了時に[gold]山札[/gold]の一番上に置く。",
+	"KAGUYA-ECHO.title": "歌声",
+	"KAGUYA-ECHO.description": "プレイ時に[gold]廃棄札[/gold]に置く。次のターン開始時（[gold]ドロー[/gold]の前）にランダムで[gold]山札[/gold]に混ぜる。",
 	"SUPPORT.title": "支援",
-	"SUPPORT.description": "このターン、次の同じ種類のカード（アタック/スキル）のコストが{Energy:energyIcons()}減少する。",
-	"MOONVIEW.title": "月見",
-	"MOONVIEW.description": "対応する[gold]歳月[/gold]を消費してプレイできる。",
-	"MOONLIGHT.title": "月夜",
-	"MOONLIGHT.description": "かぐやの力を受け継ぎ、[gold]月見[/gold]1消費したたび、[gold]月夜[/gold]1を得る。",
+	"SUPPORT.description": "プレイ後、このターン[gold]筋力[/gold]1（[blue]支援[/blue]アタック）または[gold]敏捷[/gold]1（[blue]支援[/blue]スキル）を得る。ターン終了時に失う。",
 	"SUPPORTCARD.title": "支援カード",
-	"SUPPORTCARD.description": "このターン、次の同じ種類のカード（アタック/スキル）のコストが{Energy:energyIcons()}減少する。",
-	"SINGERCARD.title": "歌声カード",
-	"SINGERCARD.description": "プレイ時に[gold]廃棄札[/gold]に置く、そしてターン終了時に[gold]山札[/gold]の一番上に置く。"
+	"SUPPORTCARD.description": "支援体系のカード。「ランダムな支援カードを得る」効果で入手できる。プレイするとこのターンの一時的な[gold]筋力[/gold]か[gold]敏捷[/gold]を得る。"
 }

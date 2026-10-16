@@ -76,6 +76,8 @@ namespace KaguyaMod
                 ModHelper.AddModelToPool(typeof(KaguyaRelicPool), typeof(FlatSheathCharm));
                 ModHelper.AddModelToPool(typeof(KaguyaRelicPool), typeof(RoyalTwinBlades));
                 ModHelper.AddModelToPool(typeof(KaguyaRelicPool), typeof(TechContactLens));
+                // 月夜 / 岁月 战斗 HUD：每台客户端只为自己那名玩家生成一份，多人模式互不可见
+                Kaguya.HinaMods.UI.HinaCombatHud.Register();
                 var harmony = new Harmony("Kaguya.Mod");
                 harmony.PatchAll();
             }

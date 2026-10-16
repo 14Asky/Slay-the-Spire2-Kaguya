@@ -1,6 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://by3tt6wi62je"]
-
-[ext_resource type="Texture2D" uid="uid://dy8ca67ed0ad6" path="res://HinaMods/Images/Powers/support_strike_aura.png" id="1_d1l7n"]
-
-[resource]
-atlas = ExtResource("1_d1l7n")

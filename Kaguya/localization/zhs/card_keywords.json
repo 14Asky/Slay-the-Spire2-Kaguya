@@ -23,16 +23,10 @@
 	"KAGUYA-ELEMENT.title": "元素切换",
 	"KAGUYA-MEMORYOPTION.description": "回忆起失去的记忆。\n击败[gold]月人[/gold]也许可以回想起之前的经历？\n[gold]拾起思绪之时，便是改写结局之日。[/gold]",
 	"KAGUYA-MEMORYOPTION.title": "回忆",
-	"SINGER.title": "歌声",
-	"SINGER.description": "打出时进入[gold]消耗堆[/gold]，回合结束时返回[gold]抽牌堆[/gold]。",
+	"KAGUYA-ECHO.title": "歌声",
+	"KAGUYA-ECHO.description": "打出后进入[gold]消耗堆[/gold]，下个回合开始时（[gold]抽牌阶段[/gold]之前）随机洗入[gold]抽牌堆[/gold]。",
 	"SUPPORT.title": "支援",
-	"SUPPORT.description": "打出后，本回合使下一张对应类型的牌(攻击牌/技能牌)耗能减少{Energy:energyIcons()}。",
-	"MOONVIEW.title": "月见",
-	"MOONVIEW.description": "消耗对应岁月才可打出。",
-	"MOONLIGHT.title": "月夜",
-	"MOONLIGHT.description": "承辉夜之力，消耗月见，聚敛月夜层数。",
+	"SUPPORT.description": "打出后，本回合内获得1层[gold]力量[/gold]（[blue]支援[/blue]攻击牌）或1层[gold]敏捷[/gold]（[blue]支援[/blue]技能牌）；回合结束时失去。",
 	"SUPPORTCARD.title": "支援牌",
-	"SUPPORTCARD.description": "打出后，本回合使下一张对应类型的牌(攻击牌/技能牌)耗能减少{Energy:energyIcons()}。",
-	"SINGERCARD.title": "歌声牌",
-	"SINGERCARD.description": "本回合打出的歌声牌会进入消耗堆，回合结束时返回抽牌堆。"
+	"SUPPORTCARD.description": "属于支援体系的牌：可被「随机获得支援牌」的效果获得；打出后获得本回合的临时[gold]力量[/gold]或[gold]敏捷[/gold]。"
 }

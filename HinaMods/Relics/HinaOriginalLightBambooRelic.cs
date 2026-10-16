@@ -18,9 +18,9 @@ using System.Threading.Tasks;
 namespace Kaguya.HinaMods.Relics;
 
 /// <summary>
-/// 原光之竹
-/// 稀有遗物
-/// 回合结束时，获得本回合打出卡牌数除以二向下取整的月夜层数
+/// 原光之竹（HinaOriginalLightBambooRelic）
+/// 本地化键：KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title / .description
+/// 卡面：你的回合结束时，获得等同于你当前回合打出的卡牌数除以3的[gold]月夜[/gold]层数。
 /// </summary>
 public sealed class HinaOriginalLightBambooRelic : HinaRelics
 {
@@ -95,12 +95,12 @@ public sealed class HinaOriginalLightBambooRelic : HinaRelics
             return;
 
         var player = Owner.Creature;
-        var fortunePower = player.GetPower<FortunePower>();
+        var fortunePower = player.GetPower<MoonlightPower>();
         var context = new ThrowingPlayerChoiceContext();
 
         if (fortunePower == null)
         {
-            await PowerCmd.Apply<FortunePower>(context, player, gainLayer, player, null, false);
+            await PowerCmd.Apply<MoonlightPower>(context, player, gainLayer, player, null, false);
         }
         else
         {

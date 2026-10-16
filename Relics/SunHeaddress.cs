@@ -134,9 +134,9 @@ namespace Kaguya.Relics
             if (playable.Count == 0) return 0;
 
             CardModel? bestCard = null;
-            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
-            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Skill);
-            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Attack);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Skill);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Attack);
             bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
             bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Skill);
             bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Attack);

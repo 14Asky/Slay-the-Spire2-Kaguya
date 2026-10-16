@@ -14,10 +14,12 @@ using BaseLib.Abstracts;
 namespace Kaguya.HinaMods.Powers;
 
 /// <summary>
-/// 星夜之力
-/// 下一张打出的牌：重放次数+1，获得消耗
+/// 循声（StarNightPower）
+/// 本地化键：KAGUYA-STAR_NIGHT_POWER.title / .description
+/// 卡面：你打出的下一张牌后，该牌获得[gold]重放[/gold]1和[gold]虚无[/gold]。
+/// 代码实测：下一张牌 重放 +1（BaseReplayCount）、施加 Ethereal（虚无）；触发后或回合结束时移除本能力。
+/// 由「循声药水」（StarNightPotion）施加。
 /// </summary>
-// 🔥 修改为继承 CustomPowerModel（和FortunePower一致）
 public sealed class StarNightPower : CustomPowerModel
 {
     // 官方标准BUFF配置

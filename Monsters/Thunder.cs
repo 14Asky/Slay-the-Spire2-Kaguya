@@ -59,7 +59,7 @@ namespace Kaguya.Monsters
             return new MonsterMoveStateMachine(states, randomTrap);
         }
 
-        // 束缚陷阱：造成伤害，并对所有玩家施加 ThornTrapPower
+        // 束缚陷阱：造成伤害，并对所有玩家施加 BindingTrapPower
         private async Task BindingTrapMove(IReadOnlyList<Creature> targets)
         {
             // 造成伤害（对所有玩家）
@@ -72,11 +72,11 @@ namespace Kaguya.Monsters
             // 对每个玩家施加荆棘环能力
             foreach (var target in targets)
             {
-                await PowerCmd.Apply<ThornTrapPower>(choiceContext, target, 1, Creature, null);
+                await PowerCmd.Apply<BindingTrapPower>(choiceContext, target, 1, Creature, null);
             }
         }
 
-        // 地雷陷阱：造成伤害，并对所有玩家施加 BacklashTrapPower
+        // 地雷陷阱：造成伤害，并对所有玩家施加 LandmineTrapPower
         private async Task MineTrapMove(IReadOnlyList<Creature> targets)
         {
             await DamageCmd.Attack(MineTrapDamage)
@@ -86,7 +86,7 @@ namespace Kaguya.Monsters
             var choiceContext = new ThrowingPlayerChoiceContext();
             foreach (var target in targets)
             {
-                await PowerCmd.Apply<BacklashTrapPower>(choiceContext, target, 1, Creature, null);
+                await PowerCmd.Apply<LandmineTrapPower>(choiceContext, target, 1, Creature, null);
             }
         }
 

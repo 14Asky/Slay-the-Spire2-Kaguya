@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dk5i5u2tpi80j"]
 
-[ext_resource type="Texture2D" uid="uid://dmej1wdkuyooy" path="res://HinaMods/Images/Charui/big_energy.png" id="1_ptf3m"]
+[ext_resource type="Texture2D" uid="uid://dmej1wdkuyooy" path="res://images/hinamods/Charui/big_energy.png" id="1_ptf3m"]
 
 [sub_resource type="Curve" id="Curve_umldk"]
 _data = [Vector2(0.00596422, 0.0309963), 0.0, 4.46389, 0, 0, Vector2(0.298211, 0.736162), 0.832039, 0.832039, 0, 0, Vector2(0.99006, 0.932841), -0.247478, 0.0, 0, 0]

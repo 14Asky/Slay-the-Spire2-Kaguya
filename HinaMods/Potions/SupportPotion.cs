@@ -19,6 +19,12 @@ using System.Threading.Tasks;
 namespace Kaguya.HinaMods.Potions;
 
 // 注册到你的自定义药水池
+/// <summary>
+/// 支援药水（SupportPotion）
+/// 本地化键：KAGUYA-SUPPORT_POTION.title / .description
+/// 卡面：随机将2张[blue]支援牌[/blue]加入你的手牌。
+/// 代码实测：Cards=2
+/// </summary>
 [Pool(typeof(HinaModsPotionPool))]
 public sealed class SupportPotion : CustomPotionModel
 {

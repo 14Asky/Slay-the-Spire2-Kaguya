@@ -246,7 +246,7 @@ namespace Kaguya.Monsters
         private async Task RageMove(IReadOnlyList<Creature> targets)
         {
             // 移除自身所有高维生物能力
-            var selfHighDim = Creature.Powers.OfType<HighDimensionalBeingPower>().ToList();
+            var selfHighDim = Creature.Powers.OfType<HigherDimensionalBeingPower>().ToList();
             foreach (var power in selfHighDim)
             {
                 await PowerCmd.Remove(power);
@@ -337,7 +337,7 @@ namespace Kaguya.Monsters
                     await PowerCmd.Apply(choiceContext, gluttony, Creature, 1, Creature, null);
                 }
             await PowerCmd.Apply<ZuishoPhaseTransitionPower>(choiceContext, Creature, 1, Creature, null);
-            await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Creature, 5, Creature, null);
+            await PowerCmd.Apply<HigherDimensionalBeingPower>(choiceContext, Creature, 5, Creature, null);
 
             // 播放循环音乐（Moon.mp3）
             var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Moon.mp3");

@@ -3,6 +3,7 @@ using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using Kaguya.HinaMods.Cards;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -20,9 +21,9 @@ using System.Threading.Tasks;
 namespace Kaguya.HinaMods.Relics;
 
 /// <summary>
-/// 太阳头饰
-/// 专属遗物
-/// 当你的抽牌堆为空时，打出的手牌会额外打出一次
+/// 太阳头饰（SunHeaddressRelic）
+/// 本地化键：KAGUYA-SUN_HEADDRESS_RELIC.title / .description
+/// 卡面：你的[gold]抽牌堆[/gold]中没有牌时，你的手牌会被额外打出一次。
 /// </summary>
 public sealed class SunHeaddressRelic : HinaRelics
 {
@@ -63,12 +64,16 @@ public sealed class SunHeaddressRelic : HinaRelics
             return;
 
         // 原生API额外打出一次（IsAutoPlay=true 阻断递归）
-        await CardCmd.AutoPlay(
-            choiceContext,
-            cardPlay.Card,
-            cardPlay.Target,
-            AutoPlayType.Default
-        );
+        // 离场防护：能力牌打出后会被 RemoveFromCombat，此处若再 AutoPlay 会抛异常。
+        if (HinaModsCard.CanReplayAutomatically(cardPlay.Card))
+        {
+            await CardCmd.AutoPlay(
+                choiceContext,
+                cardPlay.Card,
+                cardPlay.Target,
+                AutoPlayType.Default
+            );
+        }
 
         // 触发遗物闪光
         Flash();

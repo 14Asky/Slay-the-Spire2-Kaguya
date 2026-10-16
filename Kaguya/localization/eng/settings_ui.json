@@ -6,5 +6,7 @@
 	"KAGUYA-UPDATE_POPUP.close": "Later",
 	"KAGUYA-PLAY_PROCESS_ANIMATIONS.title": "Play Cutscene Animations",
 	"KAGUYA-ALLOW_ANCIENT_COEXISTENCE.title": "Allow mod Ancients to coexist with vanilla (excl. Yachiyo)",
-	"KAGUYA-ALLOW_MEMORY_FRAGMENT_FOR_ALL_CHARACTERS.title": "Allow non-Kaguya characters to obtain Memory Fragment"
+	"KAGUYA-ALLOW_MEMORY_FRAGMENT_FOR_ALL_CHARACTERS.title": "Allow non-Kaguya characters to obtain Memory Fragment",
+	"KAGUYA-ALLOW_MAIN_MENU_SCENE_REPLACEMENT.title": "Allow replacing the main menu background (requires a restart to take effect)",
+	"KAGUYA-ALLOW_MAIN_MENU_BGM_REPLACEMENT.title": "Allow replacing the main menu BGM (requires a restart to take effect)"
 }

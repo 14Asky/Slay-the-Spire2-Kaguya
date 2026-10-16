@@ -141,9 +141,9 @@ namespace Kaguya.Relics
 
             // 按优先级排序：SINGER Power≤2 > SINGER Skill > SINGER Attack > Power≤2 > Skill > Attack
             CardModel? bestCard = null;
-            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
-            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Skill);
-            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SINGER) && c.Type == CardType.Attack);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Skill);
+            bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Attack);
             bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
             bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Skill);
             bestCard ??= playable.FirstOrDefault(c => c.Type == CardType.Attack);

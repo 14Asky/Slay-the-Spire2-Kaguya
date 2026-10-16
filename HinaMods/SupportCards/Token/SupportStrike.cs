@@ -20,6 +20,14 @@ using System.Threading.Tasks;
 
 namespace Kaguya.HinaMods.SupportCards.Common;
 
+/// <summary>
+/// 支援打击（SupportStrike）
+/// 本地化键：KAGUYA-SUPPORT_STRIKE.title / .description
+/// 0费 · 攻击牌 · 令牌 · 目标：单个敌人
+/// 卡面：[blue]支援[/blue]：造成4点伤害。
+/// 代码实测：Damage=4
+/// 升级：Damage +2
+/// </summary>
 [Pool(typeof(TokenCardPool))]
 public sealed class SupportStrike : HinaModsCard
 {
@@ -39,8 +47,6 @@ public sealed class SupportStrike : HinaModsCard
     {
         // 标准攻击逻辑
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
-        // 🔥 修复1：补全官方5参数 + decimal数值
-        await PowerCmd.Apply<SupportAttackPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

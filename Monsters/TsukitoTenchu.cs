@@ -325,7 +325,7 @@ namespace Kaguya.Monsters
             UpdateVisual(Phase1VisualPath);
             var ctx = new ThrowingPlayerChoiceContext();
             await PowerCmd.Apply<PhaseTransitionPower>(ctx, Creature, 1, Creature, null);
-            await PowerCmd.Apply<HighDimensionalBeingPower>(ctx, Creature, 3, Creature, null);
+            await PowerCmd.Apply<HigherDimensionalBeingPower>(ctx, Creature, 3, Creature, null);
 
             // 播放循环音乐（Moon.mp3）
             var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Moon.mp3");

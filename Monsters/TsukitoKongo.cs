@@ -405,10 +405,10 @@ namespace Kaguya.Monsters
             await base.AfterAddedToRoom();
             UpdateVisual(Phase1Visual);
             var ctx = new ThrowingPlayerChoiceContext();
-            await PowerCmd.Apply<SandfieldHeroismPower>(ctx, Creature, 3, Creature, null);
+            await PowerCmd.Apply<BattlefieldHeroismPower>(ctx, Creature, 3, Creature, null);
             await PowerCmd.Apply<KongoPhaseTransitionPower>(ctx, Creature, 1, Creature, null);
             await PowerCmd.Apply<UnbreakablePower>(ctx, Creature, 80, Creature, null);
-            await PowerCmd.Apply<HighDimensionalBeingPower>(ctx, Creature, 7, Creature, null);
+            await PowerCmd.Apply<HigherDimensionalBeingPower>(ctx, Creature, 7, Creature, null);
 
             // 播放循环音乐（Moon.mp3）
             var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Moon.mp3");

@@ -44,7 +44,7 @@ public class NailArt : CustomCardModel
             .Execute(choiceContext);
 
         // 施加临时能力（下一张攻击牌费用-1）
-        await PowerCmd.Apply<NailArtNextAttackPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        await PowerCmd.Apply<NailArtReadyPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

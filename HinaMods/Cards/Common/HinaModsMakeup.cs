@@ -1,3 +1,4 @@
+// ⚠ 本文件整份为注释（无有效代码），对应卡牌未实装。
 //using BaseLib.Utils;
 //using Godot;
 //using MegaCrit.Sts2.Core.CardSelection;

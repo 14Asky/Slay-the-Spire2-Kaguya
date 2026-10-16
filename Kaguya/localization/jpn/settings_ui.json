@@ -6,5 +6,7 @@
 	"KAGUYA-UPDATE_POPUP.close": "後で",
 	"KAGUYA-PLAY_PROCESS_ANIMATIONS.title": "カットシーンアニメーションを再生",
 	"KAGUYA-ALLOW_ANCIENT_COEXISTENCE.title": "MODとバニラの古代人を共存させる（Yachiyoを除く）",
-	"KAGUYA-ALLOW_MEMORY_FRAGMENT_FOR_ALL_CHARACTERS.title": "輝夜姫以外のキャラクターも記憶の欠片を取得可能"
+	"KAGUYA-ALLOW_MEMORY_FRAGMENT_FOR_ALL_CHARACTERS.title": "輝夜姫以外のキャラクターも記憶の欠片を取得可能",
+	"KAGUYA-ALLOW_MAIN_MENU_SCENE_REPLACEMENT.title": "メインメニューの背景を置き換えることを許可（再起動が必要）",
+	"KAGUYA-ALLOW_MAIN_MENU_BGM_REPLACEMENT.title": "メインメニューのBGMを置き換えることを許可（再起動が必要）"
 }

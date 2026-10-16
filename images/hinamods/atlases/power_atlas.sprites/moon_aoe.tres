@@ -1,6 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://g1ghtpde8t3p"]
-
-[ext_resource type="Texture2D" uid="uid://bhqw5ea5i7d4b" path="res://HinaMods/Images/Powers/moon_aoe.png" id="1_ic6fq"]
-
-[resource]
-atlas = ExtResource("1_ic6fq")

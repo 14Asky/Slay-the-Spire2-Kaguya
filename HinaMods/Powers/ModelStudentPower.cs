@@ -47,6 +47,9 @@ public sealed class ModelStudentPower : CustomPowerModel
             var generated = selected.CreateClone();
             generated.SetToFreeThisTurn();
 
+            // 「获得+免费」标记：这类牌打出时不消耗月夜
+            Kaguya.HinaMods.Cards.HinaModsCard.MarkFreePlay(generated);
+
             // 方法签名：AddGeneratedCardToCombat(CardModel card, PileType newPileType, Player? creator, CardPilePosition position = CardPilePosition.Bottom)
             await CardPileCmd.AddGeneratedCardToCombat(generated, PileType.Hand, player);
         }
