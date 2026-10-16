@@ -12,20 +12,26 @@ using System.Collections.Generic;
 
 namespace Kaguya.Powers
 {
-    public sealed class BindingTrapPower : CustomPowerModel
+    public sealed class BacklashTrapPower : CustomPowerModel
     {
         public override PowerType Type => PowerType.Debuff;
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override string CustomPackedIconPath => "res://images/packed/card_portraits/kaguya/BindingTrapPower.png";
-        public override string CustomBigIconPath => "res://images/packed/card_portraits/kaguya/BindingTrapPower.png";
+        public override string CustomPackedIconPath => "res://images/packed/card_portraits/kaguya/BacklashTrapPower.png";
+        public override string CustomBigIconPath => "res://images/packed/card_portraits/kaguya/BacklashTrapPower.png";
+
+        private bool _hasTriggered = false;
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (_hasTriggered) return;
             if (cardPlay.Card.Owner.Creature != Owner) return;
+            if (cardPlay.Card.Type != CardType.Attack) return;
 
-            // 造成 3 点普通伤害（可被格挡），不播放额外特效
-            await CreatureCmd.Damage(choiceContext, Owner, 3, ValueProp.Unpowered, Owner, null, null);
+            _hasTriggered = true;
+
+            // 造成 12 点普通伤害
+            await CreatureCmd.Damage(choiceContext, Owner, 12, ValueProp.Unpowered, Owner, null, null);
         }
 
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

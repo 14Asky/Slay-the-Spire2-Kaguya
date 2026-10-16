@@ -47,7 +47,7 @@ namespace Kaguya.Monsters
         private int _respawns = 0;
         private bool _hasSummoned;
         private HashSet<Type> _summonedTypes;
-        private EndTimerPower _turnCounterPower;
+        private TurnCounterPower _turnCounterPower;
         private Timer _moonTextTimer;
         private Timer _kaguyaTextTimer;
 
@@ -186,10 +186,10 @@ namespace Kaguya.Monsters
             _kaguyaTextTimer.Autostart = true;
             NCombatRoom.Instance.AddChild(_kaguyaTextTimer);
             _kaguyaTextTimer.Timeout += SpawnMoonTextLine;
-            await PowerCmd.Apply<HigherDimensionalBeingPower>(ctx, Creature, 12, Creature, null);
+            await PowerCmd.Apply<HighDimensionalBeingPower>(ctx, Creature, 12, Creature, null);
 
             // 重置回合计数为 1 层，重新开始计数
-            _turnCounterPower = await PowerCmd.Apply<EndTimerPower>(ctx, Creature, 1, Creature, null) as EndTimerPower;
+            _turnCounterPower = await PowerCmd.Apply<TurnCounterPower>(ctx, Creature, 1, Creature, null) as TurnCounterPower;
 
         }
 
@@ -331,7 +331,7 @@ namespace Kaguya.Monsters
                     .ToList();
                 await TriggerDespair(alivePlayers);
 
-                await PowerCmd.Remove<EndTimerPower>(Creature);
+                await PowerCmd.Remove<TurnCounterPower>(Creature);
                 _turnCounterPower = null;
             }
         }
@@ -352,7 +352,7 @@ namespace Kaguya.Monsters
                         power is OppressivePressurePower)
                         continue;
 
-                    if (power is ArtifactPower || power is HigherDimensionalBeingPower)
+                    if (power is ArtifactPower || power is HighDimensionalBeingPower)
                     {
                         await PowerCmd.Remove(power);
                     }
@@ -400,7 +400,7 @@ namespace Kaguya.Monsters
                 foreach (var player in Creature.CombatState.Players)
                 {
                     if (player.Creature.IsAlive)
-                        await PowerCmd.Apply<LongingPower>(ngCtx, player.Creature, 1, Creature, null);
+                        await PowerCmd.Apply<NeverGiveUpPower>(ngCtx, player.Creature, 1, Creature, null);
                 }
 
             }
@@ -516,8 +516,8 @@ namespace Kaguya.Monsters
             await PowerCmd.Remove<BosatsuPhaseTransitionPower>(Creature);
 
             // 重置回合计数为 1 层，重新开始计数
-            await PowerCmd.Remove<EndTimerPower>(Creature);
-            _turnCounterPower = await PowerCmd.Apply<EndTimerPower>(new ThrowingPlayerChoiceContext(), Creature, 1, Creature, null) as EndTimerPower;
+            await PowerCmd.Remove<TurnCounterPower>(Creature);
+            _turnCounterPower = await PowerCmd.Apply<TurnCounterPower>(new ThrowingPlayerChoiceContext(), Creature, 1, Creature, null) as TurnCounterPower;
 
             if (_musicHandle.HasValue)
             {

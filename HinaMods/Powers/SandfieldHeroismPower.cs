@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace Kaguya.Powers
 {
-    public sealed class BattlefieldHeroismPower : CustomPowerModel
+    public sealed class SandfieldHeroismPower : CustomPowerModel
     {
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override string CustomPackedIconPath => "res://images/powers/BattlefieldHeroismPower.png";
-        public override string CustomBigIconPath => "res://images/powers/BattlefieldHeroismPower.png";
+        public override string CustomPackedIconPath => "res://images/powers/SandfieldHeroismPower.png";
+        public override string CustomBigIconPath => "res://images/powers/SandfieldHeroismPower.png";
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => new[] { HoverTipFactory.FromPower<StrengthPower>() };
 

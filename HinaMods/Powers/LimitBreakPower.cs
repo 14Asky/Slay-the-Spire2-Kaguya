@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace Kaguya.Powers;
 
-public sealed class LimitReleasePower : CustomPowerModel
+public sealed class LimitBreakPower : CustomPowerModel
 {
     private int _turnCounter = 0;
 
@@ -47,7 +47,7 @@ public sealed class LimitReleasePower : CustomPowerModel
         if (_turnCounter >= 3)
         {
             // 先清除自身所有高维生物能力
-            var highDimPowers = Owner.Powers.OfType<HigherDimensionalBeingPower>().ToList();
+            var highDimPowers = Owner.Powers.OfType<HighDimensionalBeingPower>().ToList();
             foreach (var power in highDimPowers)
             {
                 await PowerCmd.Remove(power);

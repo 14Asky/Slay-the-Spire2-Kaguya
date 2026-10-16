@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kaguya.Powers
 {
-    public sealed class HigherDimensionalBeingPower : CustomPowerModel
+    public sealed class HighDimensionalBeingPower : CustomPowerModel
     {
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;

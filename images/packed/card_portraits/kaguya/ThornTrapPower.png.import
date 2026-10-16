@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btuan588jkmkn"
-path="res://.godot/imported/BindingTrapPower.png-3101202c791683d059c540fdf0d0f8f5.ctex"
+path="res://.godot/imported/ThornTrapPower.png-3101202c791683d059c540fdf0d0f8f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/kaguya/BindingTrapPower.png"
-dest_files=["res://.godot/imported/BindingTrapPower.png-3101202c791683d059c540fdf0d0f8f5.ctex"]
+source_file="res://images/packed/card_portraits/kaguya/ThornTrapPower.png"
+dest_files=["res://.godot/imported/ThornTrapPower.png-3101202c791683d059c540fdf0d0f8f5.ctex"]
 
 [params]
 

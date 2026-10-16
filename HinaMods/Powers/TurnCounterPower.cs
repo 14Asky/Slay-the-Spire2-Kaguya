@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kaguya.Powers
 {
-    public sealed class EndTimerPower : CustomPowerModel
+    public sealed class TurnCounterPower : CustomPowerModel
     {
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter; // 显示数字

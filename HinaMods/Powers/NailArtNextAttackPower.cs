@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Kaguya.Powers;
 
-public sealed class NailArtReadyPower : CustomPowerModel
+public sealed class NailArtNextAttackPower : CustomPowerModel
 {
     private CardModel _sourceCard; // 记录来源卡牌（美甲本身）
 

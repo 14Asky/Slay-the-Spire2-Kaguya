@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpmhxmb07eapx"
-path="res://.godot/imported/LandmineTrapPower.png-ec77a7e17449167a9b9a608e758febe7.ctex"
+path="res://.godot/imported/BacklashTrapPower.png-ec77a7e17449167a9b9a608e758febe7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/kaguya/LandmineTrapPower.png"
-dest_files=["res://.godot/imported/LandmineTrapPower.png-ec77a7e17449167a9b9a608e758febe7.ctex"]
+source_file="res://images/packed/card_portraits/kaguya/BacklashTrapPower.png"
+dest_files=["res://.godot/imported/BacklashTrapPower.png-ec77a7e17449167a9b9a608e758febe7.ctex"]
 
 [params]
 

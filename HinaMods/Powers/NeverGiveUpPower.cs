@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Kaguya.Powers
 {
-    public sealed class LongingPower : CustomPowerModel
+    public sealed class NeverGiveUpPower : CustomPowerModel
     {
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter; // 层数每回合多一张牌

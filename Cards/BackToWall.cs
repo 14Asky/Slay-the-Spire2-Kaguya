@@ -33,7 +33,7 @@ public class BackToWall : CustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => System.Array.Empty<DynamicVar>();
     protected override IEnumerable<IHoverTip> ExtraHoverTips => new[]
     {
-        HoverTipFactory.FromPower<HigherDimensionalBeingPower>()
+        HoverTipFactory.FromPower<HighDimensionalBeingPower>()
     };
 
     private bool IsTsukitoBossPresent()
@@ -56,7 +56,7 @@ public class BackToWall : CustomCardModel
         // 清除所有敌人身上的所有高维生物
         foreach (var enemy in CombatState.HittableEnemies)
         {
-            var enemyHighDim = enemy.Powers.OfType<HigherDimensionalBeingPower>().ToList();
+            var enemyHighDim = enemy.Powers.OfType<HighDimensionalBeingPower>().ToList();
             foreach (var power in enemyHighDim)
             {
                 await PowerCmd.Remove(power);
@@ -64,10 +64,10 @@ public class BackToWall : CustomCardModel
         }
 
         // 给自身添加 99 层高维生物
-        await PowerCmd.Apply<HigherDimensionalBeingPower>(choiceContext, Owner.Creature, 99, Owner.Creature, this);
+        await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Owner.Creature, 99, Owner.Creature, this);
 
         // 施加限制解除 + 2回合后死亡能力
-        await PowerCmd.Apply<LimitReleasePower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        await PowerCmd.Apply<LimitBreakPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
