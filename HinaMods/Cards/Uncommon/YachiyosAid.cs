@@ -55,16 +55,15 @@ public sealed class YachiyosAid : HinaModsCard
         {
             // 1. 招架
             CardModel blockCard = CardScope.CreateCard<SupportParry>(playerCreature.Player);
-
-            await CardPileCmd.Add(blockCard, PileType.Hand);
+            await CardPileCmd.AddGeneratedCardToCombat(blockCard, PileType.Hand, Owner);
 
             // 2. 疾驰
             CardModel drawCard = CardScope.CreateCard<SupportDash>(playerCreature.Player);
-            await CardPileCmd.Add(drawCard, PileType.Hand);
+            await CardPileCmd.AddGeneratedCardToCombat(drawCard, PileType.Hand, Owner);
 
             // 🔥 新增：支援打击
             CardModel strikeCard = CardScope.CreateCard<SupportStrike>(playerCreature.Player);
-            await CardPileCmd.Add(strikeCard, PileType.Hand);
+            await CardPileCmd.AddGeneratedCardToCombat(strikeCard, PileType.Hand, Owner);
         }
     }
 

@@ -1,4 +1,4 @@
-{
+﻿{
 	"RECALL_POWER.title": "Remember",
 	"RECALL_POWER.description": "At the start of next turn, return the recalled card to your hand and give it Retain.",
 	"STARLIT_SEA_POWER.title": "Starlit Sea",
@@ -153,20 +153,20 @@
 	"KAGUYA-WEAPON_SWAP_POWER.smartDescription": "Positive buffs you gain from playing [blue]Support[/blue] cards become permanent.",
 
 	"KAGUYA-CELESTIAL_FORM_POWER.title": "Celestial Form",
-	"KAGUYA-CELESTIAL_FORM_POWER.description": "Whenever you gain [gold]Moonlight[/gold], gain an additional {Amount}% of that amount.",
-	"KAGUYA-CELESTIAL_FORM_POWER.smartDescription": "Whenever you gain [gold]Moonlight[/gold], gain an additional {Amount}% of that amount.",
+	"KAGUYA-CELESTIAL_FORM_POWER.description": "Whenever you gain [gold]Moonlight[/gold], deal damage equal to the amount to ALL enemies. At the start of each turn, gain {Amount} [gold]Moonlight[/gold].",
+	"KAGUYA-CELESTIAL_FORM_POWER.smartDescription": "Whenever you gain [gold]Moonlight[/gold], deal damage equal to the amount to ALL enemies. At the start of each turn, gain {Amount} [gold]Moonlight[/gold].",
 
 	"KAGUYA-STARLIT_BRILLIANCE_POWER.title": "Starlit Brilliance",
-	"KAGUYA-STARLIT_BRILLIANCE_POWER.description": "Whenever you draw a card, gain 1 [gold]Moonlight[/gold].",
-	"KAGUYA-STARLIT_BRILLIANCE_POWER.smartDescription": "Whenever you draw a card, gain 1 [gold]Moonlight[/gold].",
+	"KAGUYA-STARLIT_BRILLIANCE_POWER.description": "Each turn, whenever you play 3 cards, gain {Amount} [gold]Moonlight[/gold].",
+	"KAGUYA-STARLIT_BRILLIANCE_POWER.smartDescription": "Each turn, whenever you play 3 cards, gain {Amount} [gold]Moonlight[/gold].",
 
 	"KAGUYA-HEAVENLY_ROBE_POWER.title": "Heavenly Robe",
-	"KAGUYA-HEAVENLY_ROBE_POWER.description": "At the end of your turn, gain 1 Block for each [gold]Moonlight[/gold] you have.",
+	"KAGUYA-HEAVENLY_ROBE_POWER.description": "At the end of your turn, gain {Amount} Block for each [gold]Moonlight[/gold] you have.",
 	"KAGUYA-HEAVENLY_ROBE_POWER.smartDescription": "At the end of your turn, gain {Amount} Block for each [gold]Moonlight[/gold] you have.",
 
 	"KAGUYA-CURTAIN_RAISER_POWER.title": "Curtain Raiser",
 	"KAGUYA-CURTAIN_RAISER_POWER.description": "Every N [blue]Support[/blue] cards played, draw 1 card (4 by default; 3 after upgrading).",
-	"KAGUYA-CURTAIN_RAISER_POWER.smartDescription": "Every 3 [blue]Support[/blue] cards played, draw 1 card.",
+	"KAGUYA-CURTAIN_RAISER_POWER.smartDescription": "Every N [blue]Support[/blue] cards played, draw 1 card (4 by default; 3 after upgrading).",
 
 	"KAGUYA-GOLDEN_SCALE_POWER.title": "Golden Scale",
 	"KAGUYA-GOLDEN_SCALE_POWER.description": "At the start of your turn, reduce the cost of {Amount} random 1-cost or higher card(s) you drew by 1.",
@@ -182,12 +182,12 @@
 	"KAGUYA-UNDER_FIREWORKS_POWER.smartDescription": "At the start of your turn, [gold]Exhaust[/gold] 1 card and gain {energyPrefix:energyIcons(1)}.\nIf the chosen card is a [purple]Song[/purple] card, play it and gain {energyPrefix:energyIcons(1)} more.",
 
 	"KAGUYA-SHINING_STAGE_POWER.title": "Shining Stage",
-	"KAGUYA-SHINING_STAGE_POWER.description": "At the end of your turn, gain [gold]Vigor[/gold] equal to the number of cards you played this turn.",
+	"KAGUYA-SHINING_STAGE_POWER.description": "At the end of your turn, gain {Amount} [gold]Vigor[/gold] for each card you played this turn.",
 	"KAGUYA-SHINING_STAGE_POWER.smartDescription": "At the end of your turn, gain {Amount} [gold]Vigor[/gold] for each card you played this turn.",
 
 	"KAGUYA-REVERBERATION_POWER.title": "Reverberation",
-	"KAGUYA-REVERBERATION_POWER.description": "At the end of your turn, play the last [purple]Song[/purple] card you played this turn automatically.",
-	"KAGUYA-REVERBERATION_POWER.smartDescription": "At the end of your turn, play the last [purple]Song[/purple] card you played this turn automatically.",
+	"KAGUYA-REVERBERATION_POWER.description": "At the end of your turn, automatically play the last card you played this turn.",
+	"KAGUYA-REVERBERATION_POWER.smartDescription": "At the end of your turn, automatically play the last card you played this turn.",
 
 	"KAGUYA-STAR_NIGHT_POWER.title": "Sound-Seeking",
 	"KAGUYA-STAR_NIGHT_POWER.description": "After you play your next card, give it 1 [gold]Replay[/gold] and [gold]Ethereal[/gold].",
@@ -219,5 +219,8 @@
 	"KAGUYA-GAZE_POWER.smartDescription": "This turn, whenever you deal damage, gain {Amount} [gold]Moonlight[/gold].",
 	"KAGUYA-FINALE_POWER.title": "Finale",
 	"KAGUYA-FINALE_POWER.description": "At the start of your next turn, gain {Amount} [blue]Home Run[/blue].",
-	"KAGUYA-FINALE_POWER.smartDescription": "At the start of your next turn, gain {Amount} [blue]Home Run[/blue]."
+	"KAGUYA-FINALE_POWER.smartDescription": "At the start of your next turn, gain {Amount} [blue]Home Run[/blue].",
+	"KAGUYA-ENDING_POWER.title": "Moon Blessing",
+	"KAGUYA-DAILY_SONG_END_POWER.title": "Peaceful Daily",
+	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "Wait"
 }

@@ -22,7 +22,7 @@ namespace Kaguya.HinaMods.Cards;
 /// 卡面：造成5点伤害1次。
 ///       本回合你每打出一张[purple]歌声[/purple]牌，此牌攻击次数+1。
 /// 代码实测：Damage=5
-/// 升级：Damage +2
+/// 升级：Damage +1
 /// </summary>
 public sealed class NoteCombo : HinaModsCard
 {
@@ -66,6 +66,6 @@ public sealed class NoteCombo : HinaModsCard
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(2m);
+        base.DynamicVars.Damage.UpgradeValueBy(1m);
     }
 }

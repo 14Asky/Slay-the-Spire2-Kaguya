@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://g5h1quf1g0lg"
-path="res://.godot/imported/worry.png-f9a06e0be17612da0d7fd55900c2769d.ctex"
+path="res://.godot/imported/worry.png-583468b4bee0d392be62599da879de79.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/worry.png"
-dest_files=["res://.godot/imported/worry.png-f9a06e0be17612da0d7fd55900c2769d.ctex"]
+dest_files=["res://.godot/imported/worry.png-583468b4bee0d392be62599da879de79.ctex"]
 
 [params]
 

@@ -15,7 +15,7 @@ namespace Kaguya.HinaMods.Cards;
 /// <summary>
 /// 星河入梦（StarRiverDream）
 /// 本地化键：KAGUYA-SUPPORT_ASSEMBLE.title / .description
-/// 1费 · 技能牌 · 罕见 · 目标：自身 · 关键词：消耗 · 标签：支援牌
+/// 0费 · 技能牌 · 罕见 · 目标：自身 · 关键词：消耗 · 标签：支援牌
 /// 卡面：将1张[blue]演奏[/blue]加入[gold]抽牌堆[/gold]，且费用减少{CostReduce:diff()}。
 /// 代码实测：CostReduce=1
 /// 升级：CostReduce +1（1 → 2）
@@ -27,7 +27,7 @@ public sealed class StarRiverDream : HinaModsCard
     ];
 
     public StarRiverDream()
-        : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+        : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     { }
 
     /// <summary>消耗。</summary>
@@ -49,11 +49,13 @@ public sealed class StarRiverDream : HinaModsCard
         int reduce = (int)DynamicVars["CostReduce"].BaseValue;
         vigor.EnergyCost.AddUntilPlayed(-reduce);
 
-        await CardPileCmd.AddGeneratedCardToCombat(
-            vigor,
-            PileType.Draw,
-            player,
-            CardPilePosition.Random);
+        // 参考官方「捕捉灵魂」：加牌进抽牌堆必须用 PreviewCardPileAdd 包一层，否则没有过渡动画
+        CardCmd.PreviewCardPileAdd(
+            await CardPileCmd.AddGeneratedCardToCombat(
+                vigor,
+                PileType.Draw,
+                player,
+                CardPilePosition.Random));
 
         player.PlayerCombatState?.RecalculateCardValues();
     }

@@ -33,7 +33,7 @@ public sealed class DownRush : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(10m, ValueProp.Move)
+        new DamageVar(6m, ValueProp.Move)
     };
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
@@ -44,9 +44,9 @@ public sealed class DownRush : HinaModsCard
         };
     }
 
-    // 构造：2费 攻击牌 普通 全体目标
+    // 构造：1费 攻击牌 普通 全体目标
     public DownRush()
-        : base(2, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
+        : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -56,12 +56,12 @@ public sealed class DownRush : HinaModsCard
 
         // 2. 生成 满月横扫 并加入手牌
         CardModel fullMoonCard = CardScope.CreateCard<WildDance>(Owner);
-        await CardPileCmd.Add(fullMoonCard, PileType.Hand);
+        await CardPileCmd.AddGeneratedCardToCombat(fullMoonCard, PileType.Hand, Owner);
     }
 
-    // 升级：伤害 +3 → 13 点
+    // 升级：伤害 6 → 8
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
     }
 }

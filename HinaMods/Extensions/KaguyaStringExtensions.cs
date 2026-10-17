@@ -5,11 +5,12 @@ namespace Kaguya.HinaMods.Extensions;
 
 // 主要用于获取资源路径的工具方法
 /// <summary>
-/// 资源路径拼接扩展方法（本项目专用，不是 BaseLib 的）。
+/// 资源路径拼接扩展方法（本项目专用）。
+/// 类名带 Kaguya 前缀，避免与 BaseLib.Extensions.StringExtensions 同名。
 /// 图片根目录 res://images/hinamods/ ：卡图在 Cards/Big/，能力图标在 Powers/，遗物图标在 Relics/。
 /// 基础设施类，无本地化键。
 /// </summary>
-public static class StringExtensions
+public static class KaguyaStringExtensions
 {
     // 拼接通用图片资源路径
     public static string ImagePath(this string path)

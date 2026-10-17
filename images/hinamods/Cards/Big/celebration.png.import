@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dx32ac0g5ytdy"
-path="res://.godot/imported/celebration.png-446b26721dd71593f81b532348808c3b.ctex"
+path="res://.godot/imported/celebration.png-d15532f459db8ebf720cf8e9ae226b68.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/celebration.png"
-dest_files=["res://.godot/imported/celebration.png-446b26721dd71593f81b532348808c3b.ctex"]
+dest_files=["res://.godot/imported/celebration.png-d15532f459db8ebf720cf8e9ae226b68.ctex"]
 
 [params]
 

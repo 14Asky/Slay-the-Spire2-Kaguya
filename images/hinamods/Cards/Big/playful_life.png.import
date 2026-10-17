@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://g8tfdarb8lc4"
-path="res://.godot/imported/playful_life.png-a0dbeba7be86fd44eba8474e331258fb.ctex"
+path="res://.godot/imported/playful_life.png-e3604b3d5f053bbfc1175b96ad9e4e86.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/playful_life.png"
-dest_files=["res://.godot/imported/playful_life.png-a0dbeba7be86fd44eba8474e331258fb.ctex"]
+dest_files=["res://.godot/imported/playful_life.png-e3604b3d5f053bbfc1175b96ad9e4e86.ctex"]
 
 [params]
 

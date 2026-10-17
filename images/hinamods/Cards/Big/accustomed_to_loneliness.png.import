@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://buunpljedyrw6"
-path="res://.godot/imported/accustomed_to_loneliness.png-47e146984660297cd4e8c5da2a862aae.ctex"
+path="res://.godot/imported/accustomed_to_loneliness.png-e4b77260ddf4acf449ba4ad51233e3d6.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/accustomed_to_loneliness.png"
-dest_files=["res://.godot/imported/accustomed_to_loneliness.png-47e146984660297cd4e8c5da2a862aae.ctex"]
+dest_files=["res://.godot/imported/accustomed_to_loneliness.png-e4b77260ddf4acf449ba4ad51233e3d6.ctex"]
 
 [params]
 

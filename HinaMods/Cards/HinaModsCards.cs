@@ -278,12 +278,16 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 		if (!HasEcho)
 			return;
 
-		// 无论是否成立都先清标记，避免跨回合/跨战斗残留
-		bool pending = _echoPending;
-		_echoPending = false;
+		// 先确认是「本牌拥有者自己的抽牌流程」再动状态。
+		// BeforeHandDraw 会广播给所有卡牌实例（引擎对每名玩家各跑一次 SetupPlayerTurn），
+		// 若先清标记再判断归属，队友回合开始时就会把我方的待回音标记吞掉 —— 联机下歌声失效。
+		if (Owner == null || player != Owner)
+			return;
 
-		// 只处理本牌拥有者的回合
-		if (!pending || Owner == null || player != Owner)
+		bool pending = _echoPending;
+		_echoPending = false;   // 只在自己的抽牌前清，避免跨回合残留
+
+		if (!pending)
 			return;
 
 		var exhaustPile = PileType.Exhaust.GetPile(Owner);

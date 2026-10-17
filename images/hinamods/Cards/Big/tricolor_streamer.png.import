@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bt5gqlqkxoi30"
-path="res://.godot/imported/tricolor_streamer.png-be90ee7c6a89c1bdc805ebe45c7913a3.ctex"
+path="res://.godot/imported/tricolor_streamer.png-1ded9581266573926de1e4e5c8f8518d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/tricolor_streamer.png"
-dest_files=["res://.godot/imported/tricolor_streamer.png-be90ee7c6a89c1bdc805ebe45c7913a3.ctex"]
+dest_files=["res://.godot/imported/tricolor_streamer.png-1ded9581266573926de1e4e5c8f8518d.ctex"]
 
 [params]
 

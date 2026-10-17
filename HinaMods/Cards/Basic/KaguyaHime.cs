@@ -33,7 +33,7 @@ public sealed class KaguyaHime : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(20m, ValueProp.Move),
+        new DamageVar(24m, ValueProp.Move),
         new DynamicVar(GiftCountKey, 1m),
     };
 
@@ -114,7 +114,7 @@ public sealed class KaguyaHime : HinaModsCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars.Damage.UpgradeValueBy(6m);
         DynamicVars[GiftCountKey].UpgradeValueBy(1m);
     }
 }

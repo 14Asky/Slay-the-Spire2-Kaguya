@@ -30,7 +30,8 @@ public sealed class DanceSteps : HinaModsCard
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.ECHO };
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(5m, ValueProp.Move)
+        new DamageVar(5m, ValueProp.Move),
+        new DynamicVar("HitCount", 2m)
     };
 
     // 单体目标卡牌
@@ -47,9 +48,9 @@ public sealed class DanceSteps : HinaModsCard
 
         decimal damageValue = DynamicVars.Damage.BaseValue;
         Creature attacker = Owner.Creature;
-        const int HIT_COUNT = 2;
+        int hitCount = DynamicVars["HitCount"].IntValue;
 
-        for (int i = 0; i < HIT_COUNT; i++)
+        for (int i = 0; i < hitCount; i++)
         {
             // 攻击中途死亡则中断
             if (attacker.IsDead || target.IsDead)
@@ -74,9 +75,9 @@ public sealed class DanceSteps : HinaModsCard
         }
     }
 
-    // 升级效果：伤害+2
+    // 升级效果：攻击次数 2 → 3（每次伤害 5 不变）
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars["HitCount"].UpgradeValueBy(1m);
     }
 }

@@ -22,8 +22,11 @@ namespace Kaguya.HinaMods.Cards;
 /// </summary>
 public sealed class SuddenlyLookBack : HinaModsCard
 {
+    /// <summary>基础带【消耗】；升级后额外获得【保留】（见 OnUpgrade）。</summary>
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     public SuddenlyLookBack()
-        : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
+        : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     { }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
@@ -32,40 +35,39 @@ public sealed class SuddenlyLookBack : HinaModsCard
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
 
-        // 1. 手牌 + 弃牌堆 全部洗入抽牌堆
-        List<CardModel> handCards = PileType.Hand.GetPile(Owner).Cards.ToList();
-        foreach (CardModel card in handCards)
-        {
-            await CardPileCmd.Add(card, PileType.Draw);
-        }
-
-        List<CardModel> discardCards = PileType.Discard.GetPile(Owner).Cards.ToList();
-        foreach (CardModel card in discardCards)
-        {
-            await CardPileCmd.Add(card, PileType.Draw);
-        }
-
-        await CardPileCmd.Shuffle(choiceContext, Owner);
-
-        // 2. 抽满手牌
-        int need = CardPile.MaxCardsInHand - PileType.Hand.GetPile(Owner).Cards.Count;
-        if (need > 0)
-        {
-            await CardPileCmd.Draw(choiceContext, need, Owner);
-        }
-
-        // 3. 安全自动打出【手牌】中的所有攻击牌
-        //    （整批先入 Play 堆再逐张默认参数 AutoPlay，避免攻击牌在手牌/Play 堆间
-        //      搬家时 UI 节点脱节，残留「有占位、点不亮、拖不动」的空白卡）
-        List<CardModel> attacks = PileType.Hand.GetPile(Owner).Cards
-            .Where(c => c.Type == CardType.Attack)
+        // 1) 消耗你所有的【诅咒牌】与【状态牌】
+        //    取牌口径与官方「散射炮 FlakCannon」一致：全战斗区（含手牌/抽牌堆/弃牌堆），
+        //    已进消耗堆的除外。
+        List<CardModel> junk = Owner.PlayerCombatState.AllCards
+            .Where(c => (c.Type == CardType.Curse || c.Type == CardType.Status)
+                        && c.Pile != null
+                        && c.Pile.Type != PileType.Exhaust)
             .ToList();
 
-        await HinaModsCard.PlayCardsSafely(choiceContext, attacks);
+        int exhausted = 0;
+        foreach (CardModel card in junk)
+        {
+            await CardCmd.Exhaust(choiceContext, card);
+            exhausted++;
+        }
+
+        if (exhausted <= 0)
+            return;
+
+        // 2) 从抽牌堆【随机】打出与消耗数量相同的牌
+        List<CardModel> candidates = PileType.Draw.GetPile(Owner).Cards.ToList();
+        if (candidates.Count == 0)
+            return;
+
+        Owner.RunState.Rng.CombatCardSelection.Shuffle(candidates);
+
+        int playCount = exhausted < candidates.Count ? exhausted : candidates.Count;
+        await HinaModsCard.PlayCardsSafely(choiceContext, candidates.Take(playCount).ToList());
     }
 
+    /// <summary>升级：获得【保留】。</summary>
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Retain);
     }
 }

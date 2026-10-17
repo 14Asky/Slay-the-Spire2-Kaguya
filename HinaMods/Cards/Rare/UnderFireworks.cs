@@ -22,9 +22,8 @@ namespace Kaguya.HinaMods.Cards;
 /// </summary>
 public sealed class UnderFireworks : HinaModsCard
 {
-    // 未升级带虚无；升级后回归基类关键词（无虚无）
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? base.CanonicalKeywords.ToList() : [CardKeyword.Ethereal];
+    /// <summary>基础带【虚无】；升级后由 OnUpgrade 去除。</summary>
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
     // 1费 | 能力牌 | 稀有 | 指向自身
     public UnderFireworks()
@@ -53,8 +52,9 @@ public sealed class UnderFireworks : HinaModsCard
             this);
     }
 
-    // 升级：去除虚无（由 CanonicalKeywords 依据 IsUpgraded 判定，无需改数值）
+    // 升级：去除【虚无】
     protected override void OnUpgrade()
     {
+        RemoveKeyword(CardKeyword.Ethereal);
     }
 }

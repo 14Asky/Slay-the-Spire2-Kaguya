@@ -20,9 +20,9 @@ namespace Kaguya.HinaMods.Cards.Uncommon;
 /// 本地化键：KAGUYA-HINA_MODS_MOON_BARRIER.title / .description
 /// 2费 · 技能牌 · 罕见 · 目标：自身
 /// 卡面：获得12点格挡。
-///       [gold]消耗[/gold]1层[gold]月夜[/gold]：给予所有敌人1层[gold]虚弱[/gold]，并使其失去1层[gold]临时力量[/gold]。
-/// 代码实测：Block=12；MoonCost=1；DebuffAmount=1
-/// 升级：MoonCost +1；DebuffAmount +1
+///       [gold]月夜5[/gold]：获得2层[gold]荆棘[/gold]，并给予所有敌人2层[gold]虚弱[/gold]。
+/// 代码实测：Block=12；MoonCost=5；ThornsPower=2；WeakPower=2
+/// 升级：Block +3（12→15）；MoonCost -2（5→3）；荆棘/虚弱层数不变
 /// </summary>
 public class MoonTorii() : HinaModsCard(2,
     CardType.Skill, CardRarity.Uncommon,
@@ -31,8 +31,9 @@ public class MoonTorii() : HinaModsCard(2,
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(12m, ValueProp.Move),
-        new DynamicVar("MoonCost", 1m),
-        new DynamicVar("DebuffAmount", 1m)
+        new DynamicVar("MoonCost", 5m),
+        new PowerVar<ThornsPower>(2m),
+        new PowerVar<WeakPower>(2m)
     ];
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
@@ -40,6 +41,7 @@ public class MoonTorii() : HinaModsCard(2,
         return new IHoverTip[]
         {
            HoverTipFactory.FromPower<MoonlightPower>(),
+           HoverTipFactory.FromPower<ThornsPower>(),
            HoverTipFactory.FromPower<WeakPower>(),
         };
     }
@@ -50,7 +52,6 @@ public class MoonTorii() : HinaModsCard(2,
         await CommonActions.CardBlock(this, cardPlay);
 
         int moonCost = (int)DynamicVars["MoonCost"].BaseValue;
-        int debuff = (int)DynamicVars["DebuffAmount"].BaseValue;
 
         // 消耗月夜（被「获得+免费」途径取得时 need=0，效果照常触发）
         if (!await TryConsumeMoonlight(choiceContext, moonCost, this))
@@ -59,24 +60,30 @@ public class MoonTorii() : HinaModsCard(2,
         }
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
 
+        // 自己获得荆棘
+        await PowerCmd.Apply<ThornsPower>(
+            choiceContext,
+            Owner.Creature,
+            DynamicVars[nameof(ThornsPower)].BaseValue,
+            Owner.Creature,
+            this);
+
+        // 所有敌人获得虚弱
         foreach (var enemy in CombatState.HittableEnemies)
         {
-            // 给予虚弱
-            await PowerCmd.Apply<WeakPower>(choiceContext, enemy, debuff, Owner.Creature, this);
-
-            // 使其失去等量的临时力量
-            var tempStrength = enemy.GetPower<TemporaryStrengthPower>();
-            if (tempStrength != null)
-            {
-                await PowerCmd.ModifyAmount(choiceContext, tempStrength, -debuff, Owner.Creature, this);
-            }
+            await PowerCmd.Apply<WeakPower>(
+                choiceContext,
+                enemy,
+                DynamicVars[nameof(WeakPower)].BaseValue,
+                Owner.Creature,
+                this);
         }
     }
 
-    // 升级：月夜消耗 +1，虚弱/临时力量层数 +1
+    /// <summary>升级：格挡 12 → 15；月夜门槛 5 → 3。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars["MoonCost"].UpgradeValueBy(1m);
-        DynamicVars["DebuffAmount"].UpgradeValueBy(1m);
+        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars["MoonCost"].UpgradeValueBy(-2m);
     }
 }

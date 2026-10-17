@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b53rpomspwtka"
-path="res://.godot/imported/finale.png-22c3505437ab6ed2979822f26f349a33.ctex"
+path="res://.godot/imported/finale.png-2f8a29999d43967c734f37bc830320a0.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/finale.png"
-dest_files=["res://.godot/imported/finale.png-22c3505437ab6ed2979822f26f349a33.ctex"]
+dest_files=["res://.godot/imported/finale.png-2f8a29999d43967c734f37bc830320a0.ctex"]
 
 [params]
 

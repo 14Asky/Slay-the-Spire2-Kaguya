@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6d71m5nbpyld"
-path="res://.godot/imported/vast_sky.png-44c95e95f97a9020bd023a9ff2fa4d70.ctex"
+path="res://.godot/imported/vast_sky.png-18c33256f5a87fae0aaad0befbc2ba04.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/vast_sky.png"
-dest_files=["res://.godot/imported/vast_sky.png-44c95e95f97a9020bd023a9ff2fa4d70.ctex"]
+dest_files=["res://.godot/imported/vast_sky.png-18c33256f5a87fae0aaad0befbc2ba04.ctex"]
 
 [params]
 

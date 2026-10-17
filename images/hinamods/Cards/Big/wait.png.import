@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cainhfsfv3mmc"
-path="res://.godot/imported/wait.png-c8e759aacd60317130bf359f3aac4036.ctex"
+path="res://.godot/imported/wait.png-0927aee9bc6ff0e61304eb89e0a9bd55.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/wait.png"
-dest_files=["res://.godot/imported/wait.png-c8e759aacd60317130bf359f3aac4036.ctex"]
+dest_files=["res://.godot/imported/wait.png-0927aee9bc6ff0e61304eb89e0a9bd55.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://umqeeapkofus"
-path="res://.godot/imported/all_round_support.png-81901f85e440198e60ea4cd93a8171a5.ctex"
+path="res://.godot/imported/all_round_support.png-ec03896631305def835ca421f0af6036.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/all_round_support.png"
-dest_files=["res://.godot/imported/all_round_support.png-81901f85e440198e60ea4cd93a8171a5.ctex"]
+dest_files=["res://.godot/imported/all_round_support.png-ec03896631305def835ca421f0af6036.ctex"]
 
 [params]
 

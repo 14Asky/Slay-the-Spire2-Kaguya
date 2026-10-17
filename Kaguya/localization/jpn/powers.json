@@ -1,4 +1,4 @@
-{
+﻿{
 	"RECALL_POWER.title": "Remember",
 	"RECALL_POWER.description": "次のターン開始時、想起するカードを手札に戻し、それを保留する。",
 	"STARLIT_SEA_POWER.title": "星降る海",
@@ -152,20 +152,20 @@
 	"KAGUYA-WEAPON_SWAP_POWER.smartDescription": "[blue]支援[/blue]カードをプレイして得るポジティブバフが永続になる。",
 
 	"KAGUYA-CELESTIAL_FORM_POWER.title": "天人形態",
-	"KAGUYA-CELESTIAL_FORM_POWER.description": "[gold]月夜[/gold]を得るたび、その{Amount}%を追加で得る。",
-	"KAGUYA-CELESTIAL_FORM_POWER.smartDescription": "[gold]月夜[/gold]を得るたび、その{Amount}%を追加で得る。",
+	"KAGUYA-CELESTIAL_FORM_POWER.description": "[gold]月夜[/gold]を得るたび、その層数に等しいダメージをすべての敵に与える。毎ターン開始時、[gold]月夜[/gold]{Amount}を得る。",
+	"KAGUYA-CELESTIAL_FORM_POWER.smartDescription": "[gold]月夜[/gold]を得るたび、その層数に等しいダメージをすべての敵に与える。毎ターン開始時、[gold]月夜[/gold]{Amount}を得る。",
 
 	"KAGUYA-STARLIT_BRILLIANCE_POWER.title": "星夜の輝き",
-	"KAGUYA-STARLIT_BRILLIANCE_POWER.description": "カードを引くたびに、[gold]月夜[/gold]1層を得る。",
-	"KAGUYA-STARLIT_BRILLIANCE_POWER.smartDescription": "カードを引くたびに、[gold]月夜[/gold]1層を得る。",
+	"KAGUYA-STARLIT_BRILLIANCE_POWER.description": "毎ターン、カードを3枚プレイするたびに[gold]月夜[/gold]{Amount}を得る。",
+	"KAGUYA-STARLIT_BRILLIANCE_POWER.smartDescription": "毎ターン、カードを3枚プレイするたびに[gold]月夜[/gold]{Amount}を得る。",
 
 	"KAGUYA-HEAVENLY_ROBE_POWER.title": "天の羽衣",
-	"KAGUYA-HEAVENLY_ROBE_POWER.description": "ターン終了時、持てる[gold]月夜[/gold]1につきブロック1を得る。",
+	"KAGUYA-HEAVENLY_ROBE_POWER.description": "ターン終了時、持てる[gold]月夜[/gold]1につき{Amount}ブロックを得る。",
 	"KAGUYA-HEAVENLY_ROBE_POWER.smartDescription": "ターン終了時、持てる[gold]月夜[/gold]1につき{Amount}ブロックを得る。",
 
 	"KAGUYA-CURTAIN_RAISER_POWER.title": "開幕",
 	"KAGUYA-CURTAIN_RAISER_POWER.description": "[blue]支援[/blue]カードを一定枚数プレイするたび、カード1枚を引く（標準4枚、アップグレード後3枚）。",
-	"KAGUYA-CURTAIN_RAISER_POWER.smartDescription": "[blue]支援[/blue]カードを3枚プレイするたび、カードを1枚引く。",
+	"KAGUYA-CURTAIN_RAISER_POWER.smartDescription": "[blue]支援[/blue]カードを一定枚数プレイするたび、カード1枚を引く（標準4枚、アップグレード後3枚）。",
 
 	"KAGUYA-GOLDEN_SCALE_POWER.title": "錦鱗",
 	"KAGUYA-GOLDEN_SCALE_POWER.description": "ターン開始時、引いたカードの中からランダムなコスト1以上のカード{Amount}枚のコストを1減少させる。",
@@ -181,12 +181,12 @@
 	"KAGUYA-UNDER_FIREWORKS_POWER.smartDescription": "ターン開始時、カードを1枚[gold]廃棄[/gold]し、{energyPrefix:energyIcons(1)}を得る。\n選んだカードが[purple]歌声[/purple]なら、そのカードをプレイしてさらに{energyPrefix:energyIcons(1)}を得る。",
 
 	"KAGUYA-SHINING_STAGE_POWER.title": "輝くステージ",
-	"KAGUYA-SHINING_STAGE_POWER.description": "ターン終了時、このターンにプレイしたカード数に等しい[gold]活力[/gold]を得る。",
+	"KAGUYA-SHINING_STAGE_POWER.description": "ターン終了時、このターンにプレイしたカード1枚につき[gold]活力[/gold]{Amount}を得る。",
 	"KAGUYA-SHINING_STAGE_POWER.smartDescription": "ターン終了時、このターンにプレイしたカード1枚につき[gold]活力[/gold]{Amount}を得る。",
 
 	"KAGUYA-REVERBERATION_POWER.title": "余韻",
-	"KAGUYA-REVERBERATION_POWER.description": "毎ターン終了時、このターン最後にプレイした[purple]歌声カード[/purple]を自動的にプレイする。",
-	"KAGUYA-REVERBERATION_POWER.smartDescription": "毎ターン終了時、このターン最後にプレイした[purple]歌声カード[/purple]を自動的にプレイする。",
+	"KAGUYA-REVERBERATION_POWER.description": "毎ターン終了時、このターン最後にプレイしたカードを自動的にプレイする。",
+	"KAGUYA-REVERBERATION_POWER.smartDescription": "毎ターン終了時、このターン最後にプレイしたカードを自動的にプレイする。",
 
 	"KAGUYA-STAR_NIGHT_POWER.title": "音を辿って",
 	"KAGUYA-STAR_NIGHT_POWER.description": "次にプレイするカードは、[gold]リプレイ[/gold]1と[gold]エセリアル[/gold]を得る。",
@@ -219,5 +219,8 @@
 	"KAGUYA-GAZE_POWER.smartDescription": "このターン、ダメージを与えるたび[gold]月夜[/gold]{Amount}を得る。",
 	"KAGUYA-FINALE_POWER.title": "終幕",
 	"KAGUYA-FINALE_POWER.description": "次のターン開始時、[blue]ホームラン[/blue]{Amount}枚を得る。",
-	"KAGUYA-FINALE_POWER.smartDescription": "次のターン開始時、[blue]ホームラン[/blue]{Amount}枚を得る。"
+	"KAGUYA-FINALE_POWER.smartDescription": "次のターン開始時、[blue]ホームラン[/blue]{Amount}枚を得る。",
+	"KAGUYA-ENDING_POWER.title": "月の祝福",
+	"KAGUYA-DAILY_SONG_END_POWER.title": "穏やかな日常",
+	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "待つ"
 }

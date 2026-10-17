@@ -22,9 +22,9 @@ namespace Kaguya.HinaMods.Cards;
 /// 招架（SupportParry）
 /// 本地化键：KAGUYA-SUPPORT_HEAVY_BLOCK.title / .description
 /// 1费 · 技能牌 · 令牌 · 目标：自身
-/// 卡面：[blue]支援[/blue]：获得9点格挡。
-/// 代码实测：Block=9
-/// 升级：Block +4
+/// 卡面：[blue]支援[/blue]：获得8点格挡。
+/// 代码实测：Block=8
+/// 升级：Block +3（8 → 11）
 /// </summary>
 [Pool(typeof(TokenCardPool))]
 public sealed class SupportParry : HinaModsCard
@@ -33,7 +33,7 @@ public sealed class SupportParry : HinaModsCard
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORT };
 
     // 🔥 修复1：格挡数值改为 decimal 类型（8m），官方强制规范
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(9m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move)];
 
     // 核心修改：稀有度改为 Token（代币，和 Shiv/支援打击 完全一致）
     public SupportParry() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self)
@@ -49,7 +49,7 @@ public sealed class SupportParry : HinaModsCard
     // 原有升级效果
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 
     // 官方标准：代币生成方法（和 SupportStrike 代码完全一致）

@@ -1,4 +1,4 @@
-{
+﻿{
 "RECALL_POWER.title": "Remember",
 	"RECALL_POWER.description": "下回合开始时，将待召回牌移回手牌并使其保留。",
 	"STARLIT_SEA_POWER.title": "星降る海",
@@ -152,20 +152,20 @@
   "KAGUYA-WEAPON_SWAP_POWER.smartDescription": "当你打出[blue]支援[/blue]牌获得的正面buff变为永久。",
 
   "KAGUYA-CELESTIAL_FORM_POWER.title": "天人形态",
-  "KAGUYA-CELESTIAL_FORM_POWER.description": "每当你获得[gold]月夜[/gold]时，额外获得该次获得量{Amount}%的[gold]月夜[/gold]。",
-  "KAGUYA-CELESTIAL_FORM_POWER.smartDescription": "每当你获得[gold]月夜[/gold]时，额外获得该次获得量{Amount}%的[gold]月夜[/gold]。",
+  "KAGUYA-CELESTIAL_FORM_POWER.description": "每当你获得[gold]月夜[/gold]时，对所有敌方造成等层数的伤害。每回合开始时获得{Amount}层[gold]月夜[/gold]。",
+  "KAGUYA-CELESTIAL_FORM_POWER.smartDescription": "每当你获得[gold]月夜[/gold]时，对所有敌方造成等层数的伤害。每回合开始时获得{Amount}层[gold]月夜[/gold]。",
 
   "KAGUYA-STARLIT_BRILLIANCE_POWER.title": "星夜璀璨",
-  "KAGUYA-STARLIT_BRILLIANCE_POWER.description": "每当你抽取卡牌时，获得1层[gold]月夜[/gold]。",
-  "KAGUYA-STARLIT_BRILLIANCE_POWER.smartDescription": "每当你抽取卡牌时，获得1层[gold]月夜[/gold]。",
+  "KAGUYA-STARLIT_BRILLIANCE_POWER.description": "每个回合每当你打出3张牌时，获得{Amount}层[gold]月夜[/gold]。",
+  "KAGUYA-STARLIT_BRILLIANCE_POWER.smartDescription": "每个回合每当你打出3张牌时，获得{Amount}层[gold]月夜[/gold]。",
 
   "KAGUYA-HEAVENLY_ROBE_POWER.title": "天之羽衣",
-  "KAGUYA-HEAVENLY_ROBE_POWER.description": "回合结束时，每有1层月夜，获得1点格挡。",
+  "KAGUYA-HEAVENLY_ROBE_POWER.description": "回合结束时，每拥有1层[gold]月夜[/gold]，获得{Amount}点格挡。",
   "KAGUYA-HEAVENLY_ROBE_POWER.smartDescription": "回合结束时，每拥有1层[gold]月夜[/gold]，获得{Amount}点格挡。",
 
   "KAGUYA-CURTAIN_RAISER_POWER.title": "开幕",
   "KAGUYA-CURTAIN_RAISER_POWER.description": "每打出若干张[blue]支援[/blue]牌，抽1张牌（基础4张，升级后为3张）。",
-  "KAGUYA-CURTAIN_RAISER_POWER.smartDescription": "每打出3张[blue]支援[/blue]卡牌，抽取1张卡牌。",
+  "KAGUYA-CURTAIN_RAISER_POWER.smartDescription": "每打出若干张[blue]支援[/blue]牌，抽1张牌（基础4张，升级后为3张）。",
 
   "KAGUYA-GOLDEN_SCALE_POWER.title": "锦鳞",
   "KAGUYA-GOLDEN_SCALE_POWER.description": "回合开始时，将你抽取到的随机{Amount}张1费及以上牌费用-1。",
@@ -181,12 +181,12 @@
   "KAGUYA-UNDER_FIREWORKS_POWER.smartDescription": "每回合开始时，[gold]消耗[/gold]1张牌并获得{energyPrefix:energyIcons(1)}；\n若选择的是[purple]歌声[/purple]牌，则打出该牌并再获得{energyPrefix:energyIcons(1)}。",
 
   "KAGUYA-SHINING_STAGE_POWER.title": "闪耀舞台",
-  "KAGUYA-SHINING_STAGE_POWER.description": "回合结束时，获得等同于你本回合打出卡牌数的[gold]活力[/gold]。",
+  "KAGUYA-SHINING_STAGE_POWER.description": "回合结束时，你本回合每打出过1张牌，就获得{Amount}层[gold]活力[/gold]。",
   "KAGUYA-SHINING_STAGE_POWER.smartDescription": "回合结束时，你本回合每打出过1张牌，就获得{Amount}层[gold]活力[/gold]。",
 
   "KAGUYA-REVERBERATION_POWER.title": "余音",
-  "KAGUYA-REVERBERATION_POWER.description": "每回合结束时，自动打出本回合你打出的最后一张[purple]歌声牌[/purple]。",
-  "KAGUYA-REVERBERATION_POWER.smartDescription": "每回合结束时，自动打出本回合你打出的最后一张[purple]歌声牌[/purple]。",
+  "KAGUYA-REVERBERATION_POWER.description": "每回合结束时，自动打出本回合你打出的最后一张牌。",
+  "KAGUYA-REVERBERATION_POWER.smartDescription": "每回合结束时，自动打出本回合你打出的最后一张牌。",
 
   "KAGUYA-STAR_NIGHT_POWER.title": "循声",
   "KAGUYA-STAR_NIGHT_POWER.description": "你打出的下一张牌后，该牌获得[gold]重放[/gold]1和[gold]虚无[/gold]。",
@@ -218,5 +218,8 @@
 	"KAGUYA-GAZE_POWER.smartDescription": "本回合内，你每造成一次伤害就获得{Amount}层[gold]月夜[/gold]。",
 	"KAGUYA-FINALE_POWER.title": "收场",
 	"KAGUYA-FINALE_POWER.description": "下个回合开始时，获得{Amount}张[blue]全垒打[/blue]。",
-	"KAGUYA-FINALE_POWER.smartDescription": "下个回合开始时，获得{Amount}张[blue]全垒打[/blue]。"
+	"KAGUYA-FINALE_POWER.smartDescription": "下个回合开始时，获得{Amount}张[blue]全垒打[/blue]。",
+	"KAGUYA-ENDING_POWER.title": "月之赐福",
+	"KAGUYA-DAILY_SONG_END_POWER.title": "平静日常",
+	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "等待"
 }

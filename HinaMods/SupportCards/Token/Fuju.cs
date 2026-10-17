@@ -20,8 +20,8 @@ namespace Kaguya.HinaMods.Cards;
 /// Fuju~（Fuju）
 /// 本地化键：KAGUYA-SUPPORT_GOLD.title / .description
 /// 0费 · 技能牌 · 令牌 · 目标：自身
-/// 卡面：[blue]支援[/blue]：获得15金币。
-/// 升级：无
+/// 卡面：[blue]支援[/blue]：获得10金币。
+/// 代码实测：Gold=10；升级 20
 /// </summary>
 [Pool(typeof(TokenCardPool))]
 public sealed class Fuju : HinaModsCard
@@ -37,7 +37,7 @@ public sealed class Fuju : HinaModsCard
     // 核心效果：获得10金币 + 施加1层支援之力BUFF
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int goldAmount = IsUpgraded ? 15 : 10;
+        int goldAmount = IsUpgraded ? 20 : 10;
         // 官方标准指令：获得10金币（无修改）
         await PlayerCmd.GainGold(goldAmount, Owner);
     }

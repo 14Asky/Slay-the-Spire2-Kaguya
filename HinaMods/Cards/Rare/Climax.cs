@@ -36,9 +36,8 @@ public sealed class Climax : HinaModsCard
     /// <summary>本回合已结束（效果失效）。</summary>
     private bool _expired;
 
-    /// <summary>消耗；升级后额外获得【保留】。</summary>
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [CardKeyword.Exhaust, CardKeyword.Retain] : [CardKeyword.Exhaust];
+    /// <summary>基础带【消耗】；升级后额外获得【保留】（见 OnUpgrade）。</summary>
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public Climax()
         : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
@@ -49,13 +48,17 @@ public sealed class Climax : HinaModsCard
         _active = true;
     }
 
-    /// <summary>本回合每打出一张牌（含本牌），随机将一张支援牌加入手牌。</summary>
+    /// <summary>本回合每打出一张【攻击牌】，随机将一张支援牌加入手牌。</summary>
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await base.AfterCardPlayed(choiceContext, cardPlay);
 
         // 不包含本牌自己
         if (cardPlay.Card == this)
+            return;
+
+        // 只统计攻击牌
+        if (cardPlay.Card?.Type != CardType.Attack)
             return;
 
         if (!_active || _expired || Owner == null || cardPlay.Player != Owner)
@@ -103,8 +106,9 @@ public sealed class Climax : HinaModsCard
         }
     }
 
-    // 升级：获得【保留】（CanonicalKeywords 按 IsUpgraded 动态返回，不再降费）
+    // 升级：获得【保留】（不再降费）
     protected override void OnUpgrade()
     {
+        AddKeyword(CardKeyword.Retain);
     }
 }

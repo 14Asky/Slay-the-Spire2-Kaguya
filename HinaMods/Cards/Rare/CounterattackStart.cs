@@ -19,10 +19,10 @@ namespace Kaguya.HinaMods.Cards.Rare;
 /// 反击开始（CounterattackStart）
 /// 本地化键：KAGUYA-HINA_MODS_MOONLIGHT_RECALL.title / .description
 /// 2费 · 攻击牌 · 稀有 · 目标：单个敌人
-/// 卡面：造成12点伤害，给予1层[gold]易伤[/gold]和1层[gold]虚弱[/gold]。
+/// 卡面：造成12点伤害，给予1层[gold]易伤[/gold]。
 ///       [gold]月夜5[/gold]：将此牌返回[gold]手牌[/gold]，其本回合费用减少1。
-/// 代码实测：Damage=12；VulnerablePower=1；WeakPower=1；MoonCost=5
-/// 升级：虚弱 +1；Damage +3；Vulnerable +1
+/// 代码实测：Damage=12；VulnerablePower=1；MoonCost=5
+/// 升级：Damage +2（12→14）；MoonCost -2（5→3）；易伤层数不变
 /// </summary>
 public class CounterattackStart : HinaModsCard
 {
@@ -34,7 +34,6 @@ public class CounterattackStart : HinaModsCard
     [
         new DamageVar(12m, ValueProp.Move),
         new PowerVar<VulnerablePower>(1m),
-        new PowerVar<WeakPower>(1m),
         new PowerVar<MoonlightPower>(MoonCostVarName, 5m)
     ];
 
@@ -43,7 +42,6 @@ public class CounterattackStart : HinaModsCard
         return new IHoverTip[]
         {
            HoverTipFactory.FromPower<VulnerablePower>(),
-           HoverTipFactory.FromPower<WeakPower>(),
            HoverTipFactory.FromPower<MoonlightPower>(),
         };
     }
@@ -55,20 +53,10 @@ public class CounterattackStart : HinaModsCard
         if (!cardPlay.IsFirstInSeries)
             return;
 
-        decimal vulnAmount = DynamicVars.Vulnerable.BaseValue;
-        decimal weakAmount = DynamicVars[nameof(WeakPower)].BaseValue;
-
         await PowerCmd.Apply<VulnerablePower>(
             choiceContext,
             cardPlay.Target,
-            vulnAmount,
-            Owner.Creature,
-            this);
-
-        await PowerCmd.Apply<WeakPower>(
-            choiceContext,
-            cardPlay.Target,
-            weakAmount,
+            DynamicVars.Vulnerable.BaseValue,
             Owner.Creature,
             this);
 
@@ -92,10 +80,10 @@ public class CounterattackStart : HinaModsCard
         await base.AfterCardPlayed(context, cardPlay);
     }
 
+    /// <summary>升级：伤害 12 → 14；月夜门槛 5 → 3（易伤层数不变）。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
-        DynamicVars.Vulnerable.UpgradeValueBy(1m);
-        DynamicVars[nameof(WeakPower)].UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars[MoonCostVarName].UpgradeValueBy(-2m);
     }
 }

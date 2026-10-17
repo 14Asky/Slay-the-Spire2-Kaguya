@@ -31,7 +31,7 @@ public sealed class Chorus : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CalculationBaseVar(6m),
+        new CalculationBaseVar(3m),
         new ExtraDamageVar(3m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(ChorusCount)
     ];
@@ -64,7 +64,13 @@ public sealed class Chorus : HinaModsCard
         if (chosen == null)
             return;
 
-        CardModel copy = Owner.RunState.CreateCard<Chorus>(Owner);
+        // 必须用「战斗作用域」建牌：RunState.CreateCard 建出来的牌不会登记进 CombatState，
+        // 而引擎规定「战斗牌堆里的牌必须已存在于 CombatState」——
+        // 于是之后抽牌堆见底、弃牌堆洗回时，CardPileCmd.Add 会抛
+        // 「KAGUYA-CHORUS must be added to a CombatState before adding it to this pile.」，
+        // 直接打死回合循环（日志：turn loop died）→ 整场战斗卡死。
+        // CardModel.CardScope 在战斗中即 CombatState，与工程内其它卡（星河入梦等）一致。
+        CardModel copy = CardScope.CreateCard<Chorus>(Owner);
         if (IsUpgraded)
         {
             CardCmd.Upgrade(copy);
@@ -75,7 +81,7 @@ public sealed class Chorus : HinaModsCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars.CalculationBase.UpgradeValueBy(2m);
+        DynamicVars.CalculationBase.UpgradeValueBy(1m);
         DynamicVars.ExtraDamage.UpgradeValueBy(1m);
     }
 }

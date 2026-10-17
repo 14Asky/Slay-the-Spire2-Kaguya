@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drrhy60mucx14"
-path="res://.godot/imported/coordinated_ops.png-460bd0f61d05f337d6e34b4cef58ccf3.ctex"
+path="res://.godot/imported/coordinated_ops.png-319ca79d942672d2252e0aeb8fbaed21.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/coordinated_ops.png"
-dest_files=["res://.godot/imported/coordinated_ops.png-460bd0f61d05f337d6e34b4cef58ccf3.ctex"]
+dest_files=["res://.godot/imported/coordinated_ops.png-319ca79d942672d2252e0aeb8fbaed21.ctex"]
 
 [params]
 

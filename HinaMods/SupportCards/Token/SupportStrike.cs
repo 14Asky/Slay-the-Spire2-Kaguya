@@ -36,7 +36,7 @@ public sealed class SupportStrike : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(4m, ValueProp.Move)
+        new DamageVar(5m, ValueProp.Move)
     };
 
     public SupportStrike() : base(0, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy)
@@ -51,7 +51,7 @@ public sealed class SupportStrike : HinaModsCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 
     // 🔥 修复2：CombatState 改为官方接口 ICombatState

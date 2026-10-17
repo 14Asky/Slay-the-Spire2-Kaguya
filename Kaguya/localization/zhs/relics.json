@@ -151,11 +151,11 @@
 	"KAGUYA-EIGHT_THOUSAND_YEARS_LONGING.title": "八千年的思念",
 	"KAGUYA-EIGHT_THOUSAND_YEARS_LONGING.description": "拾起时，将一张[green]决心+[/green]加入你的[gold]牌组[/gold]。",
 	"KAGUYA-EIGHT_THOUSAND_YEARS_LONGING.flavor": "[gold]我怎么现在才意识到呢...[/gold]","KAGUYA-HINA_MODS_FORTUNE_RELIC.title": "辉夜的手镯",
-  "KAGUYA-HINA_MODS_FORTUNE_RELIC.description": "回合开始时，获得{FortunePower}层[gold]月夜[/gold]。",
+  "KAGUYA-HINA_MODS_FORTUNE_RELIC.description": "回合开始时，获得{MoonlightPower}层[gold]月夜[/gold]。",
   "KAGUYA-HINA_MODS_FORTUNE_RELIC.flavor": "[red]我要吃松饼了……[/red]",
 
   "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.title": "月见伞",
-  "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "回合开始时，获得{FortunePower}层[gold]月夜[/gold]。",
+  "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "回合开始时，获得{MoonlightPower}层[gold]月夜[/gold]。",
   "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.flavor": "[purple]八千代的伞型武器，可以为你提供帮助。[/purple]",
 
   "KAGUYA-HINA_PHONOGRAPH_RELIC.title": "辉夜的耳机",
@@ -167,7 +167,7 @@
   "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]原光之竹，承载着月夜的光辉。[/gold]",
 
   "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "辉夜的智能手机",
-  "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "每场战斗开始时，获得{FortunePower}层[gold]月夜[/gold]。",
+  "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "每场战斗开始时，获得{MoonlightPower}层[gold]月夜[/gold]。",
   "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.flavor": "[blue]辉夜喜爱的手机...[/blue]",
 
   "KAGUYA-SUN_HEADDRESS_RELIC.title": "太阳头饰",

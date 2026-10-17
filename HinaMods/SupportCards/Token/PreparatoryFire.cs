@@ -26,17 +26,17 @@ namespace Kaguya.HinaMods.SupportCards.Common;
 /// 预备射击（PreparatoryFire）
 /// 本地化键：KAGUYA-SUPPORT_DOUBLE_STRIKE.title / .description
 /// 2费 · 攻击牌 · 令牌 · 目标：全体敌人
-/// 卡面：[blue]支援[/blue]：对所有敌人造成3点伤害3次。
-/// 代码实测：Damage=3；HitCount=3
-/// 升级：HitCount +1
+/// 卡面：[blue]支援[/blue]：对所有敌人造成2点伤害5次。
+/// 代码实测：Damage=2；HitCount=5
+/// 升级：Damage +1（2→3），次数不变
 /// </summary>
 public sealed class PreparatoryFire : HinaModsCard
 {
     // 基础伤害3点（无修改）
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(3m, ValueProp.Move),
-        new DynamicVar("HitCount", 3m)
+        new DamageVar(2m, ValueProp.Move),
+        new DynamicVar("HitCount", 5m)
     };
 
     // 支援专属标签（无修改）
@@ -57,10 +57,10 @@ public sealed class PreparatoryFire : HinaModsCard
             .Execute(choiceContext);
     }
 
-    // 升级：命中次数 3 → 4（伤害不变）
+    // 升级：每次伤害 2 → 3（命中次数 5 不变）
     protected override void OnUpgrade()
     {
-        base.DynamicVars["HitCount"].UpgradeValueBy(1m);
+        base.DynamicVars.Damage.UpgradeValueBy(1m);
     }
 
     // 🔥 修复2：CombatState 改为官方标准接口 ICombatState

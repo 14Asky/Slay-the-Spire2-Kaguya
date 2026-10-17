@@ -82,9 +82,10 @@ public sealed class Listen : HinaModsCard
         }
     }
 
-    /// <summary>升级：格挡 5 → 8。</summary>
+    /// <summary>升级：格挡 5 → 8；月夜门槛 2 → 1。</summary>
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars[MoonCostVarName].UpgradeValueBy(-1m);
     }
 }

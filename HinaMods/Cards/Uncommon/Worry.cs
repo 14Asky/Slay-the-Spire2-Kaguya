@@ -25,9 +25,8 @@ public sealed class Worry : HinaModsCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 
-    /// <summary>消耗；升级后移除。</summary>
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [] : [CardKeyword.Exhaust];
+    /// <summary>基础带【消耗】；升级时用 RemoveKeyword 去掉（见 OnUpgrade）。</summary>
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     /// <summary>支援牌标签（本牌会获得支援牌）。</summary>
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORTCARD };
@@ -47,16 +46,17 @@ public sealed class Worry : HinaModsCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 固定加入 2 张「照顾」（升级只影响关键词，不影响张数）
+        // 固定加入 2 张「照顾」
         for (int i = 0; i < 2; i++)
         {
             CardModel supportBlock = CardScope.CreateCard<Care>(Owner);
-            await CardPileCmd.Add(supportBlock, PileType.Hand);
+            await CardPileCmd.AddGeneratedCardToCombat(supportBlock, PileType.Hand, Owner);
         }
     }
 
-    // 升级效果只体现在「去除消耗」（见 CanonicalKeywords）
+    /// <summary>升级：去除【消耗】（与官方同类卡一致，用 RemoveKeyword 而非覆盖 CanonicalKeywords）。</summary>
     protected override void OnUpgrade()
     {
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }

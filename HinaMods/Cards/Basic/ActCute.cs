@@ -22,7 +22,7 @@ namespace Kaguya.HinaMods.Cards;
 /// 卡面：获得6点格挡。
 ///       随机敌人获得1层[gold]虚弱[/gold]1次。
 /// 代码实测：Block=6；WeakTimes=1
-/// 升级：WeakTimes +1
+/// 升级：WeakTimes +1；Block +2
 /// </summary>
 public sealed class ActCute : HinaModsCard
 {
@@ -74,5 +74,6 @@ public sealed class ActCute : HinaModsCard
     protected override void OnUpgrade()
     {
         base.DynamicVars[WeakTimesKey].UpgradeValueBy(1m);
+        base.DynamicVars.Block.UpgradeValueBy(2m);
     }
 }

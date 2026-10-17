@@ -46,7 +46,9 @@ public sealed class FinalePower : CustomPowerModel
             {
                 for (int i = 0; i < count; i++)
                 {
-                    CardModel card = player.RunState.CreateCard<HomeRun>(player);
+                    // 同「合唱 Chorus」：必须用战斗作用域建牌。RunState.CreateCard 不进 CombatState，
+                    // 日后弃牌堆洗回抽牌堆时会抛「must be added to a CombatState」打死回合循环。
+                    CardModel card = player.Creature.CombatState.CreateCard<HomeRun>(player);
                     if (Discount > 0)
                     {
                         card.EnergyCost.AddThisCombat(-Discount);

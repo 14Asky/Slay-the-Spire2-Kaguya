@@ -2,19 +2,23 @@ using BaseLib.Abstracts;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using System;
+using MegaCrit.Sts2.Core.ValueProps;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kaguya.HinaMods.Powers;
 
 /// <summary>
 /// 天人形态（CelestialFormPower）
-/// 本地化键：KAGUYA-TSUKIMI_FORM.title / .description
-/// 卡面：每当你获得[gold]月夜[/gold]时，额外获得该次获得量{CelestialFormPower:diff()}%的[gold]月夜[/gold]。
+/// 本地化键：KAGUYA-CELESTIAL_FORM_POWER.title / .description
+/// 卡面：每当你获得[gold]月夜[/gold]时，对所有敌方造成等层数的伤害。
+///       每回合开始时获得{Amount}层[gold]月夜[/gold]。
 /// </summary>
 public sealed class CelestialFormPower : CustomPowerModel
 {
@@ -27,38 +31,47 @@ public sealed class CelestialFormPower : CustomPowerModel
     public override bool AllowNegative => false;
     public override int DisplayAmount => (int)Amount;
 
-    /// <summary>
-    /// 正在发放「额外月夜」期间置位。
-    /// 额外月夜本身也会触发一次 AfterPowerAmountChanged，不设这道闸会无限递归。
-    /// </summary>
-    private bool _isGrantingBonus;
+    /// <summary>正在结算「等层数伤害」期间置位，避免被自身触发的月夜变化递归。</summary>
+    private bool _isDealingDamage;
 
-    /// <summary>
-    /// 监听月夜层数变化：只在【获得】月夜（amount &gt; 0）时按比例额外再给。
-    /// </summary>
+    /// <summary>每当你【获得】月夜时，对所有敌方造成等层数的伤害。</summary>
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature applier, CardModel cardSource)
     {
         await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
 
-        if (Owner == null || _isGrantingBonus) return;
-        if (power is not MoonlightPower || power.Owner != this.Owner) return;
+        if (Owner == null || _isDealingDamage) return;
+        if (power is not MoonlightPower || power.Owner != Owner) return;
         if (amount <= 0m) return;
 
-        int percent = (int)Amount;
-        if (percent <= 0) return;
+        IReadOnlyList<Creature>? enemies = Owner.CombatState?.HittableEnemies;
+        if (enemies == null || enemies.Count == 0) return;
 
-        int bonus = (int)Math.Floor(amount * percent / 100m);
-        if (bonus <= 0) return;
-
-        _isGrantingBonus = true;
+        _isDealingDamage = true;
         try
         {
             Flash();
-            await PowerCmd.Apply<MoonlightPower>(choiceContext, Owner, bonus, Owner, null);
+            await CreatureCmd.Damage(
+                choiceContext: choiceContext,
+                targets: enemies.ToList(),
+                amount: amount,
+                props: ValueProp.Unpowered,
+                cardSource: null,
+                dealer: Owner,
+                cardPlay: null);
         }
         finally
         {
-            _isGrantingBonus = false;
+            _isDealingDamage = false;
         }
+    }
+
+    /// <summary>每回合开始时获得月夜。</summary>
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        await base.AfterPlayerTurnStart(choiceContext, player);
+
+        if (Owner == null || Owner.Player != player || !Owner.IsAlive) return;
+
+        await PowerCmd.Apply<MoonlightPower>(choiceContext, Owner, Amount, Owner, null, false);
     }
 }

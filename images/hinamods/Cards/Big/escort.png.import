@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c804ywthfktol"
-path="res://.godot/imported/escort.png-3812cd96a566dc627a8c8d6d1a14cf1c.ctex"
+path="res://.godot/imported/escort.png-1ccbe1b59f2874dd05a58edcbb9a3ddd.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/escort.png"
-dest_files=["res://.godot/imported/escort.png-3812cd96a566dc627a8c8d6d1a14cf1c.ctex"]
+dest_files=["res://.godot/imported/escort.png-1ccbe1b59f2874dd05a58edcbb9a3ddd.ctex"]
 
 [params]
 

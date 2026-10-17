@@ -59,9 +59,9 @@ public sealed class Gaze : HinaModsCard
             .Execute(choiceContext);
     }
 
-    // 升级：每造成一次伤害获得的月夜 1 → 2
+    // 升级：伤害 +3（8 → 11）；注视层数（每次伤害获得的月夜）不变
     protected override void OnUpgrade()
     {
-        DynamicVars[nameof(GazePower)].UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

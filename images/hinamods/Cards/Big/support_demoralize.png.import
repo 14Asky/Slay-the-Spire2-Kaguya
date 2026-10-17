@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1oymnmalyf58"
-path="res://.godot/imported/support_demoralize.png-12f50757ccdf3ed11d88985b1afb1ead.ctex"
+path="res://.godot/imported/support_demoralize.png-b22a3278001d619b00910297bd7cf64f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/support_demoralize.png"
-dest_files=["res://.godot/imported/support_demoralize.png-12f50757ccdf3ed11d88985b1afb1ead.ctex"]
+dest_files=["res://.godot/imported/support_demoralize.png-b22a3278001d619b00910297bd7cf64f.ctex"]
 
 [params]
 

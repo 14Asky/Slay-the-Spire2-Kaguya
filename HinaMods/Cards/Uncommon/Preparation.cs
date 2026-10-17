@@ -1,12 +1,13 @@
 using Kaguya.HinaMods.Powers;
-using Kaguya.HinaMods.SupportCards.Common;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using Kaguya.HinaMods;
 using System;
@@ -18,8 +19,8 @@ namespace Kaguya.HinaMods.Cards;
 
 /// <summary>
 /// 备战（Preparation）
-/// 本地化键：KAGUYA-CONFLUENCE.title / .description
-/// 1费 · 攻击牌 · 稀有 · 目标：单个敌人 · 关键词：Retain
+/// 本地化键：KAGUYA-PREPARATION.title / .description
+/// 2费 · 攻击牌 · 稀有 · 目标：单个敌人 · 关键词：Retain
 /// 卡面：造成6点伤害。
 ///       你每打出一张[blue]支援[/blue]攻击牌，此牌造成伤害+3。
 /// 代码实测：Damage=6；SupportBonus=3
@@ -40,15 +41,18 @@ public sealed class Preparation : HinaModsCard
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
     {
+        // 「支援」是卡牌标签，不是某一张具体牌（旧版误挂了「支援打击」单卡提示），故用标签提示。
         return new IHoverTip[]
         {
-            HoverTipFactory.FromCard<SupportStrike>()
+            new HoverTip(
+                new LocString("card_keywords", "SUPPORT.title"),
+                new LocString("card_keywords", "SUPPORT.description"))
         };
     }
 
-    // 构造函数：1费 攻击 稀有 任意敌人 + 保留
+    // 构造函数：2费 攻击 稀有 任意敌人 + 保留
     public Preparation()
-        : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+        : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -73,8 +77,8 @@ public sealed class Preparation : HinaModsCard
         if (Owner == null || Owner.Creature == null || Owner.Creature.CombatState == null)
             return;
 
-        // 仅手牌中生效
-        if (!PileType.Hand.GetPile(Owner).Cards.Contains(this))
+        // 仅手牌中生效（用 Pile.Type 判定，比遍历手牌列表更稳）
+        if (Pile == null || Pile.Type != PileType.Hand)
             return;
 
         // 仅本玩家打出的牌
@@ -92,6 +96,10 @@ public sealed class Preparation : HinaModsCard
             return;
 
         DynamicVars.Damage.BaseValue += DynamicVars["SupportBonus"].BaseValue;
+
+        // 关键：改完 BaseValue 必须主动刷新卡面节点，否则手里的伤害数字不会变
+        // （`DynamicVars` 没有变更事件；这是引擎自己在 CardCmd.ApplyKeyword 里用的写法）
+        NCard.FindOnTable(this)?.UpdateVisuals(PileType.Hand, CardPreviewMode.Normal);
     }
 
     /// <summary>升级：基础伤害 6 → 8，且每张支援攻击牌的加成 3 → 4。</summary>

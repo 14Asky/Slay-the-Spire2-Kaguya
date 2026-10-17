@@ -33,7 +33,8 @@ public sealed class Appear : HinaModsCard
     {
         return new IHoverTip[]
         {
-           HoverTipFactory.FromCard<SupportDash>()
+           HoverTipFactory.FromCard<SupportDash>(),
+           HoverTipFactory.FromCard<SupportStrike>()
         };
     }
 
@@ -43,20 +44,18 @@ public sealed class Appear : HinaModsCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CardModel card = CardScope.CreateCard<SupportDash>(Owner);
+        // 1 张疾驰
+        CardModel dash = CardScope.CreateCard<SupportDash>(Owner);
+        await CardPileCmd.AddGeneratedCardToCombat(dash, PileType.Hand, Owner);
 
-        // 升级版：获得的疾驰自带升级
-        if (IsUpgraded && card.IsMutable && card.IsUpgradable && !card.IsUpgraded)
-        {
-            card.UpgradeInternal();
-            card.FinalizeUpgradeInternal();
-        }
-
-        await CardPileCmd.Add(card, PileType.Hand);
+        // 1 张支援打击
+        CardModel strike = CardScope.CreateCard<SupportStrike>(Owner);
+        await CardPileCmd.AddGeneratedCardToCombat(strike, PileType.Hand, Owner);
     }
 
-    // 升级效果只体现在「获得的疾驰是否升级」，无需改数值
+    /// <summary>升级：费用 -1。</summary>
     protected override void OnUpgrade()
     {
+        EnergyCost.UpgradeBy(-1);
     }
 }

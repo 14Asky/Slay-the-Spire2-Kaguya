@@ -78,10 +78,10 @@ public sealed class Performance : HinaModsCard
         player.PlayerCombatState?.RecalculateCardValues();
     }
 
-    /// <summary>升级：格挡 12 → 16。</summary>
+    /// <summary>升级：格挡 12 → 15。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 
     // ====================== 官方标准代币生成方法 ======================

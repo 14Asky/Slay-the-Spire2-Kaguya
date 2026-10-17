@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cw7i3wc1ugt0t"
-path="res://.godot/imported/first_beat.png-7e11df9dca9f5c90ed5fd0fbae275e48.ctex"
+path="res://.godot/imported/first_beat.png-218273db58d009d8420684a5d82e332d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/first_beat.png"
-dest_files=["res://.godot/imported/first_beat.png-7e11df9dca9f5c90ed5fd0fbae275e48.ctex"]
+dest_files=["res://.godot/imported/first_beat.png-218273db58d009d8420684a5d82e332d.ctex"]
 
 [params]
 

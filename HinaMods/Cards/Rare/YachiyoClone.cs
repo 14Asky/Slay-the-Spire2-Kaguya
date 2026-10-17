@@ -31,7 +31,7 @@ public sealed class YachiyoClone : HinaModsCard
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORTCARD };
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(1),
+        new CardsVar(2),
         new PowerVar<MoonlightPower>(2m)
     ];
 
@@ -52,11 +52,15 @@ public sealed class YachiyoClone : HinaModsCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int tokenCount = (int)DynamicVars.Cards.BaseValue;
+        List<CardModel> tokens = new List<CardModel>();
         for (int i = 0; i < tokenCount; i++)
         {
-            CardModel token = CardScope.CreateCard<MoonView>(Owner);
-            await CardPileCmd.Add(token, PileType.Hand);
+            tokens.Add(CardScope.CreateCard<MoonView>(Owner));
         }
+
+        // 加入抽牌堆（带过渡动画）
+        CardCmd.PreviewCardPileAdd(
+            await CardPileCmd.AddGeneratedCardsToCombat(tokens, PileType.Draw, Owner));
 
         await CardPileCmd.Draw(choiceContext, 2, Owner);
 

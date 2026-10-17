@@ -1,13 +1,12 @@
 using BaseLib.Utils;
 using Godot;
-using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using Kaguya.HinaMods;
@@ -21,10 +20,11 @@ namespace Kaguya.HinaMods.Cards.Uncommon;
 
 /// <summary>
 /// 八方援护（AllRoundSupport）
-/// 本地化键：KAGUYA-RALLY_SUPPORT_CARD.title / .description
-/// 3费 · 技能牌 · 罕见 · 目标：自身
-/// 卡面：每打出一张[blue]支援[/blue]牌，此牌费用减少1。此牌打出后费用增加3。获得3层[gold]月夜[/gold]，随机将3张[gold]升级后[/gold]的[blue]支援[/blue]牌加入[gold]手牌[/gold]，并使其本回合可以免费打出。
-/// 升级：无
+/// 本地化键：KAGUYA-ALL_ROUND_SUPPORT.title / .description
+/// 3费 · 技能牌 · 罕见 · 目标：自身 · 标签：支援牌
+/// 卡面：每打出一张[blue]支援[/blue]牌，此牌费用减少1。此牌打出后费用增加3。
+///       获得2张随机[blue]支援[/blue]牌，其费用减少{SupportDiscount}。
+/// 升级：获得的支援牌费用减少 1 → 2
 /// </summary>
 public sealed class AllRoundSupport : HinaModsCard
 {
@@ -36,13 +36,11 @@ public sealed class AllRoundSupport : HinaModsCard
 
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORTCARD };
 
-    protected override IEnumerable<IHoverTip> GetCustomHoverTips()
-    {
-        return new IHoverTip[]
-        {
-            HoverTipFactory.FromPower<MoonlightPower>(),
-        };
-    }
+    /// <summary>获得的支援牌的费用减免（基础 1 / 升级 2）。</summary>
+    private const string SupportDiscountKey = "SupportDiscount";
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [new DynamicVar(SupportDiscountKey, 1m)];
 
     // 构造函数：3费 技能 罕见 目标自身
     public AllRoundSupport()
@@ -105,45 +103,38 @@ public sealed class AllRoundSupport : HinaModsCard
         Player player = Owner;
         if (player == null) return;
 
-        // 获得 3 层月夜
-        await PowerCmd.Apply<MoonlightPower>(
-            choiceContext,
-            player.Creature,
-            3,
-            player.Creature,
-            this);
-
-        // 随机将 3 张支援牌加入手牌
         List<CardModel> pool = GetOfficialSupportTokenPool();
         if (pool.Count == 0) return;
+
+        // 随机将 2 张支援牌加入手牌，其费用减少 SupportDiscount（基础 1 / 升级 2）
+        int discount = (int)DynamicVars[SupportDiscountKey].BaseValue;
 
         List<CardModel> cards = CardFactory.GetDistinctForCombat(
             player,
             pool,
-            3,
+            2,
             player.RunState.Rng.CombatCardGeneration
         ).ToList();
 
         foreach (var card in cards)
         {
-            // 升级后生成的支援牌为升级版
-            if (IsUpgraded)
-            {
-                CardCmd.Upgrade(card);
-            }
-
             await CardPileCmd.AddGeneratedCardToCombat(
                 card,
                 PileType.Hand,
                 player,
                 CardPilePosition.Top);
 
-            // 本回合可以免费打出
-            card.SetToFreeThisTurn();
-
-            // 「获得+免费」标记：这类牌打出时不消耗月夜
-            HinaModsCard.MarkFreePlay(card);
+            if (discount > 0)
+            {
+                card.EnergyCost.AddUntilPlayed(-discount);
+            }
         }
+    }
+
+    /// <summary>升级：获得的支援牌费用减免 1 → 2。</summary>
+    protected override void OnUpgrade()
+    {
+        DynamicVars[SupportDiscountKey].UpgradeValueBy(1m);
     }
 
     // 从官方TokenCardPool筛选 支援标签代币卡

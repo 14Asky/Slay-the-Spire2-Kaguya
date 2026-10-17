@@ -34,9 +34,9 @@ public sealed class Reverberation : HinaModsCard
         };
     }
 
-    // 官方标准构造函数：3费 能力 罕见 目标自身
+    // 官方标准构造函数：2费 能力 罕见 目标自身
     public Reverberation()
-        : base(3, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+        : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
     }
 
@@ -56,7 +56,7 @@ public sealed class Reverberation : HinaModsCard
             this);
     }
 
-    // 升级逻辑：费用-1（3→2）
+    // 升级逻辑：费用-1（2→1）
     protected override void OnUpgrade()
     {
         base.OnUpgrade();

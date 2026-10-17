@@ -75,7 +75,9 @@ public sealed class DailySongEndPower : CustomPowerModel
                 if (card != null)
                 {
                     Flash();
-                    await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Draw, player);
+                    // 参考官方「捕捉灵魂」：加牌进抽牌堆必须用 PreviewCardPileAdd 包一层，否则没有过渡动画
+                    CardCmd.PreviewCardPileAdd(
+                        await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Draw, player));
                 }
             }
         }

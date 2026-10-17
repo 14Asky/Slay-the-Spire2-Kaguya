@@ -153,11 +153,11 @@
 	"KAGUYA-EIGHT_THOUSAND_YEARS_LONGING.flavor": "[gold]何で今まで　気づかなかったんだろ…[/gold]",
 	
 	"KAGUYA-HINA_MODS_FORTUNE_RELIC.title": "かぐやのブレスレット",
-	"KAGUYA-HINA_MODS_FORTUNE_RELIC.description": "ターン開始時、[gold]月夜[/gold]{FortunePower}を得る。",
+	"KAGUYA-HINA_MODS_FORTUNE_RELIC.description": "ターン開始時、[gold]月夜[/gold]{MoonlightPower}を得る。",
 	"KAGUYA-HINA_MODS_FORTUNE_RELIC.flavor": "[red]パンケーキ食べるよ……[/red]",
 
 	"KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.title": "月見傘",
-	"KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "ターン開始時、[gold]月夜[/gold]{FortunePower}を得る。",
+	"KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "ターン開始時、[gold]月夜[/gold]{MoonlightPower}を得る。",
 	"KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.flavor": "[purple]ヤチヨの傘型武器、あなたを支援してくれる。[/purple]",
 
 	"KAGUYA-HINA_PHONOGRAPH_RELIC.title": "かぐやのイヤホン",
@@ -169,7 +169,7 @@
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]もと光る竹、月夜の輝きを宿す。[/gold]",
 
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "かぐやのスマホ",
-	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "戦闘開始時、[gold]月夜[/gold]{FortunePower}を得る。",
+	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "戦闘開始時、[gold]月夜[/gold]{MoonlightPower}を得る。",
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.flavor": "[blue]かぐやのお気に入りのスマホ…[/blue]",
 
 	"KAGUYA-SUN_HEADDRESS_RELIC.title": "太陽のヘアバンド",

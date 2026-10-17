@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8xa3y0bjl05f"
-path="res://.godot/imported/moon_torii.png-a949ecbb4695140454992a5127414b3e.ctex"
+path="res://.godot/imported/moon_torii.png-7949f8e155104dd530869a97916efe92.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/moon_torii.png"
-dest_files=["res://.godot/imported/moon_torii.png-a949ecbb4695140454992a5127414b3e.ctex"]
+dest_files=["res://.godot/imported/moon_torii.png-7949f8e155104dd530869a97916efe92.ctex"]
 
 [params]
 

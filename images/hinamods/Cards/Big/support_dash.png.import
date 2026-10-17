@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cemj8itnlfnlc"
-path="res://.godot/imported/support_dash.png-a00e1be89d3af6fa1984448beabd9795.ctex"
+path="res://.godot/imported/support_dash.png-e55650d93fb33cc70e714a7bbc7ed6de.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/support_dash.png"
-dest_files=["res://.godot/imported/support_dash.png-a00e1be89d3af6fa1984448beabd9795.ctex"]
+dest_files=["res://.godot/imported/support_dash.png-e55650d93fb33cc70e714a7bbc7ed6de.ctex"]
 
 [params]
 

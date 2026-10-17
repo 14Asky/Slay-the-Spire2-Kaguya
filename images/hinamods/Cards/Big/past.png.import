@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c484nktmthln5"
-path="res://.godot/imported/past.png-a8503639054bf104c16ffdc764322e84.ctex"
+path="res://.godot/imported/past.png-f3ed099290e68804a75a648d175329d5.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/past.png"
-dest_files=["res://.godot/imported/past.png-a8503639054bf104c16ffdc764322e84.ctex"]
+dest_files=["res://.godot/imported/past.png-f3ed099290e68804a75a648d175329d5.ctex"]
 
 [params]
 

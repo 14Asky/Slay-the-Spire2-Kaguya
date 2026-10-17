@@ -20,20 +20,22 @@ namespace Kaguya.HinaMods.Cards;
 /// 天意（HeavensWill）
 /// 本地化键：KAGUYA-MOONLIGHT_SLASH.title / .description
 /// 1费 · 攻击牌 · 罕见 · 目标：单个敌人
-/// 卡面：造成9点伤害，抽1张牌。
+/// 卡面：造成9点伤害，[gold]月夜2[/gold]：抽2张牌。
 ///       若这张牌是通过抽牌到手牌，则自动打出该牌并获得3层[gold]月夜[/gold]。
-/// 代码实测：Damage=9；Cards=1
-/// 升级：Damage +3
+/// 代码实测：Damage=9；Cards=2；MoonCost=2；DrawnMoonlight=3
+/// 升级：Damage +3（9→12）；抽牌到手时获得的月夜 +2（3→5）
 /// </summary>
 public sealed class HeavensWill : HinaModsCard
 {
-    /// <summary>通过抽牌到手时额外获得的月夜层数。</summary>
-    private const decimal DrawnMoonlight = 3m;
+    /// <summary>通过抽牌到手时额外获得的月夜层数（动态变量，升级可提升）。</summary>
+    private const string DrawnMoonlightKey = "DrawnMoonlight";
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(9m, ValueProp.Move),
-        new CardsVar(1)
+        new CardsVar(2),
+        new PowerVar<MoonlightPower>(MoonCostVarName, 2m),
+        new DynamicVar(DrawnMoonlightKey, 3m)
     ];
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
@@ -64,7 +66,7 @@ public sealed class HeavensWill : HinaModsCard
         await PowerCmd.Apply<MoonlightPower>(
             choiceContext,
             Owner.Creature,
-            DrawnMoonlight,
+            DynamicVars[DrawnMoonlightKey].BaseValue,
             Owner.Creature,
             this);
     }
@@ -79,11 +81,16 @@ public sealed class HeavensWill : HinaModsCard
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
+        // 月夜2：抽 2 张牌
+        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
+            return;
+
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);      // 9 → 12
+        DynamicVars.Damage.UpgradeValueBy(3m);                  // 9 → 12
+        DynamicVars[DrawnMoonlightKey].UpgradeValueBy(2m);      // 3 → 5
     }
 }

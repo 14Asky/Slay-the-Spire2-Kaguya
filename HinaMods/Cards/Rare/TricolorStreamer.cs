@@ -50,7 +50,7 @@ public sealed class TricolorStreamer : HinaModsCard
             .GetPile(Owner)
             .Cards
             .OfType<HinaModsCard>()
-            .Where(c => c.HasEcho)
+            .Where(c => c.HasEcho && c is not TricolorStreamer)   // 「除三色流光以外」
             .Cast<CardModel>()
             .ToList();
 

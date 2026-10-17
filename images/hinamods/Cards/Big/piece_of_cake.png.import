@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vw15vu50tnip"
-path="res://.godot/imported/piece_of_cake.png-301333e19c67d734f2659061a8dc4db2.ctex"
+path="res://.godot/imported/piece_of_cake.png-030d697480cc2ff672d1b00360101449.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/piece_of_cake.png"
-dest_files=["res://.godot/imported/piece_of_cake.png-301333e19c67d734f2659061a8dc4db2.ctex"]
+dest_files=["res://.godot/imported/piece_of_cake.png-030d697480cc2ff672d1b00360101449.ctex"]
 
 [params]
 

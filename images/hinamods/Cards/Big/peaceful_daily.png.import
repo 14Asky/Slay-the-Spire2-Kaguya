@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dac61ore676po"
-path="res://.godot/imported/peaceful_daily.png-b94fc1ae6c01c15017990d9c00d9d8ea.ctex"
+path="res://.godot/imported/peaceful_daily.png-dc2cd32302a18a2149550c3b6650ab43.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/peaceful_daily.png"
-dest_files=["res://.godot/imported/peaceful_daily.png-b94fc1ae6c01c15017990d9c00d9d8ea.ctex"]
+dest_files=["res://.godot/imported/peaceful_daily.png-dc2cd32302a18a2149550c3b6650ab43.ctex"]
 
 [params]
 

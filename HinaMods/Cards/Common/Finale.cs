@@ -31,7 +31,7 @@ public sealed class Finale : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(12m, ValueProp.Move),
+        new DamageVar(18m, ValueProp.Move),
         new PowerVar<MoonlightPower>(MoonCostVarName, 3m)
     ];
 
@@ -46,7 +46,7 @@ public sealed class Finale : HinaModsCard
     }
 
     public Finale()
-        : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+        : base(3, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -75,9 +75,9 @@ public sealed class Finale : HinaModsCard
         }
     }
 
+    /// <summary>升级：费用 -1（伤害与月夜门槛均不变）。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
-        DynamicVars[MoonCostVarName].UpgradeValueBy(-1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

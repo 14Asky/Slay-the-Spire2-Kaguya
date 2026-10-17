@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hb59td1ns6"
-path="res://.godot/imported/support_temp_dexterity.png-5d5ca83d7e11ac0fb9b4daf546cbb15f.ctex"
+uid="uid://hb6atd1ns6"
+path="res://.godot/imported/support_temp_dexterity.png-a5b5b2ac89ee0ac2ece04ed2861ae329.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Powers/support_temp_dexterity.png"
-dest_files=["res://.godot/imported/support_temp_dexterity.png-5d5ca83d7e11ac0fb9b4daf546cbb15f.ctex"]
+dest_files=["res://.godot/imported/support_temp_dexterity.png-a5b5b2ac89ee0ac2ece04ed2861ae329.ctex"]
 
 [params]
 

@@ -61,7 +61,7 @@ public sealed class RoyalFan : HinaModsCard
             }
         }
 
-        await CardPileCmd.Add(newHandCard, PileType.Hand);
+        await CardPileCmd.AddGeneratedCardToCombat(newHandCard, PileType.Hand, Owner);
     }
 
     protected override void OnUpgrade()

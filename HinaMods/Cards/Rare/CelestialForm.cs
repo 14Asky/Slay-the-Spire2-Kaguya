@@ -18,16 +18,17 @@ namespace Kaguya.HinaMods.Cards;
 /// 天人形态（CelestialForm）
 /// 本地化键：KAGUYA-TSUKIMI_FORM.title / .description
 /// 3费 · 能力牌 · 稀有 · 目标：自身
-/// 卡面：每当你获得[gold]月夜[/gold]时，额外获得该次获得量50%的[gold]月夜[/gold]。
-/// 代码实测：CelestialFormPower=50
-/// 升级：CelestialFormPower +50
+/// 卡面：每当你获得[gold]月夜[/gold]时，对所有敌方造成等层数的伤害。
+///       每回合开始时获得2层[gold]月夜[/gold]。
+/// 代码实测：CelestialFormPower=2
+/// 升级：CelestialFormPower +1（2→3）
 /// </summary>
 public sealed class CelestialForm : HinaModsCard
 {
-    // 动态变量：额外月夜的百分比（基础 50，升级 100）
+    // 动态变量：每回合开始时获得的月夜层数（基础 2，升级 3）
     protected override IEnumerable<DynamicVar> CanonicalVars => new[]
     {
-        new PowerVar<CelestialFormPower>(50m)
+        new PowerVar<CelestialFormPower>(2m)
     };
 
     // 3费 能力牌 稀有
@@ -60,9 +61,9 @@ public sealed class CelestialForm : HinaModsCard
             this);
     }
 
-    // 升级：比例 50% → 100%
+    // 升级：每回合月夜 2 → 3
     protected override void OnUpgrade()
     {
-        DynamicVars[nameof(CelestialFormPower)].UpgradeValueBy(50m);
+        DynamicVars[nameof(CelestialFormPower)].UpgradeValueBy(1m);
     }
 }

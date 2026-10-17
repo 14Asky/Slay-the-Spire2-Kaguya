@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://r6631xvggpbm"
-path="res://.godot/imported/inspire.png-ea2a3b46db169a758d161d0dd8c28227.ctex"
+path="res://.godot/imported/inspire.png-fbe1c32c1f958939dd66c8b2b788154d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/inspire.png"
-dest_files=["res://.godot/imported/inspire.png-ea2a3b46db169a758d161d0dd8c28227.ctex"]
+dest_files=["res://.godot/imported/inspire.png-fbe1c32c1f958939dd66c8b2b788154d.ctex"]
 
 [params]
 

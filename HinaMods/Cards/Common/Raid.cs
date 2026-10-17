@@ -69,9 +69,9 @@ public sealed class Raid : HinaModsCard
         await CardPileCmd.AddGeneratedCardToCombat(newCard, PileType.Hand, Owner);
     }
 
-    /// <summary>升级：伤害 6 → 7。</summary>
+    /// <summary>升级：伤害 6 → 8。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
     }
 }

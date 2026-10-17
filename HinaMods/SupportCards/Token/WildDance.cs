@@ -33,23 +33,31 @@ public sealed class WildDance : HinaModsCard
     // 支援自定义标签
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORT };
 
-    // 基础全体伤害：8点
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8m, ValueProp.Move)];
+    // 基础全体伤害：4点 × 2 次
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(4m, ValueProp.Move),
+        new DynamicVar("HitCount", 2m)
+    ];
 
     // 🔥 修复1：修正C#非法构造函数语法
     public WildDance() : base(1, CardType.Attack, CardRarity.Token, TargetType.AllEnemies)
     { }
 
-    // 打出：全体伤害 + 获得支援打击BUFF
+    // 打出：全体多段伤害
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars["HitCount"].IntValue)
+            .FromCard(this, cardPlay)
+            .TargetingAllOpponents(CombatState)
+            .Execute(choiceContext);
     }
 
-    // 升级：8点 → 11点（+3）
+    // 升级：攻击次数 2 → 3（每次伤害 4 不变）
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars["HitCount"].UpgradeValueBy(1m);
     }
 
     // ====================== 官方代币生成方法 ======================

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yp1f5q0083ou"
-path="res://.godot/imported/new_beginning.png-d3f1159e6fd067126fb46c4dad255380.ctex"
+path="res://.godot/imported/new_beginning.png-f3eccceb043c62e021838cfb018a008d.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/new_beginning.png"
-dest_files=["res://.godot/imported/new_beginning.png-d3f1159e6fd067126fb46c4dad255380.ctex"]
+dest_files=["res://.godot/imported/new_beginning.png-f3eccceb043c62e021838cfb018a008d.ctex"]
 
 [params]
 

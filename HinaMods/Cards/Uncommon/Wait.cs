@@ -31,7 +31,7 @@ public sealed class Wait : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(13m, ValueProp.Move),
+        new BlockVar(12m, ValueProp.Move),
         new DynamicVar("CostReduce", 1m)
     ];
 
@@ -58,9 +58,9 @@ public sealed class Wait : HinaModsCard
             this);
     }
 
-    // 升级：费用减免 1 → 2
+    // 升级：格挡 12 → 15（费用减免恒为 1）
     protected override void OnUpgrade()
     {
-        DynamicVars["CostReduce"].UpgradeValueBy(1m);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
 }

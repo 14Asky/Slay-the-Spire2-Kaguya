@@ -83,8 +83,10 @@ public sealed class Cheers : HinaModsCard
         if (card == null)
             return;
 
-        await CardPileCmd.AddGeneratedCardToCombat(
-            card, PileType.Draw, Owner, CardPilePosition.Random);
+        // 参考官方「捕捉灵魂」：加牌进抽牌堆必须用 PreviewCardPileAdd 包一层，否则没有过渡动画
+        CardCmd.PreviewCardPileAdd(
+            await CardPileCmd.AddGeneratedCardToCombat(
+                card, PileType.Draw, Owner, CardPilePosition.Random));
     }
 
     /// <summary>升级：活力 4 → 6（+2）。</summary>

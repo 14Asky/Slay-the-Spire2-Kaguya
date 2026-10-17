@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c86vox81gn8hc"
-path="res://.godot/imported/reverberation.png-3386a090a5692d4ec9af592eec5cb37f.ctex"
+path="res://.godot/imported/reverberation.png-476c08da2415179460b60cb00babf76e.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/reverberation.png"
-dest_files=["res://.godot/imported/reverberation.png-3386a090a5692d4ec9af592eec5cb37f.ctex"]
+dest_files=["res://.godot/imported/reverberation.png-476c08da2415179460b60cb00babf76e.ctex"]
 
 [params]
 

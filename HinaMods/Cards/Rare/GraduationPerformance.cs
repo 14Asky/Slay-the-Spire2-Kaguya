@@ -17,16 +17,17 @@ namespace Kaguya.HinaMods.Cards;
 /// <summary>
 /// 毕业演出（GraduationPerformance）
 /// 本地化键：KAGUYA-GRADUATION_PERFORMANCE.title / .description
-/// 1费 · 技能牌 · 稀有 · 目标：自身 · 关键词：Exhaust
+/// 1费 · 技能牌 · 稀有 · 目标：自身 · 关键词：消耗（升级后去掉虚无）
 /// 卡面：将你[gold]抽牌堆[/gold]中的[purple]歌声[/purple]牌全部打出；
-///       然后抽取等量+1的牌。
-/// 升级：无
+///       然后抽取等量的牌。
+/// 升级：去掉【虚无】
 /// </summary>
 public class GraduationPerformance() : HinaModsCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    /// <summary>基础带【消耗】+【虚无】；升级后由 OnUpgrade 去掉【虚无】。</summary>
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Ethereal];
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
     {
@@ -54,16 +55,17 @@ public class GraduationPerformance() : HinaModsCard(1,
         //    避免歌声牌在 Draw↔Play↔Exhaust 之间搬家时 UI 节点脱节（空白卡牌）。
         await HinaModsCard.PlayCardsSafely(choiceContext, echoCards);
 
-        // 3) 抽取与打出的歌声牌等量的牌（升级后 +1）
-        int drawCount = echoCards.Count + (IsUpgraded ? 1 : 0);
+        // 3) 抽取与打出的歌声牌等量的牌
+        int drawCount = echoCards.Count;
         if (drawCount > 0)
         {
             await CardPileCmd.Draw(choiceContext, drawCount, Owner);
         }
     }
 
-    // 升级：多抽 1 张牌（由 IsUpgraded 分支实现，无需改数值）
+    // 升级：去掉【虚无】
     protected override void OnUpgrade()
     {
+        RemoveKeyword(CardKeyword.Ethereal);
     }
 }

@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -28,30 +29,33 @@ namespace Kaguya.HinaMods.Cards.Uncommon;
 /// </summary>
 public sealed class PieceOfCake : HinaModsCard
 {
-    /// <summary>基础格挡（升级 +1）。</summary>
-    private decimal _baseBlock = 2m;
+    /// <summary>基础格挡（升级 +3）。</summary>
+    private decimal _baseBlock = 5m;
 
-    /// <summary>每打出一张支援技能牌的格挡增量（升级 2 → 3）。</summary>
+    /// <summary>每打出一张支援技能牌的格挡增量（升级不变）。</summary>
     private decimal _blockPerSupport = 2m;
 
     /// <summary>本场战斗中因打出支援技能牌累积的额外格挡。</summary>
     private decimal _blockBonus;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move)];
 
     /// <summary>支援牌标签（本牌会获得支援牌）。</summary>
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORTCARD };
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
     {
+        // 本牌效果与【月夜】无关（旧版残留的月夜提示是错的），只解释「支援」标签。
         return new IHoverTip[]
         {
-            HoverTipFactory.FromPower<MoonlightPower>()
+            new HoverTip(
+                new LocString("card_keywords", "SUPPORT.title"),
+                new LocString("card_keywords", "SUPPORT.description"))
         };
     }
 
     public PieceOfCake()
-        : base(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+        : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     private decimal CurrentBlock => _baseBlock + _blockBonus;
 
@@ -106,17 +110,15 @@ public sealed class PieceOfCake : HinaModsCard
             2,
             Owner.RunState.Rng.CombatCardGeneration).ToList();
 
-        foreach (CardModel card in cards)
-        {
-            await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Draw, Owner);
-        }
+        // 参考官方「捕捉灵魂」：批量加牌进抽牌堆同样用 PreviewCardPileAdd 包一层，否则没有过渡动画
+        CardCmd.PreviewCardPileAdd(
+            await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, Owner));
     }
 
-    /// <summary>升级：格挡 2 → 3；每张支援技能牌 +2 → +3。</summary>
+    /// <summary>升级：基础格挡 5 → 8（每张支援技能牌的 +2 不变）。</summary>
     protected override void OnUpgrade()
     {
-        _baseBlock += 1m;
-        _blockPerSupport += 1m;
+        _baseBlock += 3m;
         DynamicVars.Block.BaseValue = CurrentBlock;
     }
 }

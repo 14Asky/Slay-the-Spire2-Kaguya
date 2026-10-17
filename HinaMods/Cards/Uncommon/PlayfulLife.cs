@@ -39,8 +39,8 @@ public sealed class PlayfulLife : HinaModsCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 当前回合数
-        int round = CombatState.RoundNumber;
+        // 当前回合数（升级后 +1）
+        int round = CombatState.RoundNumber + (IsUpgraded ? 1 : 0);
 
         // 获得等同于回合数的月夜
         await PowerCmd.Apply<MoonlightPower>(

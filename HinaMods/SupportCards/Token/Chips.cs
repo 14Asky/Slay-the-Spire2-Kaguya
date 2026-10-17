@@ -23,9 +23,9 @@ namespace Kaguya.HinaMods.Cards;
 /// 薯片（Chips）
 /// 本地化键：KAGUYA-SUPPORT_HEAL.title / .description
 /// 0费 · 技能牌 · 令牌 · 目标：自身
-/// 卡面：[blue]支援[/blue]：回复2点生命。
-/// 代码实测：Heal=2
-/// 升级：Heal +1
+/// 卡面：[blue]支援[/blue]：回复3点生命。
+/// 代码实测：Heal=3
+/// 升级：Heal +2（3 → 5）
 /// </summary>
 [Pool(typeof(TokenCardPool))]
 public sealed class Chips : HinaModsCard
@@ -34,7 +34,7 @@ public sealed class Chips : HinaModsCard
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORT };
 
     // 3. 动态变量：治疗2点，升级3点
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(3m)];
 
     // 4. 构造函数：0费/1费、技能、代币稀有度、自身目标（标准支援牌配置）
     public Chips() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self)
@@ -48,10 +48,10 @@ public sealed class Chips : HinaModsCard
         await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.IntValue);
     }
 
-    // 6. 升级逻辑：2→3点治疗
+    // 6. 升级逻辑：3→5点治疗
     protected override void OnUpgrade()
     {
-        DynamicVars.Heal.UpgradeValueBy(1m);
+        DynamicVars.Heal.UpgradeValueBy(2m);
     }
 
     // 7. 官方标准代币生成方法（支援牌必备，可直接生成到手牌）

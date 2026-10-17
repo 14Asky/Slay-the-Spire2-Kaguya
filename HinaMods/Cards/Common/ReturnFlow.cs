@@ -28,9 +28,9 @@ public sealed class ReturnFlow : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<MoonlightPower>(2m),
-        new DynamicVar(MoonCostKey, 2m),
-        new DynamicVar(BonusMoonKey, 3m)
+        new PowerVar<MoonlightPower>(2m),   // 获得 2 层月夜
+        new DynamicVar(MoonCostKey, 1m),    // 月夜1 触发
+        new DynamicVar(BonusMoonKey, 2m)    // 再获得 2 层
     ];
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
@@ -72,8 +72,10 @@ public sealed class ReturnFlow : HinaModsCard
         );
     }
 
+    /// <summary>升级：获得量 2→3；再获得量 2→3（月夜1 门槛不变）。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars[MoonCostKey].UpgradeValueBy(-1m);
+        DynamicVars[nameof(MoonlightPower)].UpgradeValueBy(1m);
+        DynamicVars[BonusMoonKey].UpgradeValueBy(1m);
     }
 }

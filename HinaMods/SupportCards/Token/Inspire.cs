@@ -34,24 +34,18 @@ public sealed class Inspire : HinaModsCard
     /// <summary>支援专属标签。</summary>
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORT };
 
-    /// <summary>
-    /// X = 本牌当前的实际费用（含减费）；升级后力量 X+1、活力 2X+1。
-    /// </summary>
+    /// <summary>固定 6 层覆甲 + 6 层活力；升级后各 +2（8/8）。</summary>
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new CalculationBaseVar(0m),
-        new CalculationExtraVar(1m),
-        new CalculatedVar("XAmount").WithMultiplier(static (CardModel card, Creature? _) =>
-            card.EnergyCost.GetWithModifiers(CostModifiers.All) + (card.IsUpgraded ? 1m : 0m)),
-        new CalculatedVar("VigorAmount").WithMultiplier(static (CardModel card, Creature? _) =>
-            card.EnergyCost.GetWithModifiers(CostModifiers.All) * 2m + (card.IsUpgraded ? 1m : 0m))
+        new PowerVar<PlatingPower>(6m),
+        new PowerVar<VigorPower>(6m)
     };
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
     {
         return new IHoverTip[]
         {
-           HoverTipFactory.FromPower<StrengthPower>(),
+           HoverTipFactory.FromPower<PlatingPower>(),
            HoverTipFactory.FromPower<VigorPower>()
         };
     }
@@ -61,40 +55,32 @@ public sealed class Inspire : HinaModsCard
         : base(3, CardType.Skill, CardRarity.Token, TargetType.Self)
     { }
 
-    // 打出逻辑：按「实际支付的费用」结算力量与活力
+    // 打出逻辑：获得覆甲 + 活力
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.IsFirstInSeries)
-        {
-            decimal strength = ((CalculatedVar)base.DynamicVars["XAmount"]).Calculate(base.Owner.Creature);
-            decimal vigor = ((CalculatedVar)base.DynamicVars["VigorAmount"]).Calculate(base.Owner.Creature);
+        if (!cardPlay.IsFirstInSeries)
+            return;
 
-            if (strength > 0m)
-            {
-                await PowerCmd.Apply<StrengthPower>(
-                    choiceContext,
-                    base.Owner.Creature,
-                    strength,
-                    base.Owner.Creature,
-                    this);
-            }
+        await PowerCmd.Apply<PlatingPower>(
+            choiceContext,
+            base.Owner.Creature,
+            base.DynamicVars[nameof(PlatingPower)].BaseValue,
+            base.Owner.Creature,
+            this);
 
-            if (vigor > 0m)
-            {
-                await PowerCmd.Apply<VigorPower>(
-                    choiceContext,
-                    base.Owner.Creature,
-                    vigor,
-                    base.Owner.Creature,
-                    this);
-            }
-        }
-
+        await PowerCmd.Apply<VigorPower>(
+            choiceContext,
+            base.Owner.Creature,
+            base.DynamicVars[nameof(VigorPower)].BaseValue,
+            base.Owner.Creature,
+            this);
     }
 
-    // 升级：力量/活力的 +1 已由 CalculatedVar 里的 IsUpgraded 分支实现，这里无需改数值
+    /// <summary>升级：覆甲 6 → 8；活力 6 → 8。</summary>
     protected override void OnUpgrade()
     {
+        base.DynamicVars[nameof(PlatingPower)].UpgradeValueBy(2m);
+        base.DynamicVars[nameof(VigorPower)].UpgradeValueBy(2m);
     }
 
     // ====================== 官方代币生成方法（统一模板） ======================

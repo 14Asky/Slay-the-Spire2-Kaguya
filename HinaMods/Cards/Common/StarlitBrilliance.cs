@@ -32,7 +32,7 @@ public sealed class StarlitBrilliance : HinaModsCard
     }
 
     public StarlitBrilliance()
-        : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+        : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
     }
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
@@ -55,8 +55,9 @@ public sealed class StarlitBrilliance : HinaModsCard
             this);
     }
 
+    /// <summary>升级：每 3 张牌获得的月夜 1 → 2。</summary>
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars[nameof(StarlitBrilliancePower)].UpgradeValueBy(1m);
     }
 }

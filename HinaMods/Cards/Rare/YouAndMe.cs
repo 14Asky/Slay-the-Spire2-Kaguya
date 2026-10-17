@@ -99,7 +99,9 @@ public sealed class YouAndMe : HinaModsCard
     }
 
     // 升级：用户描述未给升级效果
+    /// <summary>升级：费用 -1（2 → 1），生成牌的费用减免额度不变。</summary>
     protected override void OnUpgrade()
     {
+        EnergyCost.UpgradeBy(-1);
     }
 }

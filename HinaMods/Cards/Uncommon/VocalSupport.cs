@@ -15,19 +15,15 @@ namespace Kaguya.HinaMods.Cards;
 
 /// <summary>
 /// 声援（VocalSupport）
-/// 本地化键：KAGUYA-SINGER_SUPPORT_GUARD.title / .description
+/// 本地化键：KAGUYA-VOCAL_SUPPORT.title / .description
 /// 1费 · 技能牌 · 罕见 · 目标：自身 · 关键词：歌声
 /// 卡面：获得6点格挡。本回合内，你每获得1张牌就将其升级。
-/// 升级：获得【保留】
+/// 升级：获得【保留】；Block +2
 /// </summary>
 public sealed class VocalSupport : HinaModsCard
 {
     /// <summary>歌声关键词（打出后进消耗堆，下回合抽牌前洗回抽牌堆）。</summary>
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.ECHO };
-
-    /// <summary>无【消耗】；升级后获得【保留】。</summary>
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [CardKeyword.Retain] : [];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -59,8 +55,10 @@ public sealed class VocalSupport : HinaModsCard
             this);
     }
 
-    // 升级：获得【保留】（CanonicalKeywords 按 IsUpgraded 动态返回）
+    // 升级：获得【保留】；格挡 +2
     protected override void OnUpgrade()
     {
+        base.DynamicVars.Block.UpgradeValueBy(2m);
+        AddKeyword(CardKeyword.Retain);
     }
 }

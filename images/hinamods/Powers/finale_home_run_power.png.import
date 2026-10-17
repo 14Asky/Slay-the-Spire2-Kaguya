@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://x31y4lxq48"
-path="res://.godot/imported/finale_home_run_power.png-bb50c3804ef387965148d5f7eb55eedf.ctex"
+path="res://.godot/imported/finale_home_run_power.png-c719b64eb942dd7bdd2c648d853e40d3.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Powers/finale_home_run_power.png"
-dest_files=["res://.godot/imported/finale_home_run_power.png-bb50c3804ef387965148d5f7eb55eedf.ctex"]
+dest_files=["res://.godot/imported/finale_home_run_power.png-c719b64eb942dd7bdd2c648d853e40d3.ctex"]
 
 [params]
 

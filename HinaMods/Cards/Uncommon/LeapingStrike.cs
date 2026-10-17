@@ -25,7 +25,7 @@ namespace Kaguya.HinaMods.Cards;
 /// 卡面：造成6点伤害。
 ///       将随机1张[blue]支援[/blue]攻击牌加入[gold]手牌[/gold]并打出。
 /// 代码实测：Damage=6；CardCount=1
-/// 升级：CardCount +1；Damage +2
+/// 升级：Damage +3（6→9）；获得的支援攻击牌为升级版（张数仍 1）
 /// </summary>
 public class LeapingStrike() : HinaModsCard(1,
     CardType.Attack,
@@ -59,6 +59,13 @@ public class LeapingStrike() : HinaModsCard(1,
 
         foreach (var card in cards)
         {
+            // 升级后：获得的是升级版支援攻击牌
+            if (IsUpgraded && card.IsMutable && card.IsUpgradable && !card.IsUpgraded)
+            {
+                card.UpgradeInternal();
+                card.FinalizeUpgradeInternal();
+            }
+
             await CardPileCmd.AddGeneratedCardToCombat(
                 card,
                 PileType.Hand,
@@ -69,11 +76,10 @@ public class LeapingStrike() : HinaModsCard(1,
         }
     }
 
-    // 升级：伤害 +3，张数 +1
+    // 升级：伤害 6 → 9（张数仍 1，但获得的是升级版）
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);
-        DynamicVars["CardCount"].UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 
     // 支援 + 攻击 类型的代币池

@@ -29,6 +29,9 @@ public sealed class CoordinatedOps : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move)];
 
+    /// <summary>基础带【消耗】；升级后由 OnUpgrade 去除。</summary>
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
     {
         return new IHoverTip[]
@@ -53,11 +56,15 @@ public sealed class CoordinatedOps : HinaModsCard
 
         // 将 1 张疾驰洗入抽牌堆
         CardModel dash = CombatState.CreateCard<SupportDash>(Owner);
-        await CardPileCmd.AddGeneratedCardToCombat(dash, PileType.Draw, Owner, CardPilePosition.Random);
+        // 参考官方「捕捉灵魂」：加牌进抽牌堆必须用 PreviewCardPileAdd 包一层，否则没有过渡动画
+        CardCmd.PreviewCardPileAdd(
+            await CardPileCmd.AddGeneratedCardToCombat(dash, PileType.Draw, Owner, CardPilePosition.Random));
     }
 
+    /// <summary>升级：伤害 5 → 8（+3），同时去除【消耗】。</summary>
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(3m);
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }

@@ -61,6 +61,13 @@ public sealed class Celebration : HinaModsCard
 
         foreach (CardModel card in cards)
         {
+            // 升级后：获得的支援牌为升级版
+            if (IsUpgraded && card.IsMutable && card.IsUpgradable && !card.IsUpgraded)
+            {
+                card.UpgradeInternal();
+                card.FinalizeUpgradeInternal();
+            }
+
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner, CardPilePosition.Top);
         }
 
@@ -76,9 +83,8 @@ public sealed class Celebration : HinaModsCard
         }
     }
 
-    /// <summary>升级：支援牌 2 → 3 张。</summary>
+    /// <summary>升级：获得的支援牌变为升级版（张数仍为 2）。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars["CardCount"].UpgradeValueBy(1m);
     }
 }

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dp6d65hca7lsk"
-path="res://.godot/imported/victory_flag.png-94054ea6c6213ad0e654c3fb398b6f27.ctex"
+path="res://.godot/imported/victory_flag.png-4fef3458f1a34d43dfb4ed7e239efa0c.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/victory_flag.png"
-dest_files=["res://.godot/imported/victory_flag.png-94054ea6c6213ad0e654c3fb398b6f27.ctex"]
+dest_files=["res://.godot/imported/victory_flag.png-4fef3458f1a34d43dfb4ed7e239efa0c.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctkimuojcbewm"
-path="res://.godot/imported/under_fireworks.png-6a4756f34f5a7246e395eafbc7b26fb6.ctex"
+path="res://.godot/imported/under_fireworks.png-b4f7ce0ed0e224cfc8354f8d89f788e0.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/under_fireworks.png"
-dest_files=["res://.godot/imported/under_fireworks.png-6a4756f34f5a7246e395eafbc7b26fb6.ctex"]
+dest_files=["res://.godot/imported/under_fireworks.png-b4f7ce0ed0e224cfc8354f8d89f788e0.ctex"]
 
 [params]
 

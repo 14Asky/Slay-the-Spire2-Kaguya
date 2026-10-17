@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bukxi1stvp547"
-path="res://.godot/imported/return_performance.png-642b7724308442b577eb8abed2f6b6a4.ctex"
+path="res://.godot/imported/return_performance.png-c5f07522f1a6956adcd80296000144fe.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/return_performance.png"
-dest_files=["res://.godot/imported/return_performance.png-642b7724308442b577eb8abed2f6b6a4.ctex"]
+dest_files=["res://.godot/imported/return_performance.png-c5f07522f1a6956adcd80296000144fe.ctex"]
 
 [params]
 

@@ -43,14 +43,6 @@ public sealed class WatchAMovie : HinaModsCard
         new CardsVar(2)
     ];
 
-    protected override IEnumerable<IHoverTip> GetCustomHoverTips()
-    {
-        return new IHoverTip[]
-        {
-            HoverTipFactory.FromPower<MoonlightPower>()
-        };
-    }
-
     public WatchAMovie()
         : base(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
@@ -74,8 +66,21 @@ public sealed class WatchAMovie : HinaModsCard
     }
 
     /// <summary>
-    /// 抽牌，但把抽牌堆里的【歌声】牌排到最前面优先抽到。
-    /// 做法：先把歌声牌移到抽牌堆顶部，再按数量正常抽。
+    /// 抽牌，但优先抽【歌声】牌，且总抽牌数恒定为 count：
+    /// · 抽牌堆里有 ≥ count 张歌声牌 → 从中【随机】抽 count 张；
+    /// · 歌声牌不足 count 张       → 歌声牌全部抽到，剩余空位用普通牌补足；
+    /// · 没有歌声牌               → 完全等同于普通抽牌。
+    /// <para>
+    /// 实现与引擎「回合开始优先抽【固有 Innate】牌」一致：先用
+    /// <see cref="CardPile.MoveToTopInternal"/> 把选中的歌声牌静默提到堆顶，
+    /// 再走标准抽牌命令，剩余空位自然由堆顶的普通牌补上。
+    /// </para>
+    /// <para>
+    /// ⚠ 请勿用 CardPileCmd.Add(card, PileType.Draw, CardPilePosition.Top) 来重排 ——
+    /// 该 API 面向「跨牌堆搬运」，即使目标就是当前所在的牌堆，也会照走一遍换堆流程并生成
+    /// 一次多余 tween（卡牌在抽牌堆里弹进弹出），导致抽牌动画错乱。
+    /// MoveToTopInternal 只改内部顺序、不发出任何换堆事件，因此不会产生多余动画。
+    /// </para>
     /// </summary>
     private async Task DrawWithSongPriority(PlayerChoiceContext choiceContext, int count)
     {
@@ -88,18 +93,31 @@ public sealed class WatchAMovie : HinaModsCard
 
         CardPile drawPile = PileType.Draw.GetPile(player);
 
-        // 把抽牌堆里的歌声牌提到顶部（保持原有相对顺序）
+        // 抽牌堆里的歌声牌
         List<CardModel> songs = drawPile.Cards
             .OfType<HinaModsCard>()
             .Where(c => c.HasEcho)
             .Cast<CardModel>()
             .ToList();
 
-        for (int i = 0; i < songs.Count && i < count; i++)
+        // 本次最多优先 count 张：歌声牌多于 count 张时随机挑，不足则全部优先
+        int take = songs.Count < count ? songs.Count : count;
+        if (take > 0)
         {
-            await CardPileCmd.Add(songs[i], PileType.Draw, CardPilePosition.Top);
+            if (songs.Count > take)
+            {
+                // 歌声牌多于本次抽牌数 → 随机挑出 take 张（其余留在原处，不会被提前抽到）
+                player.RunState.Rng.CombatCardSelection.Shuffle(songs);
+            }
+
+            // 倒序提到堆顶：MoveToTopInternal 每次都 Insert(0)，倒着来才能保持挑选顺序
+            for (int i = take - 1; i >= 0; i--)
+            {
+                drawPile.MoveToTopInternal(songs[i]);
+            }
         }
 
+        // 正常抽 count 张：先抽到刚提到堆顶的歌声牌，剩余空位由普通牌补足
         await CardPileCmd.Draw(choiceContext, count, player);
     }
 

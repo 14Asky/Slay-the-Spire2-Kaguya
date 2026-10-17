@@ -31,9 +31,9 @@ public sealed class Gather : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<MoonlightPower>(MoonCostVarName, 3m),
-        new PowerVar<StrengthPower>(1m),
-        new PowerVar<DexterityPower>(1m)
+        new PowerVar<MoonlightPower>(MoonCostVarName, 2m),
+        new PowerVar<StrengthPower>(2m),
+        new PowerVar<DexterityPower>(2m)
     ];
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
@@ -67,7 +67,7 @@ public sealed class Gather : HinaModsCard
     protected override bool ShouldGlowGoldInternal => IsPlayable;
 
     public Gather()
-        : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.AllAllies)
+        : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllAllies)
     { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -106,9 +106,9 @@ public sealed class Gather : HinaModsCard
         }
     }
 
+    /// <summary>升级：费用 -1（力量/敏捷层数与月夜门槛均不变）。</summary>
     protected override void OnUpgrade()
     {
-        DynamicVars["StrengthPower"].UpgradeValueBy(1m);
-        DynamicVars["DexterityPower"].UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

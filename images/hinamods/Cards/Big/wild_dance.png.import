@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpgaq140bukpd"
-path="res://.godot/imported/wild_dance.png-cb362e1e06d6a678e22a31612e6510ad.ctex"
+path="res://.godot/imported/wild_dance.png-9bdc75d172c89ed54c6aef6a69e1956f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://images/hinamods/Cards/Big/wild_dance.png"
-dest_files=["res://.godot/imported/wild_dance.png-cb362e1e06d6a678e22a31612e6510ad.ctex"]
+dest_files=["res://.godot/imported/wild_dance.png-9bdc75d172c89ed54c6aef6a69e1956f.ctex"]
 
 [params]
 

@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,17 +25,21 @@ namespace Kaguya.HinaMods.Cards;
 /// 全垒打（HomeRun）
 /// 本地化键：KAGUYA-HEAVY_STRIKE_CARD.title / .description
 /// 2费 · 攻击牌 · 令牌 · 目标：单个敌人
-/// 卡面：[blue]支援[/blue]：造成18点伤害。
-/// 代码实测：Damage=18
-/// 升级：Damage +6
+/// 卡面：[blue]支援[/blue]：造成18点伤害，并获得1点[gold]力量[/gold]。
+/// 代码实测：Damage=18；StrengthPower=1
+/// 升级：Damage +4（18→22）；力量 +1（1→2）
 /// </summary>
 public sealed class HomeRun : HinaModsCard
 {
     // 支援自定义标签
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORT };
 
-    // 基础单体伤害：18点
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(18m, ValueProp.Move)];
+    // 基础单体伤害 18 点 + 1 点力量
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(18m, ValueProp.Move),
+        new PowerVar<StrengthPower>(1m)
+    ];
 
     // 🔥 修复1：修正C#构造函数语法错误（原版写法非法）
     public HomeRun() : base(2, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy)
@@ -44,12 +49,21 @@ public sealed class HomeRun : HinaModsCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
+
+        // 额外获得力量
+        await PowerCmd.Apply<StrengthPower>(
+            choiceContext,
+            Owner.Creature,
+            DynamicVars[nameof(StrengthPower)].IntValue,
+            Owner.Creature,
+            this);
     }
 
-    // 升级：18→24点（+6）
+    // 升级：18→22（+4）；力量 1→2（+1）
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(6m);
+        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars[nameof(StrengthPower)].UpgradeValueBy(1m);
     }
 
     // ====================== 官方代币生成方法 ======================

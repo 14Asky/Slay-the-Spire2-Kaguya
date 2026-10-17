@@ -3,6 +3,7 @@ using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.ValueProps;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -31,7 +32,11 @@ namespace Kaguya.HinaMods.Cards;
 public sealed class SupportDemoralize : HinaModsCard
 {
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORT };
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(6m, ValueProp.Move),
+        new PowerVar<VulnerablePower>(2m)
+    ];
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
     {
@@ -46,21 +51,27 @@ public sealed class SupportDemoralize : HinaModsCard
     // 🔥 修复1：补全 PowerCmd.Apply 官方必选参数
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.IsFirstInSeries)
-        {
-            // 官方固定5参数：上下文、目标、数值、施加者、卡牌来源
-            await PowerCmd.Apply<VulnerablePower>(
-                choiceContext,
-                cardPlay.Target,
-                base.DynamicVars["VulnerablePower"].BaseValue,
-                Owner.Creature,
-                this
-            );
-        }
+        if (!cardPlay.IsFirstInSeries)
+            return;
+
+        // 1) 造成伤害
+        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+            .FromCard(this, cardPlay)
+            .Targeting(cardPlay.Target)
+            .Execute(choiceContext);
+
+        // 2) 给予易伤
+        await PowerCmd.Apply<VulnerablePower>(
+            choiceContext,
+            cardPlay.Target,
+            base.DynamicVars["VulnerablePower"].BaseValue,
+            Owner.Creature,
+            this
+        );
     }
 
-    // 升级：费用 -1（1 → 0）
-    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
+    // 升级：伤害 6 → 9（易伤仍为 2）
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
 
     // ====================== 修复2：修正卡牌生成API错误 ======================
     public static async Task<CardModel> CreateInHand(Player owner, ICombatState combatState)
