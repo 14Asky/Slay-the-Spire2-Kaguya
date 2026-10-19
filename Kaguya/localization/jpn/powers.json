@@ -222,5 +222,7 @@
 	"KAGUYA-FINALE_POWER.smartDescription": "次のターン開始時、[blue]ホームラン[/blue]{Amount}枚を得る。",
 	"KAGUYA-ENDING_POWER.title": "月の祝福",
 	"KAGUYA-DAILY_SONG_END_POWER.title": "穏やかな日常",
-	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "待つ"
+	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "待つ",
+	"KAGUYA-PLAYFUL_LIFE_POWER.title": "世を遊ぶ",
+	"KAGUYA-PLAYFUL_LIFE_POWER.description": "このターン中[gold]月夜[/gold]を獲得するたび、[gold]ブロック[/gold]{Amount}を得る。"
 }

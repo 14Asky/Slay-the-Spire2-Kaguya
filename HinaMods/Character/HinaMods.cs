@@ -1,5 +1,7 @@
 using BaseLib.Abstracts;
 using Godot;
+using MegaCrit.Sts2.Core.Animation;
+using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
@@ -8,6 +10,8 @@ using Kaguya.HinaMods.Potions;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using Kaguya.HinaMods.Cards;
 using Kaguya.HinaMods.Extensions;
+using Kaguya.HinaMods.Visuals;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using System;
 using System.Collections.Generic;
 using Kaguya.HinaMods.Relics;
@@ -79,7 +83,40 @@ public class HinaCharacter: PlaceholderCharacterModel
 		这里仅配置了最基础的资源作为占位，用来区分自定义角色
 		非必须，但建议重命名这些图片资源 */
 	// 自定义角色视觉模型路径
-	public override string CustomVisualPath => "res://scenes/hinamods/HinaVisual.tscn";
+	// Spine 版（骨架数据 scenes/hinamods/spine/kaguya_spine_data.tres，装配逻辑见 HinaMods/Visuals/KaguyaSpineVisual.cs）
+	public override string CustomVisualPath => KaguyaSpineVisual.ScenePath;
+	// 旧的序列帧版立绘：Spine 装配失败时自动回退到这里
+	public const string LegacyVisualPath = KaguyaSpineVisual.LegacyScenePath;
+
+	/// <summary>
+	/// 手动创建立绘节点（Spine 版，失败自动回退旧序列帧版）。
+	/// 场景里的 Visuals 只是普通 Node2D 占位，真正的 SpineSprite 在节点入树前创建并替换——
+	/// 这样 KaguyaSpine.tscn 里不会出现 SpineSprite 这个扩展类型，未装编辑器扩展的人
+	/// 打开场景也不会看到「节点类型不可用」的占位提示。
+	/// 替换必须早于入树：引擎 NCreatureVisuals._Ready 会立刻校验 %Visuals 是 SpineSprite
+	/// 且骨架已加载，否则永久关闭 spine 动画；而入树过程中父节点 busy，add_child 会失败。
+	/// </summary>
+	public override NCreatureVisuals? CreateCustomVisuals()
+	{
+		return KaguyaSpineVisual.CreateVisuals();
+	}
+
+	/// <summary>
+	/// Spine 立绘的动画名映射。
+	/// kaguya.skel 里只有 idle_loop / idle_loop_backup / attack / cast / hurt / die，
+	/// 没有引擎默认要的 low_health_loop / relaxed_loop，
+	/// 所以低血量与放松状态统一回落到 idle_loop，其余按原名对应。
+	/// </summary>
+	public override CreatureAnimator? SetupCustomAnimationStates(MegaSprite controller)
+	{
+		return SetupAnimationState(
+			controller,
+			idleName: AnimState.idleAnim,
+			deadName: AnimState.dieAnim,
+			hitName: AnimState.hurtAnim,
+			attackName: AnimState.attackAnim,
+			castName: AnimState.castAnim);
+	}
 	// 自定义角色图标路径
 	public override string CustomIconTexturePath => "character_icon_char_name.png".CharacterUiPath();
 

@@ -163,7 +163,7 @@
   "KAGUYA-HINA_PHONOGRAPH_RELIC.flavor": "[purple]辉夜喜爱的耳机...[/purple]",
 
   "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title": "原光之竹",
-  "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "你的回合结束时，获得等同于你当前回合打出的卡牌数除以3的[gold]月夜[/gold]层数。",
+  "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "你的回合结束时，若你没有任何[gold]格挡[/gold]，获得等同于[gold]月夜[/gold]层数的[gold]格挡[/gold]，最多10点。",
   "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]原光之竹，承载着月夜的光辉。[/gold]",
 
   "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "辉夜的智能手机",

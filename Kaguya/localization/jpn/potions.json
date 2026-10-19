@@ -9,7 +9,7 @@
 	"KAGUYA-APPLE_CANDY.description": "[gold]ツクヨミ[/gold]中の場合、[gold]現実[/gold]に移行する。そうでない場合、[gold]ツクヨミ[/gold]に移行する。",
 	
 	"KAGUYA-SUPPORT_POTION.title": "支援ポーション",
-	"KAGUYA-SUPPORT_POTION.description": "ランダムな[blue]支援カード[/blue]2枚を[gold]手札[/gold]に加える。",
+	"KAGUYA-SUPPORT_POTION.description": "ランダムな[blue]支援カード[/blue]2枚を[gold]手札[/gold]に加える。それらはこのターンコスト0でプレイできる。",
 
 	"KAGUYA-MOON_POTION.title": "月のポーション",
 	"KAGUYA-MOON_POTION.description": "[gold]月夜[/gold]6を得る。",

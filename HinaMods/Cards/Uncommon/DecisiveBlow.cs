@@ -23,16 +23,22 @@ namespace Kaguya.HinaMods.SupportCards.Common;
 /// 关键一击（DecisiveBlow）
 /// 本地化键：KAGUYA-DECISIVE_BLOW.title / .description
 /// 2费 · 攻击牌 · 稀有 · 目标：单个敌人 · 标签：支援牌
-/// 卡面：造成15点伤害。获得随机3张0费[blue]支援[/blue]牌。
-/// 代码实测：Damage=15；SupportCount=3
-/// 升级：伤害与张数不变；获得的支援牌变为【升级后】的
+/// 卡面：造成12点伤害。获得随机2张1费及以下的[blue]支援[/blue]牌，其费用-1。
+/// 代码实测：Damage=12；SupportCount=2；MaxSupportCost=1；CostReduce=1
+/// 升级：伤害 12→15；获得的支援牌变为【升级后】的（张数、费用-1 不变）
 /// </summary>
 public sealed class DecisiveBlow : HinaModsCard
 {
+    /// <summary>只取基础费用 ≤ 该值的支援牌。</summary>
+    private const int MaxSupportCost = 1;
+
+    /// <summary>获得的支援牌费用减免。</summary>
+    private const int CostReduce = 1;
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(15m, ValueProp.Move),
-        new DynamicVar("SupportCount", 3m)
+        new DamageVar(12m, ValueProp.Move),
+        new DynamicVar("SupportCount", 2m)
     ];
 
     /// <summary>支援牌标签（本牌会获得支援牌）。</summary>
@@ -75,6 +81,7 @@ public sealed class DecisiveBlow : HinaModsCard
         List<CardModel> supportPool = ModelDb.AllCards
             .OfType<HinaModsCard>()
             .Where(c => c.CustomTags != null && c.CustomTags.Contains(CustomCardTags.SUPPORT))
+            .Where(c => c.EnergyCost.Canonical <= MaxSupportCost)
             .Cast<CardModel>()
             .ToList();
 
@@ -96,16 +103,17 @@ public sealed class DecisiveBlow : HinaModsCard
                 card.FinalizeUpgradeInternal();
             }
 
-            // 0 费支援牌
-            card.EnergyCost.SetCustomBaseCost(0);
+            // 费用 -1（基础与升级后都一样）
+            card.EnergyCost.AddUntilPlayed(-CostReduce);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner, CardPilePosition.Top);
         }
 
         Owner.PlayerCombatState?.RecalculateCardValues();
     }
 
-    /// <summary>升级：获得的 3 张支援牌变为升级版（伤害与张数不变）。</summary>
+    /// <summary>升级：伤害 12 → 15；获得的 2 张支援牌变为升级版。</summary>
     protected override void OnUpgrade()
     {
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

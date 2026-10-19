@@ -165,7 +165,7 @@
 	"KAGUYA-HINA_PHONOGRAPH_RELIC.flavor": "[purple]かぐやのお気に入りのイヤホン…[/purple]",
 
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title": "もと光る竹",
-	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "ターン終了時、このターンカード3枚にプレイしたたび、[gold]月夜[/gold]1を得る。",
+	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "ターン終了時、[gold]ブロック[/gold]が0なら、[gold]月夜[/gold]の層数に等しい[gold]ブロック[/gold]を最大10得る。",
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]もと光る竹、月夜の輝きを宿す。[/gold]",
 
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "かぐやのスマホ",

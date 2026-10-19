@@ -222,5 +222,7 @@
 	"KAGUYA-FINALE_POWER.smartDescription": "At the start of your next turn, gain {Amount} [blue]Home Run[/blue].",
 	"KAGUYA-ENDING_POWER.title": "Moon Blessing",
 	"KAGUYA-DAILY_SONG_END_POWER.title": "Peaceful Daily",
-	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "Wait"
+	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "Wait",
+	"KAGUYA-PLAYFUL_LIFE_POWER.title": "Playful Life",
+	"KAGUYA-PLAYFUL_LIFE_POWER.description": "Whenever you gain [gold]Moonlight[/gold] this turn, gain {Amount} [gold]Block[/gold]."
 }

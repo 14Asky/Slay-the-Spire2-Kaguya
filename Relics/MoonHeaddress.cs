@@ -30,7 +30,7 @@ namespace Kaguya.Relics
     {
         private const int MaxCardsToPlay = 168;
 
-        public override RelicRarity Rarity => RelicRarity.Ancient;
+        public override RelicRarity Rarity => RelicRarity.Rare;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => new[]
         {
@@ -52,17 +52,17 @@ namespace Kaguya.Relics
             return amount + DynamicVars.Energy.BaseValue;
         }
 
-        // Ê¹ÓÃÐÂ°æ¹³×Ó AfterAutoPrePlayPhaseEnteredLate£¬ÔÚ×Ô¶¯´òÅÆ½×¶Î¿ªÊ¼Ê±´¥·¢
+        // Ê¹ï¿½ï¿½ï¿½Â°æ¹³ï¿½ï¿½ AfterAutoPrePlayPhaseEnteredLateï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Æ½×¶Î¿ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½
         public override async Task AfterAutoPrePlayPhaseEnteredLate(PlayerChoiceContext choiceContext, Player player)
         {
             if (player != Owner) return;
             ICombatState combatState = player.Creature.CombatState;
-            // Ö»ÔÚµÚ¶þ»ØºÏ´¥·¢£ºRoundNumber ´Ó 1 ¿ªÊ¼£¬µÚ¶þ»ØºÏÎª 2
+            // Ö»ï¿½ÚµÚ¶ï¿½ï¿½ØºÏ´ï¿½ï¿½ï¿½ï¿½ï¿½RoundNumber ï¿½ï¿½ 1 ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½Øºï¿½Îª 2
             if (combatState.RoundNumber != 2) return;
 
             Flash();
 
-            // ÅÐ¶ÏÊÇ·ñÎª»ÔÒ¹½ÇÉ«
+            // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½Ò¹ï¿½ï¿½É«
             bool isKaguya = Owner.Character is HinaCharacter;
 
             int cardsPlayed = 0;
@@ -103,13 +103,13 @@ namespace Kaguya.Relics
             }
         }
 
-        // ====================== »ÔÒ¹³öÅÆÂß¼­ ======================
+        // ====================== ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ ======================
 
         private async Task<int> TryPlayKaguyaLogic(
             PlayerChoiceContext choiceContext, List<CardModel> hand,
             ICombatState combatState)
         {
-            // P1: SUPPORT Á´ ¡ª¡ª ´ò³ö SUPPORT ÅÆ£¬½ô½Ó×Å´òÍ¬ÀàÐÍ·Ç SUPPORT ÅÆ
+            // P1: SUPPORT ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ SUPPORT ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å´ï¿½Í¬ï¿½ï¿½ï¿½Í·ï¿½ SUPPORT ï¿½ï¿½
             var supportCard = hand.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.SUPPORT) && c.CanPlay());
             if (supportCard != null)
             {
@@ -118,7 +118,7 @@ namespace Kaguya.Relics
 
                 if (CombatManager.Instance.IsOverOrEnding) return played;
 
-                // ½ô½Ó×Å´òÍ¬ÀàÐÍ·Ç SUPPORT ÅÆ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Å´ï¿½Í¬ï¿½ï¿½ï¿½Í·ï¿½ SUPPORT ï¿½ï¿½
                 var freshHand = PileType.Hand.GetPile(Owner).Cards.ToList();
                 var followCard = freshHand.FirstOrDefault(c =>
                     !HasCustomTag(c, CustomCardTags.SUPPORT) &&
@@ -131,15 +131,15 @@ namespace Kaguya.Relics
                     played++;
                     return played;
                 }
-                // ²»´æÔÚÔò»Øµ½Õý³£Âß¼­£¬¼ÌÐøÑ­»·
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
                 return played;
             }
 
-            // P2 + P3: SINGER ÓÅÏÈ + »ù´¡ÓÅÏÈ¼¶£¨·ÑÓÃ¡Ü2µÄÄÜÁ¦ÅÆ > ¼¼ÄÜÅÆ > ¹¥»÷ÅÆ£©
+            // P2 + P3: SINGER ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ > ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ > ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½
             var playable = hand.Where(c => c.CanPlay()).ToList();
             if (playable.Count == 0) return 0;
 
-            // °´ÓÅÏÈ¼¶ÅÅÐò£ºSINGER Power¡Ü2 > SINGER Skill > SINGER Attack > Power¡Ü2 > Skill > Attack
+            // ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½SINGER Powerï¿½ï¿½2 > SINGER Skill > SINGER Attack > Powerï¿½ï¿½2 > Skill > Attack
             CardModel? bestCard = null;
             bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Power && c.EnergyCost.GetAmountToSpend() <= 2);
             bestCard ??= playable.FirstOrDefault(c => HasCustomTag(c, CustomCardTags.ECHO) && c.Type == CardType.Skill);
@@ -157,13 +157,13 @@ namespace Kaguya.Relics
             return 0;
         }
 
-        // ====================== Ô­°æ³öÅÆÂß¼­ ======================
+        // ====================== Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ ======================
 
         private async Task<int> TryPlayDefaultLogic(
             PlayerChoiceContext choiceContext, List<CardModel> hand,
             ICombatState combatState)
         {
-            // 1. »ï°éÅä¶Ô£ºÑ°ÕÒÒ»¶Ô»ï°éÅÆ + Í¬ÀàÐÍ·Ç»ï°éÅÆ
+            // 1. ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½Ñ°ï¿½ï¿½Ò»ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ + Í¬ï¿½ï¿½ï¿½Í·Ç»ï¿½ï¿½ï¿½ï¿½
             var partnerCard = hand.FirstOrDefault(c => c.Tags.Contains((CardTag)1004) && c.CanPlay());
             if (partnerCard != null)
             {
@@ -173,11 +173,11 @@ namespace Kaguya.Relics
                     c.CanPlay());
                 if (matchingNonPartner != null)
                 {
-                    // ÏÈ´ò·Ç»ï°éÅÆ
+                    // ï¿½È´ï¿½Ç»ï¿½ï¿½ï¿½ï¿½
                     await PlayCard(choiceContext, matchingNonPartner, combatState);
                     int played = 1;
 
-                    // Á¢¼´´ò»ï°éÅÆ
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     if (!CombatManager.Instance.IsOverOrEnding)
                     {
                         var freshPartner = PileType.Hand.GetPile(Owner).Cards
@@ -193,7 +193,7 @@ namespace Kaguya.Relics
                 }
             }
 
-            // 2. ´ò¹¥»÷ÅÆ
+            // 2. ï¿½ò¹¥»ï¿½ï¿½ï¿½
             var attackCard = hand.FirstOrDefault(c => c.Type == CardType.Attack && c.CanPlay());
             if (attackCard != null)
             {
@@ -201,7 +201,7 @@ namespace Kaguya.Relics
                 return 1;
             }
 
-            // 3. ´òÆäËû¿É´òÅÆ
+            // 3. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É´ï¿½ï¿½ï¿½
             var anyCard = hand.FirstOrDefault(c => c.CanPlay());
             if (anyCard != null)
             {
@@ -212,7 +212,7 @@ namespace Kaguya.Relics
             return 0;
         }
 
-        // ====================== Í¨ÓÃ¸¨Öú·½·¨ ======================
+        // ====================== Í¨ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ======================
 
         private static bool HasCustomTag(CardModel card, string tag)
         {

@@ -221,5 +221,7 @@
 	"KAGUYA-FINALE_POWER.smartDescription": "下个回合开始时，获得{Amount}张[blue]全垒打[/blue]。",
 	"KAGUYA-ENDING_POWER.title": "月之赐福",
 	"KAGUYA-DAILY_SONG_END_POWER.title": "平静日常",
-	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "等待"
+	"KAGUYA-SINGER_ECHO_COST_DOWN_POWER.title": "等待",
+	"KAGUYA-PLAYFUL_LIFE_POWER.title": "游戏人间",
+	"KAGUYA-PLAYFUL_LIFE_POWER.description": "本回合每获得1层[gold]月夜[/gold]，获得{Amount}层[gold]格挡[/gold]。"
 }

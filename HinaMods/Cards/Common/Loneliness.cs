@@ -16,10 +16,10 @@ namespace Kaguya.HinaMods.Cards;
 /// <summary>
 /// 寂寞（Loneliness）
 /// 本地化键：KAGUYA-LONELINESS.title / .description
-/// 2费 · 技能牌 · 普通 · 目标：自身 · 关键词：Ethereal
-/// 卡面：获得13点格挡；本回合不再能获得格挡。
-/// 代码实测：Block=13
-/// 升级：Block +3；移除关键词 Ethereal
+/// 2费 · 技能牌 · 普通 · 目标：自身 · 关键词：Ethereal（升级后移除）
+/// 卡面：获得15点格挡，然后获得2层[gold]脆弱[/gold]。
+/// 代码实测：Block=15；FrailPower=2
+/// 升级：Block 15 → 18
 /// </summary>
 public sealed class Loneliness : HinaModsCard
 {
@@ -27,7 +27,8 @@ public sealed class Loneliness : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(13m, ValueProp.Move)
+        new BlockVar(15m, ValueProp.Move),
+        new PowerVar<FrailPower>(2m)
     ];
 
     public Loneliness()
@@ -36,13 +37,13 @@ public sealed class Loneliness : HinaModsCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 先结算本身的格挡，再封锁本回合后续的格挡获取
+        // 先结算格挡，再给自己挂脆弱（顺序反了格挡会先被脆弱削减）
         await CommonActions.CardBlock(this, cardPlay);
 
-        await PowerCmd.Apply<NoBlockPower>(
+        await PowerCmd.Apply<FrailPower>(
             choiceContext,
             Owner.Creature,
-            1,
+            DynamicVars["FrailPower"].BaseValue,
             Owner.Creature,
             this);
     }

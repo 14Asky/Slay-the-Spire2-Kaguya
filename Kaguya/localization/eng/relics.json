@@ -162,7 +162,7 @@
 	"KAGUYA-HINA_PHONOGRAPH_RELIC.description": "At the start of each combat, add 1 random [purple]Song[/purple] card to your [gold]hand[/gold].",
 	"KAGUYA-HINA_PHONOGRAPH_RELIC.flavor": "[purple]Kaguya's favorite headphones...[/purple]",
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title": "Original Light Bamboo",
-	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "At the end of your turn, gain [gold]Moonlight[/gold] equal to the number of cards you played this turn divided by 3.",
+	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "At the end of your turn, if you have no [gold]Block[/gold], gain [gold]Block[/gold] equal to your [gold]Moonlight[/gold], up to 10.",
 	"KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]Original Light Bamboo, bearing the radiance of the moonlight.[/gold]",
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "Kaguya's Smartphone",
 	"KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "At the start of each combat, gain {MoonlightPower} [gold]Moonlight[/gold].",

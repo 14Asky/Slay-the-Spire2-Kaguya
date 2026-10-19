@@ -8,7 +8,7 @@
 	"KAGUYA-APPLE_CANDY.title": "Candy Apple",
 	"KAGUYA-APPLE_CANDY.description": "If in [gold]Tsukuyomi[/gold], enter [gold]Reality[/gold]; otherwise, enter [gold]Tsukuyomi[/gold].",
 	"KAGUYA-SUPPORT_POTION.title": "Support Potion",
-	"KAGUYA-SUPPORT_POTION.description": "Add 2 random [blue]Support[/blue] cards to your hand.",
+	"KAGUYA-SUPPORT_POTION.description": "Add 2 random [blue]Support[/blue] cards to your hand. They cost 0 this turn.",
 	"KAGUYA-MOON_POTION.title": "Moon Potion",
 	"KAGUYA-MOON_POTION.description": "Gain 6 [gold]Moonlight[/gold].",
 	"KAGUYA-STAR_NIGHT_POTION.title": "Sound-Seeking Potion",

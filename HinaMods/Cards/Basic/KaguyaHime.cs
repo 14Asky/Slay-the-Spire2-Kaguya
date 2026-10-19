@@ -25,7 +25,7 @@ namespace Kaguya.HinaMods.Cards;
 ///       将随机1张可以获得[gold]月夜[/gold]的牌加入手牌，使其获得[gold]消耗[/gold]和[gold]升级[/gold]并可以免费打出。
 /// 代码实测：Damage=20；GiftCount=1
 /// 升级：GiftCount +1；Damage +5
-/// 随机池：见 GetMoonlightCardTemplates（仅攻击牌与技能牌，不含本卡自己）
+/// 随机池：MoonlightPool.GrantersFromCardPool（全卡池里能获得月夜的牌，直接生成，不看稀有度）
 /// </summary>
 public sealed class KaguyaHime : HinaModsCard
 {
@@ -56,18 +56,30 @@ public sealed class KaguyaHime : HinaModsCard
         await CreatureCmd.TriggerAnim(player.Creature, "Cast", player.Character.CastAnimDelay);
         await CommonActions.CardAttack(this, cardPlay).Execute(choiceContext);
 
-        List<CardModel> pool = GetMoonlightCardTemplates();
-        if (pool.Count == 0) return;
+        // 池子：**卡池**里「能获得月夜」的牌（不是牌堆里的实例，也不按稀有度过滤——
+        // 玩闹是 Basic，若走 CardFactory.GetDistinctForCombat 的 FilterForCombat 会被吃掉）
+        List<CardModel> pool = MoonlightPool.GrantersFromCardPool();
+        if (pool.Count == 0)
+            return;
 
         int count = (int)DynamicVars[GiftCountKey].BaseValue;
 
         // 确定性 RNG：联机下各客户端结果一致
-        List<CardModel> gifts = CardFactory.GetDistinctForCombat(
-            player, pool, count, player.RunState.Rng.CombatCardGeneration).ToList();
+        List<CardModel> picked = pool.ToList();
+        player.RunState.Rng.CombatCardGeneration.Shuffle(picked);
+        if (picked.Count > count)
+            picked = picked.GetRange(0, count);
 
-        foreach (CardModel card in gifts)
+        MegaCrit.Sts2.Core.Combat.ICombatState? state = player.Creature.CombatState;
+        if (state == null)
+            return;
+
+        foreach (CardModel template in picked)
         {
-            // 升级：拿到的是战斗中可变克隆（CreateCard），幂等处理
+            // 直接**生成**一张新卡（不是把牌堆里那张挪过来）
+            CardModel card = state.CreateCard(template, player);
+
+            // 升级：拿到的是升级版
             if (card.IsMutable && card.IsUpgradable && !card.IsUpgraded)
             {
                 card.UpgradeInternal();
@@ -83,33 +95,6 @@ public sealed class KaguyaHime : HinaModsCard
             await CardPileCmd.AddGeneratedCardToCombat(
                 card, PileType.Hand, player, CardPilePosition.Top);
         }
-    }
-
-    /// <summary>
-    /// 「可以获得月夜的牌」随机池 —— 仅攻击牌与技能牌，不含本卡自己。
-    /// 判定依据：代码里会给玩家 <c>PowerCmd.Apply&lt;MoonlightPower&gt;</c>（即「获得月夜」）的卡。
-    /// 新增/修改此类卡时需同步维护本清单。
-    /// </summary>
-    private static List<CardModel> GetMoonlightCardTemplates()
-    {
-        return new List<CardModel>
-        {
-            // ---- 攻击牌（5）----
-            ModelDb.Card<Playful>(),       // 玩闹
-            ModelDb.Card<Unbelievable>(),        // 难以置信
-            ModelDb.Card<WayHome>(),            // 归途
-            ModelDb.Card<SameMoonDifferentTime>(),        // 同月殊时
-            ModelDb.Card<HeavensWill>(),           // 天意
-            // ---- 技能牌（8）----
-            ModelDb.Card<YachiyoClone>(),     // 八千代分身
-            ModelDb.Card<Expectation>(),              // 期盼
-            ModelDb.Card<PlayfulLife>(),                 // 游戏人间
-            ModelDb.Card<MoonlightFlow>(),         // 月夜流转
-            ModelDb.Card<ReturnFlow>(),           // 归流
-            ModelDb.Card<AllRoundSupport>(),         // 八方援护
-            ModelDb.Card<StartBroadcast>(),              // 开播
-            ModelDb.Card<TurnBack>(),            // 回眸
-        };
     }
 
     protected override void OnUpgrade()
