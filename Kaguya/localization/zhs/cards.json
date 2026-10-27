@@ -465,7 +465,7 @@
 	"KAGUYA-CHORUS.description": "造成{CalculatedDamage:diff()}点伤害；[gold]友方[/gold]每有一张[purple]合唱[/purple]，伤害增加{ExtraDamage:diff()}点。\n选择[gold]弃牌堆[/gold]中的1张牌，将其变为本牌的复制。",
 	"KAGUYA-VAST_SKY.title": "长空",
 	"KAGUYA-VAST_SKY.description": "造成{CalculatedDamage:diff()}点伤害，对其余敌人造成本次伤害一半的伤害。\n此牌受到[gold]力量[/gold]的加成为{StrengthMult:diff()}倍。",
-	"KAGUYA-STRING_CHORUS.title": "弦乐合唱",
+	"KAGUYA-STRING_CHORUS.title": "弦乐合音",
 	"KAGUYA-STRING_CHORUS.description": "选择一名[gold]友方[/gold]，将一张{IfUpgraded:show:升级过的|}[purple]合唱[/purple]加入其[gold]抽牌堆[/gold]。\n将本牌打出后变化为{IfUpgraded:show:升级过的|}[purple]合唱[/purple]。\n若选择的友方是[blue]酒寄彩叶[/blue]，则使其[gold]过劳[/gold]-{OverworkReduce:diff()}，该友方抽{Cards:diff()}张牌。",
 	"KAGUYA-FULL_MOON.title": "满月",
 	"KAGUYA-FULL_MOON.description": "[gold]月夜[/gold]{MoonCost:diff()}：使所有能量低于{EnergyTo:diff()}点的[gold]友方[/gold]回复到{EnergyTo:diff()}点能量。",

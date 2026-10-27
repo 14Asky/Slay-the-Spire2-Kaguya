@@ -465,7 +465,7 @@
 	"KAGUYA-CHORUS.description": "{CalculatedDamage:diff()}ダメージを与える。[gold]味方[/gold]の[purple]合唱[/purple]1枚につき{ExtraDamage:diff()}追加ダメージ。\n[gold]捨て札[/gold]からカードを1枚選び、このカードのコピーに変化させる。",
 	"KAGUYA-VAST_SKY.title": "長空",
 	"KAGUYA-VAST_SKY.description": "{CalculatedDamage:diff()}ダメージを与え、他の敵全員にその半分のダメージを与える。\nこのカードは[gold]筋力[/gold]の影響を{StrengthMult:diff()}倍受ける。",
-	"KAGUYA-STRING_CHORUS.title": "弦楽合唱",
+	"KAGUYA-STRING_CHORUS.title": "弦楽合音",
 	"KAGUYA-STRING_CHORUS.description": "[gold]味方[/gold]1人を選び、その[gold]山札[/gold]に{IfUpgraded:show:強化済みの|}[purple]合唱[/purple]を1枚加える。\nこのカードはプレイ後に{IfUpgraded:show:強化済みの|}[purple]合唱[/purple]へ変化する。\n選んだ味方が[blue]酒寄彩葉[/blue]なら、その[gold]過労[/gold]を{OverworkReduce:diff()}減らし、その味方はカードを{Cards:diff()}枚引く。",
 	"KAGUYA-FULL_MOON.title": "満月",
 	"KAGUYA-FULL_MOON.description": "[gold]月夜[/gold]{MoonCost:diff()}：エネルギーが{EnergyTo:diff()}未満の[gold]味方[/gold]すべてを{EnergyTo:diff()}まで回復する。",
