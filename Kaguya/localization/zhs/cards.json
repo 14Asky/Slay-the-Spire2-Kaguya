@@ -470,5 +470,5 @@
 	"KAGUYA-FULL_MOON.title": "满月",
 	"KAGUYA-FULL_MOON.description": "[gold]月夜[/gold]{MoonCost:diff()}：使所有能量低于{EnergyTo:diff()}点的[gold]友方[/gold]回复到{EnergyTo:diff()}点能量。",
 	"KAGUYA-MOON_SET.title": "月落",
-	"KAGUYA-MOON_SET.description": "获得{MoonlightPower:diff()}层[gold]月夜[/gold]（本回合[gold]友方[/gold]每打出1张牌，额外+1层），然后对所有敌人造成等同于你[gold]月夜[/gold]层数的伤害。"
+	"KAGUYA-MOON_SET.description": "获得{MoonlightPower:diff()}层[gold]月夜[/gold]（本回合[gold]友方[/gold]每打出1张牌，额外+1层），对所有敌人造成等同于你[gold]月夜[/gold]层数的伤害。"
 }
