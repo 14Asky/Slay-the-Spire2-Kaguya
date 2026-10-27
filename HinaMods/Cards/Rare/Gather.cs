@@ -72,7 +72,7 @@ public sealed class Gather : HinaModsCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        decimal cost = base.DynamicVars[MoonCostVarName].BaseValue;
+        decimal cost = EffectiveMoonCost;
 
         // 月夜N：非首次打出，或层数不足，则整个效果都不触发（豁免时 cost=0 直接放行）
         if (!cardPlay.IsFirstInSeries)

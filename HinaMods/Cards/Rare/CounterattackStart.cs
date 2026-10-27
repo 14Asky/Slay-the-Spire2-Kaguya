@@ -61,7 +61,7 @@ public class CounterattackStart : HinaModsCard
             this);
 
         // 月夜5：消耗 5 层月夜 → 返回手牌 + 本回合费用 -1
-        decimal requiredMoon = DynamicVars[MoonCostVarName].BaseValue;
+        decimal requiredMoon = EffectiveMoonCost;
         if (!await TryConsumeMoonlight(choiceContext, requiredMoon, this))
             return;
 

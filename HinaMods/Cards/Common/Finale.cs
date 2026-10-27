@@ -58,7 +58,7 @@ public sealed class Finale : HinaModsCard
 
         bool discounted = await TryConsumeMoonlight(
             choiceContext,
-            DynamicVars[MoonCostVarName].BaseValue,
+            EffectiveMoonCost,
             this);
 
         await PowerCmd.Apply<FinalePower>(

@@ -66,7 +66,7 @@ public sealed class Disgust : HinaModsCard
         );
 
         // 月夜2：对敌方全体造成伤害
-        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
+        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)

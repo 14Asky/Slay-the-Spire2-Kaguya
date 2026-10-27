@@ -77,7 +77,7 @@ public class VictoryFlag() : HinaModsCard(0,
             return;
 
         // 月夜2（升级后月夜1）：将其升级。层数不足则照常加入手牌、不升级。
-        decimal requiredMoon = DynamicVars[MoonCostVarName].BaseValue;
+        decimal requiredMoon = EffectiveMoonCost;
         if (await TryConsumeMoonlight(choiceContext, requiredMoon, this))
         {
             TryUpgrade(chosenCard);

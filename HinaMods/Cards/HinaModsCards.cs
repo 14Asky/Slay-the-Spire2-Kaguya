@@ -66,17 +66,6 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	public bool IsFreePlayByEffect => _freePlayByEffect;
 
 	/// <summary>
-	/// 本牌**原本要求**的月夜层数（「获得+免费」把消耗置 0 时，这里仍是原值）。
-	/// 门槛型卡牌（如满月）用它判断能不能打出，这样「免费」只免消耗、不会把门槛也免掉。
-	/// ⚠ 用「原值 + 当前值」而不是直接取原值：先标记免费、后升级的牌（如习惯寂寞给的牌）
-	///   升级会写在已被置 0 的变量上（5→0→3），把两段相加才是它真正的门槛。
-	/// </summary>
-	public decimal MoonRequirement =>
-		DynamicVars.ContainsKey(MoonCostVarName)
-			? (_moonCostBeforeFree ?? 0m) + DynamicVars[MoonCostVarName].BaseValue
-			: 0m;
-
-	/// <summary>
 	/// 「打出时消耗的月夜层数」动态变量的统一变量名。
 	/// 凡是【把月夜当打出代价】的卡都把这个变量命名为 "MoonCost"，基类就能在打「获得+免费」标记时
 	/// 把它置 0 —— 卡面随之显示「月夜0」，且打出时不消耗月夜、后续效果照常触发。
@@ -170,6 +159,14 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	public bool SkipsMoonlightCost =>
 		_freePlayByEffect
 		|| (EnergyCost.Canonical > 0 && EnergyCost.GetWithModifiers(CostModifiers.Local) == 0);
+
+	/// <summary>
+	/// 本次打出**实际要扣**的月夜层数：处于「获得+免费 / 药水免费」状态时为 0，否则取 MoonCost 变量。
+	/// 所有「月夜N：」的牌都应通过它调用 <see cref="TryConsumeMoonlight"/>，
+	/// 否则免费状态下（变量仍是 N）会照扣层数。
+	/// </summary>
+	protected decimal EffectiveMoonCost =>
+		SkipsMoonlightCost ? 0m : (DynamicVars.ContainsKey(MoonCostVarName) ? DynamicVars[MoonCostVarName].BaseValue : 0m);
 
 	/// <summary>
 	/// 是否拥有【回音】：只有显式带 ECHO 标签的牌才拥有回音。

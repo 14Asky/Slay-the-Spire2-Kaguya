@@ -55,7 +55,7 @@ public sealed class RoyalFan : HinaModsCard
 
         if (cardPlay.IsFirstInSeries)
         {
-            if (await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
+            if (await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
             {
                 newHandCard.EnergyCost.AddThisCombat(-1);
             }

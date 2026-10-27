@@ -82,7 +82,7 @@ public sealed class HeavensWill : HinaModsCard
             .Execute(choiceContext);
 
         // 月夜2：抽 2 张牌
-        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
+        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
             return;
 
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);

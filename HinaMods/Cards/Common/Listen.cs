@@ -59,7 +59,7 @@ public sealed class Listen : HinaModsCard
         await CommonActions.CardBlock(this, cardPlay);
 
         // 月夜2：把弃牌堆一张牌加入手牌
-        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
+        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
             return;
 
         CardPile discardPile = PileType.Discard.GetPile(player);

@@ -48,9 +48,12 @@ public sealed class FullMoon : HinaModsCard
 
     /// <summary>
     /// 月夜不足时打不出去（与「集结 / 蓦然回首 / 旗开得胜」同一套门槛写法）。
-    /// ⚠ 门槛用 <see cref="HinaModsCard.MoonRequirement"/>（免费置 0 之前的原值）判断：
-    ///   「获得+免费 / 药水免费」只免掉**消耗**，不会把「月夜5」这个门槛一并免掉，
-    ///   否则这张牌就能在 0 月夜时被免费打出去。
+    /// 两种例外：
+    ///   ① 本牌处于「获得+免费 / 药水免费」状态（<see cref="SkipsMoonlightCost"/>）—— 卡面此时是「月夜0」，
+    ///      0 月夜也应当能打出去；
+    ///   ② 月夜消耗本来就被降成 0（升级/其它效果）。
+    /// 免费只作用于**第一次**打出：基类在 <see cref="HinaModsCard.AfterCardPlayed"/> 里还原消耗，
+    /// 第二次被带回手牌后就按正常的「月夜5（升级3）」判断。
     /// </summary>
     protected override bool IsPlayable
     {
@@ -59,9 +62,11 @@ public sealed class FullMoon : HinaModsCard
             if (!base.IsPlayable)
                 return false;
 
-            decimal required = MoonRequirement;
+            // 免费状态（卡面显示月夜0）：不需要月夜也能打
+            if (SkipsMoonlightCost)
+                return true;
 
-            // 月夜为 0 层且本牌不消耗月夜（例如本来就是月夜0）时才允许没有 Power 的情况
+            decimal required = DynamicVars[MoonCostVarName].BaseValue;
             if (required <= 0m)
                 return true;
 
@@ -74,8 +79,8 @@ public sealed class FullMoon : HinaModsCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 免费打出（获得+免费 / 药水免费）时只免消耗；「月夜5」的门槛已在 IsPlayable 里保证过
-        decimal need = SkipsMoonlightCost ? 0m : DynamicVars[MoonCostVarName].BaseValue;
+        // 免费状态（技能药水 / 获得+免费）下 card 面是「月夜0」：既免门槛也免消耗，扣 0 层
+        decimal need = EffectiveMoonCost;
         if (!await TryConsumeMoonlight(choiceContext, need, this))
             return;
 

@@ -60,7 +60,7 @@ public sealed class ReturnFlow : HinaModsCard
         if (!cardPlay.IsFirstInSeries)
             return;
 
-        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostKey].BaseValue, this))
+        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
             return;
 
         await PowerCmd.Apply<MoonlightPower>(
