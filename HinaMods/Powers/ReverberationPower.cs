@@ -60,15 +60,29 @@ public sealed class ReverberationPower : CustomPowerModel
             })
             .LastOrDefault();
 
-        if (lastEntry != null)
+        if (lastEntry == null)
+            return;
+
+        // ── 叠加：有几层「余音」就重放几次（2 层 = 最后一张牌打出 2 次）──
+        // ⚠ 与【歌声】的时序：歌声的回洗在 AfterSideTurnEnd，本能力在 BeforeSideTurnEnd，
+        //   所以一定是「先重放、后回洗」。若把歌声改成 BeforeSideTurnEnd 或把本能力改到 After，
+        //   就会出现「牌已洗完，又被打出 → 重新进消耗堆」→ 下回合抽不到（用户的报错场景）。
+        int times = (int)Amount;
+        for (int i = 0; i < times; i++)
         {
+            // 战斗已结束就停（AutoPlay 在收尾阶段会抛）
+            if (CombatManager.Instance.IsOverOrEnding)
+                break;
+
             // 离场防护：若「最后一张牌」是能力牌，它打出后已被 RemoveFromCombat，
             // 此时再 AutoPlay 会让引擎抛 InvalidOperationException。
             // 同时必须排除副本（IsDupe），副本打出后同样会离场。
-            if (HinaModsCard.CanReplayAutomatically(lastEntry.CardPlay.Card))
-            {
-                await CardCmd.AutoPlay(ctx, lastEntry.CardPlay.Card, null);
-            }
+            if (!HinaModsCard.CanReplayAutomatically(lastEntry.CardPlay.Card))
+                break;
+
+            // 注意：这里重放的是**同一个卡牌实例**（不是 CreateDupe 副本）。
+            // 因此歌声牌走完「消耗堆→出牌→消耗堆」仍是同一张，不会在消耗堆里凭空多出副本。
+            await CardCmd.AutoPlay(ctx, lastEntry.CardPlay.Card, null);
         }
     }
 }

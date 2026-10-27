@@ -24,7 +24,7 @@
 	"KAGUYA-MEMORYOPTION.description": "Recall lost memories.\nDefeating [gold]Tsukito[/gold] might help you remember past experiences?\n[gold]When you gather your thoughts, the ending shall be rewritten.[/gold]",
 	"KAGUYA-MEMORYOPTION.title": "Remember",
 	"KAGUYA-ECHO.title": "Song",
-	"KAGUYA-ECHO.description": "When played, this card goes into the [gold]exhaust pile[/gold]. At the start of your next turn, before you draw, it is shuffled into your [gold]draw pile[/gold].",
+	"KAGUYA-ECHO.description": "When played, this card goes into the [gold]exhaust pile[/gold]. At the end of this turn, it is shuffled into your [gold]draw pile[/gold].",
 	"SUPPORT.title": "Support",
 	"SUPPORT.description": "After playing, gain 1 [gold]Strength[/gold] (Support Attack) or 1 [gold]Dexterity[/gold] (Support Skill) this turn. Lost at the end of the turn.",
 	"SUPPORTCARD.title": "Support Card",

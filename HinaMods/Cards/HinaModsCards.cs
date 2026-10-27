@@ -27,7 +27,7 @@ namespace Kaguya.HinaMods.Cards;
 /// <summary>
 /// 辉夜侧卡牌基类（所有 <c>Kaguya.HinaMods.Cards.*</c> 的父类）。提供：
 ///   · 【歌声】机制：<see cref="GetResultLocationForCardPlay"/> 让歌声牌打出后进消耗堆，
-///     下回合抽牌前（<see cref="BeforeHandDraw"/>）洗回抽牌堆；子类可覆盖
+///     本回合结束时（<see cref="AfterSideTurnEnd"/>）洗回抽牌堆；子类可覆盖
 ///     <see cref="ShouldArmEcho"/> 控制某次打出是否回音。
 ///   · 月夜消耗闸门：<c>TryConsumeMoonlight(ctx, need, source)</c> —— need &lt;= 0 直接放行
 ///     （配合 <c>MarkFreePlay</c> 的免费打出豁免），否则扣 MoonlightPower 层数；
@@ -56,8 +56,25 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	/// </summary>
 	private bool _freePlayByEffect;
 
+	/// <summary>
+	/// 被「获得+免费」置 0 之前的月夜消耗原值；null 表示当前没有处于免费状态。
+	/// 打出一次后由 <see cref="ClearFreePlayByEffect"/> 还原。
+	/// </summary>
+	private decimal? _moonCostBeforeFree;
+
 	/// <summary>本牌是否被「获得+免费」途径显式标记。</summary>
 	public bool IsFreePlayByEffect => _freePlayByEffect;
+
+	/// <summary>
+	/// 本牌**原本要求**的月夜层数（「获得+免费」把消耗置 0 时，这里仍是原值）。
+	/// 门槛型卡牌（如满月）用它判断能不能打出，这样「免费」只免消耗、不会把门槛也免掉。
+	/// ⚠ 用「原值 + 当前值」而不是直接取原值：先标记免费、后升级的牌（如习惯寂寞给的牌）
+	///   升级会写在已被置 0 的变量上（5→0→3），把两段相加才是它真正的门槛。
+	/// </summary>
+	public decimal MoonRequirement =>
+		DynamicVars.ContainsKey(MoonCostVarName)
+			? (_moonCostBeforeFree ?? 0m) + DynamicVars[MoonCostVarName].BaseValue
+			: 0m;
 
 	/// <summary>
 	/// 「打出时消耗的月夜层数」动态变量的统一变量名。
@@ -86,11 +103,11 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 		return true;
 	}
 
-	/// <summary>标记本牌为「获得+免费」生成：打出时跳过月夜门槛与月夜消耗。</summary>
-	public void MarkFreePlayByEffect()
-	{
-		_freePlayByEffect = true;
-	}
+	/// <summary>
+	/// 标记本牌为「获得+免费」生成：这一次打出跳过月夜消耗，卡面显示「月夜0」。
+	/// ⚠ 只对**第一次**打出有效 —— 打出后由 <see cref="ClearFreePlayByEffect"/> 还原月夜消耗。
+	/// </summary>
+	public void MarkFreePlayByEffect() => ApplyFreePlayMoonCost();
 
 	/// <summary>
 	/// 静态入口：把任意生成出来的卡牌标记为「获得+免费」。
@@ -102,18 +119,47 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 		if (card is not HinaModsCard modCard)
 			return;
 
-		modCard._freePlayByEffect = true;
+		modCard.ApplyFreePlayMoonCost();
+	}
 
-		// 免费打出的牌「月夜0」：把消耗变量置 0，卡面随之显示 月夜0
-		if (modCard.DynamicVars.ContainsKey(MoonCostVarName))
-		{
-			DynamicVar costVar = modCard.DynamicVars[MoonCostVarName];
-			if (costVar.BaseValue > 0m)
-			{
-				costVar.BaseValue = 0m;
-				card.Owner?.PlayerCombatState?.RecalculateCardValues();
-			}
-		}
+	/// <summary>
+	/// 进入「获得+免费」状态：记下原月夜消耗并置 0（卡面显示「月夜0」）。
+	/// 已经处于免费状态时不重复记录，避免把 0 当原值存进去。
+	/// </summary>
+	private void ApplyFreePlayMoonCost()
+	{
+		_freePlayByEffect = true;
+
+		if (!DynamicVars.ContainsKey(MoonCostVarName))
+			return;
+
+		DynamicVar costVar = DynamicVars[MoonCostVarName];
+		if (costVar.BaseValue <= 0m)
+			return;
+
+		_moonCostBeforeFree ??= costVar.BaseValue;
+		costVar.BaseValue = 0m;
+		Owner?.PlayerCombatState?.RecalculateCardValues();
+	}
+
+	/// <summary>
+	/// 结束「获得+免费」状态并还原月夜消耗。
+	/// 由 <see cref="AfterCardPlayed"/> 在本牌打出后调用 —— 于是免费只作用于**第一次**打出，
+	/// 第二次（被歌声/星海等带回手牌后）会按原月夜消耗结算。
+	/// </summary>
+	public void ClearFreePlayByEffect()
+	{
+		if (!_freePlayByEffect && _moonCostBeforeFree == null)
+			return;
+
+		_freePlayByEffect = false;
+
+		// 还原 = 被置 0 前的原值 + 免费期间发生的改动（升级会写在已置 0 的变量上，5→0→3）
+		if (_moonCostBeforeFree is decimal original && DynamicVars.ContainsKey(MoonCostVarName))
+			DynamicVars[MoonCostVarName].BaseValue = original + DynamicVars[MoonCostVarName].BaseValue;
+
+		_moonCostBeforeFree = null;
+		Owner?.PlayerCombatState?.RecalculateCardValues();
 	}
 
 	/// <summary>
@@ -224,6 +270,11 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	{
 		await base.AfterCardPlayed(choiceContext, cardPlay);
 
+		// 「获得+免费」只免第一次打出：本牌打出后立刻把月夜消耗还原。
+		// 不还原的话，这张牌被歌声/星海/蓦然回首等带回手牌后，第二次打出仍然是月夜0。
+		if (ReferenceEquals(cardPlay.Card, this))
+			ClearFreePlayByEffect();
+
 		await GrantSupportBonus(choiceContext, cardPlay);
 
 		if (cardPlay.Card != this || cardPlay.IsAutoPlay || !HasEcho || !ShouldArmEcho(cardPlay))
@@ -268,36 +319,43 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	}
 
 	// ================================================================================
-	// 回音 · 第二步：下个回合开始时（抽牌阶段之前）随机洗回抽牌堆
-	// 引擎顺序：Hook.BeforeHandDraw → 修改抽牌数 → 实际抽牌（见 CombatManager 回合开始流程）
+	// 回音 · 第二步：**本回合结束时**（自己这一侧的回合结束）随机洗回抽牌堆
+	// 与旧版的区别：旧版放在 BeforeHandDraw（下回合抽牌前），现在提前到回合结束，
+	// 于是歌声牌在「敌方回合期间」就已经躺在抽牌堆里（不再占着消耗堆）。
+	// ⚠ 已知影响（接受该取舍才改）：
+	//    · 星海 / 闭幕 这类「读消耗堆」的效果，下回合开始时看不到上一回合的歌声牌；
+	//    · 官方的 DarkEmbracePower（回合结束按虚无牌数抽牌）若排在回洗之后，
+	//      可能把歌声牌同回合抽回（多打一张）。
 	// ================================================================================
-	public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
+	public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
-		await base.BeforeHandDraw(player, choiceContext, combatState);
+		await base.AfterSideTurnEnd(choiceContext, side, participants);
 
 		if (!HasEcho)
 			return;
 
-		// 先确认是「本牌拥有者自己的抽牌流程」再动状态。
-		// BeforeHandDraw 会广播给所有卡牌实例（引擎对每名玩家各跑一次 SetupPlayerTurn），
-		// 若先清标记再判断归属，队友回合开始时就会把我方的待回音标记吞掉 —— 联机下歌声失效。
-		if (Owner == null || player != Owner)
+		// AfterSideTurnEnd 对双方各广播一次：只在自己这一侧结束时处理。
+		// （旧版用的是「Owner == player」，那是 BeforeHandDraw 的归属判断，这里换成 side 判断。）
+		if (Owner?.Creature == null || side != Owner.Creature.Side)
 			return;
 
-		bool pending = _echoPending;
-		_echoPending = false;   // 只在自己的抽牌前清，避免跨回合残留
-
-		if (!pending)
+		if (!_echoPending)
 			return;
 
-		var exhaustPile = PileType.Exhaust.GetPile(Owner);
-		if (exhaustPile.IsEmpty)
+		_echoPending = false;   // 先清标记，避免同一张牌被重复回洗
+
+		// ── 唯一性守卫（歌声容易出 bug 的地方，三条都要留着）──
+		// ① 必须是「这一张实例」还躺在消耗堆里：若它已经被其它效果搬到手牌/弃牌堆/抽牌堆，
+		//    就不要再凭空造一张出来，否则会出现「同一张牌存在两份」。
+		if (Pile == null || Pile.Type != PileType.Exhaust)
 			return;
 
-		// 牌可能已被其它效果移出消耗堆，这里必须确认它确实还在消耗堆里
-		if (!exhaustPile.Cards.Any(c => ReferenceEquals(c, this)))
+		// ② 抽牌堆里已经有一份的话，绝不能重复加入（防止同一实例被塞两次）
+		CardPile drawPile = PileType.Draw.GetPile(Owner);
+		if (drawPile.Cards.Any(c => ReferenceEquals(c, this)))
 			return;
 
+		// ③ 位置仍然用 Random（按需求保留）
 		await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Random);
 	}
 

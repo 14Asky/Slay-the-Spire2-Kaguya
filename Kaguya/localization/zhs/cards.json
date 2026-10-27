@@ -328,7 +328,7 @@
 	"KAGUYA-TURN_BACK.description": "获得2层[gold]月夜[/gold]，抽2张牌，获得{energyPrefix:energyIcons(2)}。\n当你抽这张牌且拥有{FortuneThreshold:diff()}层及以上[gold]月夜[/gold]时，这张牌可以被免费打出。",
 
 	"KAGUYA-REVERBERATION.title": "余音",
-	"KAGUYA-REVERBERATION.description": "在你的回合结束时，自动打出你本回合打出的最后一张牌。",
+	"KAGUYA-REVERBERATION.description": "在你的回合结束时，自动打出你本回合打出的最后一张牌{ReverberationPower:diff()}次。",
 	"KAGUYA-SEEK_MEMORIES.title": "寻忆",
 	"KAGUYA-SEEK_MEMORIES.description": "选择你[gold]手牌[/gold]中的{SingerCount:diff()}张牌变化为[purple]歌声[/purple]牌。\n其本回合内可被免费打出。",
 	"KAGUYA-WAIT.title": "等待",
@@ -462,7 +462,13 @@
 	"KAGUYA-MOON_BLESSING.title": "月之赐福",
 	"KAGUYA-MOON_BLESSING.description": "你每打出一张[blue]支援[/blue]牌就获得{MoonPerSupport:diff()}层[gold]月夜[/gold]；\n每当你累积打出{SongThreshold:diff()}张[purple]歌声[/purple]牌时，就随机获得{SupportPerTrigger:diff()}张[blue]支援[/blue]牌。",
 	"KAGUYA-CHORUS.title": "合唱",
-	"KAGUYA-CHORUS.description": "造成{CalculatedDamage:diff()}点伤害，每有一张[gold]合唱[/gold]伤害增加{ExtraDamage:diff()}点。\n选择[gold]弃牌堆[/gold]中的1张牌，将其变为本牌的复制。",
+	"KAGUYA-CHORUS.description": "造成{CalculatedDamage:diff()}点伤害；[gold]友方[/gold]每有一张[purple]合唱[/purple]，伤害增加{ExtraDamage:diff()}点。\n选择[gold]弃牌堆[/gold]中的1张牌，将其变为本牌的复制。",
 	"KAGUYA-VAST_SKY.title": "长空",
-	"KAGUYA-VAST_SKY.description": "造成{CalculatedDamage:diff()}点伤害，对其余敌人造成本次伤害一半的伤害。\n此牌受到[gold]力量[/gold]的加成为{StrengthMult:diff()}倍。"
+	"KAGUYA-VAST_SKY.description": "造成{CalculatedDamage:diff()}点伤害，对其余敌人造成本次伤害一半的伤害。\n此牌受到[gold]力量[/gold]的加成为{StrengthMult:diff()}倍。",
+	"KAGUYA-STRING_CHORUS.title": "弦乐合唱",
+	"KAGUYA-STRING_CHORUS.description": "选择一名[gold]友方[/gold]，将一张{IfUpgraded:show:升级过的|}[purple]合唱[/purple]加入其[gold]抽牌堆[/gold]。\n将本牌打出后变化为{IfUpgraded:show:升级过的|}[purple]合唱[/purple]。\n若选择的友方是[blue]酒寄彩叶[/blue]，则使其[gold]过劳[/gold]-{OverworkReduce:diff()}，该友方抽{Cards:diff()}张牌。",
+	"KAGUYA-FULL_MOON.title": "满月",
+	"KAGUYA-FULL_MOON.description": "[gold]月夜[/gold]{MoonCost:diff()}：使所有能量低于{EnergyTo:diff()}点的[gold]友方[/gold]回复到{EnergyTo:diff()}点能量。",
+	"KAGUYA-MOON_SET.title": "月落",
+	"KAGUYA-MOON_SET.description": "获得{MoonlightPower:diff()}层[gold]月夜[/gold]（本回合[gold]友方[/gold]每打出1张牌，额外+1层），然后对所有敌人造成等同于你[gold]月夜[/gold]层数的伤害。"
 }

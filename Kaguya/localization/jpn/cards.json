@@ -328,7 +328,7 @@
 	"KAGUYA-TURN_BACK.description": "[gold]月夜[/gold]2を得て、カード2枚を引き、{energyPrefix:energyIcons(2)}を得る。\nこのカードを引いた時、[gold]月夜[/gold]{FortuneThreshold:diff()}以上持っている場合、このカードはコストを支払わずにプレイできる。",
 
 	"KAGUYA-REVERBERATION.title": "余韻",
-	"KAGUYA-REVERBERATION.description": "ターン終了時、このターンで最後にプレイしたカードを自動的にプレイする。",
+	"KAGUYA-REVERBERATION.description": "ターン終了時、このターンで最後にプレイしたカードを{ReverberationPower:diff()}回自動的にプレイする。",
 	"KAGUYA-SEEK_MEMORIES.title": "追憶",
 	"KAGUYA-SEEK_MEMORIES.description": "[gold]手札[/gold]の{SingerCount:diff()}枚を選んで[purple]歌声[/purple]カードに変化させる。\nそれらはこのターン中コストを支払わずにプレイできる。",
 	"KAGUYA-WAIT.title": "待つ",
@@ -462,7 +462,13 @@
 	"KAGUYA-MOON_BLESSING.title": "月の祝福",
 	"KAGUYA-MOON_BLESSING.description": "[blue]支援[/blue]カードをプレイするたび、[gold]月夜[/gold]{MoonPerSupport:diff()}を得る。\n[purple]歌声[/purple]カードを累計{SongThreshold:diff()}枚プレイするたび、ランダムな[blue]支援[/blue]カードを{SupportPerTrigger:diff()}枚得る。",
 	"KAGUYA-CHORUS.title": "合唱",
-	"KAGUYA-CHORUS.description": "{CalculatedDamage:diff()}ダメージを与える。[gold]合唱[/gold]1枚につき{ExtraDamage:diff()}追加ダメージ。\n[gold]捨て札[/gold]からカードを1枚選び、このカードのコピーに変化させる。",
+	"KAGUYA-CHORUS.description": "{CalculatedDamage:diff()}ダメージを与える。[gold]味方[/gold]の[purple]合唱[/purple]1枚につき{ExtraDamage:diff()}追加ダメージ。\n[gold]捨て札[/gold]からカードを1枚選び、このカードのコピーに変化させる。",
 	"KAGUYA-VAST_SKY.title": "長空",
-	"KAGUYA-VAST_SKY.description": "{CalculatedDamage:diff()}ダメージを与え、他の敵全員にその半分のダメージを与える。\nこのカードは[gold]筋力[/gold]の影響を{StrengthMult:diff()}倍受ける。"
+	"KAGUYA-VAST_SKY.description": "{CalculatedDamage:diff()}ダメージを与え、他の敵全員にその半分のダメージを与える。\nこのカードは[gold]筋力[/gold]の影響を{StrengthMult:diff()}倍受ける。",
+	"KAGUYA-STRING_CHORUS.title": "弦楽合唱",
+	"KAGUYA-STRING_CHORUS.description": "[gold]味方[/gold]1人を選び、その[gold]山札[/gold]に{IfUpgraded:show:強化済みの|}[purple]合唱[/purple]を1枚加える。\nこのカードはプレイ後に{IfUpgraded:show:強化済みの|}[purple]合唱[/purple]へ変化する。\n選んだ味方が[blue]酒寄彩葉[/blue]なら、その[gold]過労[/gold]を{OverworkReduce:diff()}減らし、その味方はカードを{Cards:diff()}枚引く。",
+	"KAGUYA-FULL_MOON.title": "満月",
+	"KAGUYA-FULL_MOON.description": "[gold]月夜[/gold]{MoonCost:diff()}：エネルギーが{EnergyTo:diff()}未満の[gold]味方[/gold]すべてを{EnergyTo:diff()}まで回復する。",
+	"KAGUYA-MOON_SET.title": "月落",
+	"KAGUYA-MOON_SET.description": "[gold]月夜[/gold]を{MoonlightPower:diff()}得る（このターン[gold]味方[/gold]がカードを1枚プレイするごとに+1）。その後、すべての敵に自分の[gold]月夜[/gold]層数に等しいダメージを与える。"
 }

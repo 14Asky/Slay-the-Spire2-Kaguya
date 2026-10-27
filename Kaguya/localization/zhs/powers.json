@@ -185,7 +185,7 @@
   "KAGUYA-SHINING_STAGE_POWER.smartDescription": "回合结束时，你本回合每打出过1张牌，就获得{Amount}层[gold]活力[/gold]。",
 
   "KAGUYA-REVERBERATION_POWER.title": "余音",
-  "KAGUYA-REVERBERATION_POWER.description": "每回合结束时，自动打出本回合你打出的最后一张牌。",
+  "KAGUYA-REVERBERATION_POWER.description": "每回合结束时，自动打出本回合你打出的最后一张牌{Amount}次。",
   "KAGUYA-REVERBERATION_POWER.smartDescription": "每回合结束时，自动打出本回合你打出的最后一张牌。",
 
   "KAGUYA-STAR_NIGHT_POWER.title": "循声",

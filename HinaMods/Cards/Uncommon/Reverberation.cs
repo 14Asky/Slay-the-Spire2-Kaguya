@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using Kaguya.HinaMods;
 using Kaguya.HinaMods.Cards;
@@ -24,6 +25,11 @@ namespace Kaguya.HinaMods.Cards.Uncommon;
 public sealed class Reverberation : HinaModsCard
 {
     // 按需求：余音不再拥有【歌声】关键词（已移除 ECHO 标签）
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new PowerVar<ReverberationPower>(1m)
+    ];
 
     // 悬浮提示：显示余音Power
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()

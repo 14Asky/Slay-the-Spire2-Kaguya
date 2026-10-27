@@ -74,7 +74,9 @@ public class HinaModsCardPool : CustomCardPoolModel
 			ModelDb.Card<ReturnPerformance>(),
 			ModelDb.Card<MoonlightFlow>(),
 			ModelDb.Card<PieceOfCake>(),
+			ModelDb.Card<StringChorus>(),
 			ModelDb.Card<Moonfall>(),
+			ModelDb.Card<FullMoon>(),
 			ModelDb.Card<ActSpoiled>(),
 			ModelDb.Card<NoteCombo>(),
 			ModelDb.Card<FirstEncounter>(),
@@ -99,6 +101,7 @@ public class HinaModsCardPool : CustomCardPoolModel
 			ModelDb.Card<Gaze>(),
 
 			// 稀有卡牌
+			ModelDb.Card<MoonSet>(),
 			ModelDb.Card<SupportWeaponSwap>(),
 			ModelDb.Card<WorldsNumberOnePrincess>(),
 			ModelDb.Card<CelestialForm>(),

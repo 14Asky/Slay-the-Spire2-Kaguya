@@ -185,7 +185,7 @@
 	"KAGUYA-SHINING_STAGE_POWER.smartDescription": "ターン終了時、このターンにプレイしたカード1枚につき[gold]活力[/gold]{Amount}を得る。",
 
 	"KAGUYA-REVERBERATION_POWER.title": "余韻",
-	"KAGUYA-REVERBERATION_POWER.description": "毎ターン終了時、このターン最後にプレイしたカードを自動的にプレイする。",
+	"KAGUYA-REVERBERATION_POWER.description": "毎ターン終了時、このターン最後にプレイしたカードを{Amount}回自動的にプレイする。",
 	"KAGUYA-REVERBERATION_POWER.smartDescription": "毎ターン終了時、このターン最後にプレイしたカードを自動的にプレイする。",
 
 	"KAGUYA-STAR_NIGHT_POWER.title": "音を辿って",

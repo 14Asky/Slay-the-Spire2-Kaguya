@@ -186,7 +186,7 @@
 	"KAGUYA-SHINING_STAGE_POWER.smartDescription": "At the end of your turn, gain {Amount} [gold]Vigor[/gold] for each card you played this turn.",
 
 	"KAGUYA-REVERBERATION_POWER.title": "Reverberation",
-	"KAGUYA-REVERBERATION_POWER.description": "At the end of your turn, automatically play the last card you played this turn.",
+	"KAGUYA-REVERBERATION_POWER.description": "At the end of your turn, automatically play the last card you played this turn {Amount} time(s).",
 	"KAGUYA-REVERBERATION_POWER.smartDescription": "At the end of your turn, automatically play the last card you played this turn.",
 
 	"KAGUYA-STAR_NIGHT_POWER.title": "Sound-Seeking",

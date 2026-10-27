@@ -24,7 +24,7 @@
 	"KAGUYA-MEMORYOPTION.description": "失われた記憶を思い出す。\n[gold]月人[/gold]に勝利すれば、過去の経験を思い出せるかもしれない？\n[gold]思考を拾い上げる時こそ、結末を書き換える日となる。[/gold]",
 	"KAGUYA-MEMORYOPTION.title": "想起",
 	"KAGUYA-ECHO.title": "歌声",
-	"KAGUYA-ECHO.description": "プレイ時に[gold]廃棄札[/gold]に置く。次のターン開始時（[gold]ドロー[/gold]の前）にランダムで[gold]山札[/gold]に混ぜる。",
+	"KAGUYA-ECHO.description": "プレイ時に[gold]廃棄札[/gold]に置く。このターン終了時にランダムで[gold]山札[/gold]に混ぜる。",
 	"SUPPORT.title": "支援",
 	"SUPPORT.description": "プレイ後、このターン[gold]筋力[/gold]1（[blue]支援[/blue]アタック）または[gold]敏捷[/gold]1（[blue]支援[/blue]スキル）を得る。ターン終了時に失う。",
 	"SUPPORTCARD.title": "支援カード",

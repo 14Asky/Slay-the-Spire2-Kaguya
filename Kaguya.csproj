@@ -3,6 +3,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <!-- 合并工程才有「酒寄彩叶」角色：独立辉夜 mod 不定义此常量 -->
+    <DefineConstants>$(DefineConstants);HAS_SAKAYORI</DefineConstants>
   </PropertyGroup>
   
   <Target Name="CopyCustomOutput" AfterTargets="Build">
