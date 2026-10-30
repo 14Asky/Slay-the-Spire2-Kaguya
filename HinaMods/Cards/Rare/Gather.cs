@@ -18,11 +18,11 @@ namespace Kaguya.HinaMods.Cards;
 
 /// <summary>
 /// 集结（Gather）
-/// 本地化键：KAGUYA-MOONLIGHT_TEAM_BLESS.title / .description
-/// 0费 · 技能牌 · 罕见 · 目标：AllAllies · 关键词：Exhaust
-/// 卡面：[gold]月夜3[/gold]：所有玩家获得1层[gold]力量[/gold]和1层[gold]敏捷[/gold]。
-/// 代码实测：MoonCost=3；StrengthPower=1；DexterityPower=1
-/// 升级：力量 +1；敏捷 +1
+/// 本地化键：KAGUYA-GATHER.title / .description（由类名自动推导）
+/// 1费（升级后 0 费）· 技能牌 · 罕见 · 目标：AllAllies · 关键词：Exhaust
+/// 卡面：[gold]月夜2[/gold]：所有玩家获得2层[gold]力量[/gold]和2层[gold]敏捷[/gold]。
+/// 代码实测：MoonCost=2；StrengthPower=2；DexterityPower=2
+/// 升级：费用 -1（力量/敏捷层数与月夜门槛均不变）
 /// </summary>
 public sealed class Gather : HinaModsCard
 {

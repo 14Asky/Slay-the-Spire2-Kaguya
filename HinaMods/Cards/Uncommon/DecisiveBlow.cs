@@ -82,6 +82,7 @@ public sealed class DecisiveBlow : HinaModsCard
             .OfType<HinaModsCard>()
             .Where(c => c.CustomTags != null && c.CustomTags.Contains(CustomCardTags.SUPPORT))
             .Where(c => c.EnergyCost.Canonical <= MaxSupportCost)
+            .Where(c => HinaModsCard.AllowedInRun(c, Owner))
             .Cast<CardModel>()
             .ToList();
 

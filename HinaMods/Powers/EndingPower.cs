@@ -74,6 +74,7 @@ public sealed class EndingPower : CustomPowerModel
             List<CardModel> pool = ModelDb.AllCards
                 .OfType<HinaModsCard>()
                 .Where(c => c.CustomTags != null && c.CustomTags.Contains(CustomCardTags.SUPPORT))
+                .Where(c => HinaModsCard.AllowedInRun(c, player))
                 .Cast<CardModel>()
                 .ToList();
 

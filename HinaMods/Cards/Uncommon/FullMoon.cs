@@ -17,8 +17,8 @@ namespace Kaguya.HinaMods.Cards;
 /// 本地化键：KAGUYA-FULL_MOON.title / .description
 /// 1费 · 技能牌 · 罕见 · 目标：自身 · 无关键词
 /// 卡面：[gold]月夜[/gold]{MoonCost:diff()}：使所有能量低于{EnergyTo:diff()}点的[gold]友方[/gold]回复到{EnergyTo:diff()}点能量。
-/// 代码实测：MoonCost=5；EnergyTo=3
-/// 升级：月夜 5 → 3
+/// 代码实测：MoonCost=5；EnergyTo=2
+/// 升级：月夜 5（不变）；EnergyTo 2 → 3
 /// 说明：只补差额（当前能量已 ≥3 的友方不受影响），不会把多出来的能量削掉。
 /// </summary>
 public sealed class FullMoon : HinaModsCard
@@ -28,7 +28,7 @@ public sealed class FullMoon : HinaModsCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<MoonlightPower>(MoonCostVarName, 5m),
-        new DynamicVar(EnergyToVar, 3m)
+        new DynamicVar(EnergyToVar, 2m)
     ];
 
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
@@ -53,7 +53,7 @@ public sealed class FullMoon : HinaModsCard
     ///      0 月夜也应当能打出去；
     ///   ② 月夜消耗本来就被降成 0（升级/其它效果）。
     /// 免费只作用于**第一次**打出：基类在 <see cref="HinaModsCard.AfterCardPlayed"/> 里还原消耗，
-    /// 第二次被带回手牌后就按正常的「月夜5（升级3）」判断。
+    /// 第二次被带回手牌后就按正常的「月夜5」（升级也还是 5）判断。
     /// </summary>
     protected override bool IsPlayable
     {
@@ -106,6 +106,7 @@ public sealed class FullMoon : HinaModsCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars[MoonCostVarName].UpgradeValueBy(-2m);   // 5 → 3
+        // 月夜消耗不变（5）；只提高回复目标：能量低于 2 → 低于 3
+        DynamicVars[EnergyToVar].UpgradeValueBy(1m);
     }
 }

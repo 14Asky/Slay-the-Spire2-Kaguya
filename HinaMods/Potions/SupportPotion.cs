@@ -60,6 +60,7 @@ public sealed class SupportPotion : CustomPotionModel
                 c.CustomTags != null
                 && c.CustomTags.Any()
                 && c.CustomTags.Contains(CustomCardTags.SUPPORT))
+            .Where(c => HinaModsCard.AllowedInRun(c, owner))
             .ToList();
 
         // 容错

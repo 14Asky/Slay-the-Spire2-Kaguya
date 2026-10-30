@@ -58,7 +58,7 @@ public sealed class KaguyaHime : HinaModsCard
 
         // 池子：**卡池**里「能获得月夜」的牌（不是牌堆里的实例，也不按稀有度过滤——
         // 玩闹是 Basic，若走 CardFactory.GetDistinctForCombat 的 FilterForCombat 会被吃掉）
-        List<CardModel> pool = MoonlightPool.GrantersFromCardPool();
+        List<CardModel> pool = MoonlightPool.GrantersFromCardPool(Owner);
         if (pool.Count == 0)
             return;
 

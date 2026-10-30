@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using Kaguya.HinaMods;
@@ -35,6 +36,15 @@ public sealed class StarRiverDream : HinaModsCard
 
     /// <summary>支援牌标签（本牌会获得支援牌）。</summary>
     public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SUPPORTCARD };
+
+    /// <summary>提示：展示会被加入抽牌堆的「演奏」详情（抽牌堆里的牌玩家看不到，必须靠 tip）。</summary>
+    protected override IEnumerable<IHoverTip> GetCustomHoverTips()
+    {
+        return new IHoverTip[]
+        {
+            HoverTipFactory.FromCard<Performance>()
+        };
+    }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

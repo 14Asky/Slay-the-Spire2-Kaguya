@@ -97,6 +97,7 @@ public sealed class PieceOfCake : HinaModsCard
             .OfType<HinaModsCard>()
             .Where(c => c.Type == CardType.Skill
                         && c.CustomTags?.Contains(CustomCardTags.SUPPORT) == true)
+            .Where(c => HinaModsCard.AllowedInRun(c, Owner))
             .Cast<CardModel>()
             .ToList();
         if (pool.Count == 0)

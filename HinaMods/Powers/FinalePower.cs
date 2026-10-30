@@ -6,7 +6,9 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Kaguya.HinaMods.Powers;
@@ -30,6 +32,12 @@ public sealed class FinalePower : CustomPowerModel
 
     /// <summary>获得的「全垒打」费用减少量（由「收场」打出时是否消耗月夜决定）。</summary>
     public int Discount { get; set; }
+
+    /// <summary>提示：展示下回合会获得的「全垒打」详情。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => new[]
+    {
+        HoverTipFactory.FromCard<HomeRun>()
+    };
 
     /// <summary>下个回合开始时给「全垒打」，然后自删（只触发一次）。</summary>
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)

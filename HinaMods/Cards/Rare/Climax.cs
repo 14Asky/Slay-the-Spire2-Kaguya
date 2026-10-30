@@ -69,6 +69,7 @@ public sealed class Climax : HinaModsCard
         List<CardModel> pool = ModelDb.AllCards
             .OfType<HinaModsCard>()
             .Where(c => c.CustomTags?.Contains(CustomCardTags.SUPPORT) == true)
+            .Where(c => HinaModsCard.AllowedInRun(c, Owner))
             .Cast<CardModel>()
             .ToList();
         if (pool.Count == 0)

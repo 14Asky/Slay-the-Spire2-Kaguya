@@ -285,7 +285,7 @@
 	"KAGUYA-CELEBRATION.title": "盛り上がる",
 	"KAGUYA-CELEBRATION.description": "ランダムな{IfUpgraded:show:アップグレード済みの|}[blue]支援[/blue]カードを{CardCount:diff()}枚得る。[gold]手札[/gold]のコストの種類ごとにエネルギー1を得る。",
 	"KAGUYA-VOCAL_SUPPORT.title": "声援",
-	"KAGUYA-VOCAL_SUPPORT.description": "{Block:diff()}ブロックを得る。\nこのターン、得たカードをすべてアップグレードする。",
+	"KAGUYA-VOCAL_SUPPORT.description": "{Block:diff()}ブロックを得る。\nこのターン、あなたが生成したカードはアップグレードされる。",
 	"KAGUYA-VOCAL_SUPPORT.selectionScreenPrompt": "カードを選択",
 
 	"KAGUYA-ALL_ROUND_SUPPORT.title": "八方援護",

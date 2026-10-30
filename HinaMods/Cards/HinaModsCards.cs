@@ -154,11 +154,18 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	/// <summary>
 	/// 本牌本次打出是否豁免月夜消耗（被「获得+免费」途径取得的牌不消耗月夜）。
 	/// 两种情形之一成立即豁免：
-	/// ① 生成方显式标记；② 本牌当前费用已被本牌局部修正降为 0（即被免费打出）。
+	/// ① 生成方显式标记；② 本牌**基础费用仍大于 0**、但被局部修正降为 0（即本回合被免费打出）。
+	/// <para>
+	/// ⚠ ② 必须比较「升级后的基础费用」（<c>GetWithModifiers(CostModifiers.None)</c>）而不是
+	/// <c>EnergyCost.Canonical</c>：Canonical 是卡牌定义值、升级后不变。用 Canonical 的话，
+	/// 任何「升级后降到 0 费」的月夜卡（如集结 1→0）都会被误判成被免费打出，
+	/// 结果月夜不够也能打、且不消耗月夜。
+	/// </para>
 	/// </summary>
 	public bool SkipsMoonlightCost =>
 		_freePlayByEffect
-		|| (EnergyCost.Canonical > 0 && EnergyCost.GetWithModifiers(CostModifiers.Local) == 0);
+		|| (EnergyCost.GetWithModifiers(CostModifiers.None) > 0
+			&& EnergyCost.GetWithModifiers(CostModifiers.Local) == 0);
 
 	/// <summary>
 	/// 本次打出**实际要扣**的月夜层数：处于「获得+免费 / 药水免费」状态时为 0，否则取 MoonCost 变量。
@@ -167,6 +174,25 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	/// </summary>
 	protected decimal EffectiveMoonCost =>
 		SkipsMoonlightCost ? 0m : (DynamicVars.ContainsKey(MoonCostVarName) ? DynamicVars[MoonCostVarName].BaseValue : 0m);
+
+	/// <summary>
+	/// 这张牌在当前 run 里是否允许出现（联机 / 单人专用约束）。
+	/// ⚠ 引擎只在 <c>CardPoolModel.GetUnlockedCards</c> 里过滤（sts2:67371），
+	///   所以凡是「自己扫 ModelDb.AllCards 拼池子」的地方都必须显式调这个，否则
+	///   单人模式会拿到 MultiplayerOnly 卡（月落 / 你和我 曾经就是这样漏出去的）。
+	/// </summary>
+	public static bool AllowedInRun(CardModel? card, Player? player)
+	{
+		if (card == null)
+			return false;
+
+		CardMultiplayerConstraint constraint = card.MultiplayerConstraint;
+		if (constraint == CardMultiplayerConstraint.None)
+			return true;
+
+		// 拿不到 run 状态时放行（宁可少拦，也不要因为空引用把整池清空）
+		return player?.RunState != null && constraint == player.RunState.CardMultiplayerConstraint;
+	}
 
 	/// <summary>
 	/// 是否拥有【回音】：只有显式带 ECHO 标签的牌才拥有回音。

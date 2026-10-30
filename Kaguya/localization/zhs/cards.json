@@ -285,7 +285,7 @@
 	"KAGUYA-CELEBRATION.title": "庆祝",
 	"KAGUYA-CELEBRATION.description": "随机获得{CardCount:diff()}张{IfUpgraded:show:升级后的|}[blue]支援[/blue]牌，[gold]手牌[/gold]中每有一种不同费用就获得1点能量。",
 	"KAGUYA-VOCAL_SUPPORT.title": "声援",
-	"KAGUYA-VOCAL_SUPPORT.description": "获得{Block:diff()}点格挡。\n本回合内，你每获得1张牌就将其升级。",
+	"KAGUYA-VOCAL_SUPPORT.description": "获得{Block:diff()}点格挡。\n本回合内，你生成的牌会获得升级。",
 	"KAGUYA-VOCAL_SUPPORT.selectionScreenPrompt": "选择一张牌",
 
 	"KAGUYA-ALL_ROUND_SUPPORT.title": "八方援护",

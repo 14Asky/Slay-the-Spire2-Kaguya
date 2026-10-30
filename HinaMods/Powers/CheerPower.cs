@@ -37,22 +37,11 @@ public sealed class CheerPower : CustomPowerModel
         card.FinalizeUpgradeInternal();
     }
 
-    /// <summary>抽牌入手（含效果抽牌，fromHandDraw=false）。</summary>
-    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
-    {
-        await base.AfterCardDrawn(choiceContext, card, fromHandDraw);
-
-        if (Owner == null || card == null)
-            return;
-
-        // 只处理拥有者自己的牌
-        if (card.Owner == null || card.Owner.Creature != Owner)
-            return;
-
-        TryUpgrade(card);
-    }
-
-    /// <summary>生成入手（护卫 / 八方援护 / 宴会 / 你和我 等）。</summary>
+    /// <summary>
+    /// 本回合内**由效果生成**的牌都会升级：支援牌生成的、寻忆变出来的、药水给的、宴会/八方援护等
+    /// —— 只要走「生成并加入战斗」这条路径就算，不区分具体来源。
+    /// 普通抽牌不再升级（原 <c>AfterCardDrawn</c> 已移除）。
+    /// </summary>
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
         await base.AfterCardGeneratedForCombat(card, creator);

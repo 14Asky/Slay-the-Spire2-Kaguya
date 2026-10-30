@@ -18,11 +18,12 @@ namespace Kaguya.HinaMods.Cards;
 /// 长空（VastSky）
 /// 本地化键：KAGUYA-VAST_SKY.title / .description
 /// 2费 · 攻击牌 · 罕见 · 目标：单个敌人 · 无关键词
-/// 卡面：造成{Damage:diff()}点伤害，对其余敌人造成本次伤害一半的伤害。
+/// 卡面：造成{CalculatedDamage:diff()}点伤害，对其余敌人造成本次伤害一半的伤害。
 ///       此牌受到[gold]力量[/gold]的加成为{StrengthMult:diff()}倍。
 /// 卡图：dragon_ride.png
-/// 代码实测：CalculationBase=12；ExtraDamage=2（倍率-1）；StrengthMult=3
-/// 升级：伤害 12→15；力量倍率 3→5
+/// 代码实测：CalculationBase=12；ExtraDamage=3（= 完整倍率）；StrengthMult=3；管线 Unpowered
+/// 实际伤害 = 基础 + 力量 × 倍率（例：基础 20、力量 5 → 35），卡面显示值与实际一致
+/// 升级：基础 12→15；力量倍率 3→5
 /// </summary>
 public sealed class VastSky : HinaModsCard
 {
@@ -36,20 +37,19 @@ public sealed class VastSky : HinaModsCard
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        // CalculatedDamage = 基础值 + ExtraDamage × 力量层数
-        //   ExtraDamage = 倍率 - 1（基础 2 份 / 升级 4 份）
-        //   主目标走伤害管线时还会再加 1 次力量
-        //   ⇒ 最终伤害 = 基础值 + 力量 × 倍率（升级前 ×3、升级后 ×5）
+        // CalculatedDamage = 基础值 + 力量 × 倍率
+        //   ExtraDamage 直接取完整倍率（基础 3 份 / 升级 5 份）
+        //   伤害管线用 Unpowered，不再额外叠一次力量
+        //   ⇒ 卡面显示值 == 实际伤害（基础 20、力量 5 时就是 35）
         new CalculationBaseVar(12m),
-        new ExtraDamageVar(StrengthMultiplier - 1m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(StrengthExtraDamage),
+        new ExtraDamageVar(StrengthMultiplier),
+        new CalculatedDamageVar(ValueProp.Move | ValueProp.Unpowered).WithMultiplier(StrengthExtraDamage),
         new DynamicVar(StrengthMultKey, StrengthMultiplier)
     ];
 
     /// <summary>
-    /// 乘数只取【力量层数】；「额外的份数」由 ExtraDamage（= 倍率-1）承担。
-    /// ⚠ 不能在这里再乘一次 (倍率-1)：那会和 ExtraDamage 相乘变成 (倍率-1)²，
-    ///   3 点力量 + 升级后 5 倍会算成 15 + 4×(3×4) = 63，再被管线加 3 力量 → 66（应为 30）。
+    /// 乘数只取【力量层数】；完整倍率由 ExtraDamage(=3 / 升级 5) 承担，管线用 Unpowered 不再叠加力量。
+    /// ⚠ 不能在这里再乘倍率：那会和 ExtraDamage 相乘变成 倍率²，伤害会炸。
     /// </summary>
     private static decimal StrengthExtraDamage(CardModel card, Creature _)
     {
@@ -65,15 +65,14 @@ public sealed class VastSky : HinaModsCard
         if (cardPlay.Target == null)
             return;
 
-        // 主目标：走正常伤害管线（力量会再叠 1 次，凑成「原来的 N 倍」）
+        // 主目标：CalculatedDamage 已含力量（管线 Unpowered，不会再加）
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
 
-        // 本次伤害 = 基础值 + 力量 × 倍率
-        int strength = Owner.Creature.GetPowerAmount<StrengthPower>();
-        decimal mainDamage = DynamicVars.CalculatedDamage.Calculate(cardPlay.Target) + strength;
+        // 本次伤害就是卡面显示值（基础 + 力量 × 倍率）
+        decimal mainDamage = DynamicVars.CalculatedDamage.Calculate(cardPlay.Target);
         decimal splash = decimal.Floor(mainDamage / 2m);
         if (splash <= 0m)
             return;
@@ -99,9 +98,9 @@ public sealed class VastSky : HinaModsCard
     {
         // 12 → 15
         DynamicVars.CalculationBase.UpgradeValueBy(3m);
-        // 额外力量份数 1 → 2
+        // 力量倍率 3 → 5
         DynamicVars.ExtraDamage.UpgradeValueBy(UpgradedStrengthMultiplier - StrengthMultiplier);
-        // 展示用倍率 2 → 3
+        // 展示用倍率 3 → 5
         DynamicVars[StrengthMultKey].UpgradeValueBy(UpgradedStrengthMultiplier - StrengthMultiplier);
     }
 }

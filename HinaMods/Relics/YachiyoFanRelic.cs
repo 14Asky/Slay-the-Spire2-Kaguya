@@ -1,4 +1,4 @@
-using Kaguya.HinaMods;
+﻿using Kaguya.HinaMods;
 using Kaguya.HinaMods.Cards;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,12 +33,27 @@ public sealed class YachiyoFanRelic : HinaRelics
 
     private bool _hasTriggeredThisTurn;
 
+    /// <summary>
+    /// 回合内进度必须走 [SavedProperty]：不然回合中途重连时字段回到默认 false，
+    /// 同一个回合会再触发一次「能量归零送牌」→ 手牌数两端不一致。
+    /// </summary>
+    [SavedProperty]
+    private bool HasTriggeredThisTurn
+    {
+        get => _hasTriggeredThisTurn;
+        set
+        {
+            AssertMutable();
+            _hasTriggeredThisTurn = value;
+        }
+    }
+
     public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature))
             return Task.CompletedTask;
 
-        _hasTriggeredThisTurn = false;
+        HasTriggeredThisTurn = false;
         return Task.CompletedTask;
     }
 
@@ -46,7 +62,7 @@ public sealed class YachiyoFanRelic : HinaRelics
     {
         await base.AfterEnergySpent(card, amount);
 
-        if (_hasTriggeredThisTurn) return;
+        if (HasTriggeredThisTurn) return;
         // ★ 必须【真正花费了能量】才继续：引擎的 SpendEnergy 里 amount == 0 时
         //   不会扣能量，但 Hook.AfterEnergySpent 仍会被调用（0 费牌打出时 amount = 0）。
         //   若不拦这一条，能量本来就为 0 时打出任意 0 费牌都会误触发「能量变为 0」。
@@ -64,6 +80,7 @@ public sealed class YachiyoFanRelic : HinaRelics
             .Where(c => c.CustomTags?.Contains(CustomCardTags.SUPPORT) == true
                         && c.EnergyCost.Canonical == 0
                         && !c.EnergyCost.CostsX)
+            .Where(c => HinaModsCard.AllowedInRun(c, player))
             .Cast<CardModel>()
             .ToList();
 
@@ -74,7 +91,7 @@ public sealed class YachiyoFanRelic : HinaRelics
 
         if (cards.Count == 0) return;
 
-        _hasTriggeredThisTurn = true;
+        HasTriggeredThisTurn = true;
         Flash();
 
         foreach (CardModel gift in cards)

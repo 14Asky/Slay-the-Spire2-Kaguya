@@ -70,12 +70,13 @@ public static class MoonlightPool
     }
 
     /// <summary>卡池里所有能获得月夜的牌（模板，用于生成新卡）。</summary>
-    public static List<CardModel> GrantersFromCardPool()
+    public static List<CardModel> GrantersFromCardPool(Player player)
     {
         return ModelDb.AllCards
             .OfType<HinaModsCard>()
             .Where(c => c.CanBeGeneratedInCombat)
             .Where(c => CanGrantMoonlight(c))
+            .Where(c => HinaModsCard.AllowedInRun(c, player))   // 单人池里不出现联机专用卡
             .Cast<CardModel>()
             .ToList();
     }

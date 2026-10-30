@@ -282,7 +282,7 @@
 	"KAGUYA-CELEBRATION.title": "Celebration",
 	"KAGUYA-CELEBRATION.description": "Gain {CardCount:diff()} random {IfUpgraded:show:upgraded |}[blue]Support[/blue] cards. Gain 1 Energy for each distinct cost among cards in your [gold]hand[/gold].",
 	"KAGUYA-VOCAL_SUPPORT.title": "Vocal Support",
-	"KAGUYA-VOCAL_SUPPORT.description": "Gain {Block:diff()} Block.\nThis turn, upgrade every card you gain.",
+	"KAGUYA-VOCAL_SUPPORT.description": "Gain {Block:diff()} Block.\nThis turn, cards you generate are upgraded.",
 	"KAGUYA-VOCAL_SUPPORT.selectionScreenPrompt": "Choose a card",
 	"KAGUYA-ALL_ROUND_SUPPORT.title": "All-Round Support",
 	"KAGUYA-ALL_ROUND_SUPPORT.description": "Whenever you play a [blue]Support[/blue] card, this card permanently costs 1 less. After this card is played, it permanently costs 3 more.\nAdd 2 random [blue]Support[/blue] cards to your [gold]hand[/gold]; they cost {SupportDiscount:diff()} less.",

@@ -56,6 +56,7 @@ public class VictoryFlag() : HinaModsCard(0,
             .Where(c => c.CustomTags != null
                         && c.CustomTags.Any()
                         && c.CustomTags.Contains(CustomCardTags.SUPPORT))
+            .Where(c => HinaModsCard.AllowedInRun(c, Owner))
             .ToList();
 
         if (allSupportCards.Count == 0)

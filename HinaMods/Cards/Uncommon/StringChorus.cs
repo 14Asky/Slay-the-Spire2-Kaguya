@@ -44,7 +44,8 @@ public sealed class StringChorus : HinaModsCard
     {
         return new IHoverTip[]
         {
-            HoverTipFactory.FromPower<MoonlightPower>()
+            HoverTipFactory.FromPower<MoonlightPower>(),
+            HoverTipFactory.FromCard<Chorus>()
         };
     }
 
