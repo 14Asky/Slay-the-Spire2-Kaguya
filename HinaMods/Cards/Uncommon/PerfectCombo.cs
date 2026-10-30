@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
@@ -63,7 +63,7 @@ public class PerfectCombo : HinaModsCard
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .TargetingRandomOpponents(base.CombatState)
-            .WithHitFx("vfx/vfx_attack_slash")
+            .WithHitFx("vfx/vfx_attack_slash", null, SfxHitName)   // 每段命中都响声
             .Execute(choiceContext);
     }
 

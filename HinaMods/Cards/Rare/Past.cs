@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -60,7 +60,7 @@ public sealed class Past : HinaModsCard
             .WithHitCount(xValue) // 核心：攻击次数 = X值
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target) // 官方原生单体目标
-            .WithHitFx("vfx/vfx_attack_slash"); // 统一攻击特效
+            .WithHitFx("vfx/vfx_attack_slash", null, SfxHitName); // 统一攻击特效 + 每段命中音
 
         await attack.Execute(choiceContext);
     }

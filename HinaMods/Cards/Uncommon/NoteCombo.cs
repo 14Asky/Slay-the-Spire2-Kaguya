@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -60,7 +60,7 @@ public sealed class NoteCombo : HinaModsCard
             .WithHitCount(totalHits)
             .FromCard(this, cardPlay)
             .TargetingRandomOpponents(base.CombatState)
-            .WithHitFx("vfx/vfx_attack_slash")
+            .WithHitFx("vfx/vfx_attack_slash", null, SfxHitName)   // 每段命中都响声
             .Execute(choiceContext);
     }
 

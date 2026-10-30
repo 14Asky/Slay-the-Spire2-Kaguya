@@ -60,6 +60,7 @@ public sealed class DanceSteps : HinaModsCard
             IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(
                 choiceContext: choiceContext, targets: new List<Creature> { target }, amount: damageValue, props: ValueProp.Move, cardSource: this, dealer: attacker, cardPlay: null);
             List<DamageResult> results = damageResults.ToList();
+            PlayHitSfx();   // 每段命中都响声（多段 = 多段音效）
 
             // 命中判定：未格挡伤害>0 获得1能量
             foreach (DamageResult result in results)

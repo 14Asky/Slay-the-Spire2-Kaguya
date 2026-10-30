@@ -1,4 +1,5 @@
 ﻿﻿using BaseLib.Abstracts;
+using BaseLib.Audio;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Godot;
@@ -287,11 +288,25 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	}
 
 	/// <summary>
+	/// 出牌瞬间播攻击音。官方是攻击动画一开始就响（CreatureCmd.TriggerAnim → SfxCmd.Play），
+	/// 不是等结算结束。多段攻击牌（舞步、决死一击等）中间还有 CustomScaledWait，
+	/// 若挂在 AfterCardPlayed 会明显滞后。
+	/// </summary>
+	public override Task BeforeCardPlayed(CardPlay cardPlay)
+	{
+		if (ReferenceEquals(cardPlay.Card, this))
+			PlayCardSfx(cardPlay);
+		return base.BeforeCardPlayed(cardPlay);
+	}
+
+	/// <summary>
 	/// 标记本牌本回合被【手动】打出，等待下个回合抽牌前回音。
 	/// </summary>
 	public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
 		await base.AfterCardPlayed(choiceContext, cardPlay);
+
+		// 音效已移到 BeforeCardPlayed（出牌瞬间响，不再等结算完）
 
 		// 「获得+免费」只免第一次打出：本牌打出后立刻把月夜消耗还原。
 		// 不还原的话，这张牌被歌声/星海/蓦然回首等带回手牌后，第二次打出仍然是月夜0。
@@ -304,6 +319,42 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 			return;
 
 		_echoPending = true;
+	}
+
+	// ================================================================================
+	// 打出音效
+	//   完全对齐官方：每个角色只有 **一个** 攻击音
+	//   （CharacterModel.AttackSfx → CreatureCmd.TriggerAnim("Attack") → SfxCmd.Play），
+	//   技能牌 / 能力牌都不发声。强度变化官方走 FMOD 参数渐变、不换样本，
+	//   这里用 pitchVariation 近似。
+	// ================================================================================
+	private const string SfxAttack = "res://images/hinamods/audio/kaguya_attack.ogg";
+
+	/// <summary>
+	/// 多段攻击的「每段命中音」（短版 0.35s）。
+	/// ⚠ WithHitFx 的 tmpSfx 参数只认文件名：引擎会拼成 res://debug_audio/&lt;名字&gt;
+	/// （TmpSfx.GetPath，sts2:193366），所以文件必须放在工程的 debug_audio/ 目录里。
+	/// </summary>
+	protected const string SfxHitName = "kaguya_hit.ogg";
+
+	/// <summary>
+	/// 循环结算伤害的卡（Annihilation / DanceSteps / WayHome）每段命中后调用。
+	/// 走 DamageCmd 多段（WithHitCount）的卡不用它，引擎会自动按段播 SfxHitName。
+	/// </summary>
+	protected static void PlayHitSfx()
+	{
+		ModAudio.PlaySound("res://debug_audio/" + SfxHitName, pitchVariation: 0.05f);
+	}
+
+	private void PlayCardSfx(CardPlay cardPlay)
+	{
+		// 一次「打出」只响一声：重放（playCount &gt; 1）只在第一拍响；
+		// 自动打出（回音/批量结算）不响，否则一串牌会同时炸成噪音。
+		if (cardPlay.PlayIndex > 0 || cardPlay.IsAutoPlay)
+			return;
+
+		if (Type == CardType.Attack)
+			ModAudio.PlaySound(SfxAttack, pitchVariation: 0.04f);
 	}
 
 	// ================================================================================

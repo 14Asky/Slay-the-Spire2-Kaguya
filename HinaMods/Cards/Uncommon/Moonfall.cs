@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -68,7 +68,7 @@ public class Moonfall : HinaModsCard
 		await DamageCmd.Attack(DynamicVars.CalculatedDamage)
 			.FromCard(this, cardPlay)
 			.Targeting(cardPlay.Target)
-			.WithHitFx(null, null, "heavy_attack.mp3")
+			.WithHitFx(null, null, SfxHitName)   // 命中音（多段时每段都响）
 			.WithHitVfxNode((Creature t) => NBigSlashVfx.Create(t))
 			.WithHitVfxNode((Creature t) => NBigSlashImpactVfx.Create(t))
 			.Execute(choiceContext);

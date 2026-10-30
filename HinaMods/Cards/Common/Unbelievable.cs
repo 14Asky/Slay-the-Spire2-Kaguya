@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -53,6 +53,7 @@ public sealed class Unbelievable : HinaModsCard
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
+            .WithHitFx(null, null, SfxHitName)   // 每段命中都响声
             .Execute(choiceContext);
 
         // 每有一次「打穿了格挡」的伤害，就获得1层月夜

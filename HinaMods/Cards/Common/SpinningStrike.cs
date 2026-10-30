@@ -1,4 +1,4 @@
-
+﻿
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
@@ -47,6 +47,7 @@ public sealed class SpinningStrike : HinaModsCard
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(base.CombatState)
+            .WithHitFx(null, null, SfxHitName)   // 每段命中都响声
             .Execute(choiceContext);
     }
 

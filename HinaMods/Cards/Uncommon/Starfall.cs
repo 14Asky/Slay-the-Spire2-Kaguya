@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -65,7 +65,7 @@ public class Starfall() : HinaModsCard(1,
             .WithHitCount(totalHits)
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState)
-            .WithHitFx("vfx/vfx_attack_slash", null, "slash_attack.mp3")
+            .WithHitFx("vfx/vfx_attack_slash", null, SfxHitName)   // 每段命中都响声（引擎默认按段播，别用 OnlyPlayAnimOnce 关掉）
             .SpawningHitVfxOnEachCreature()
             .Execute(choiceContext);
     }
