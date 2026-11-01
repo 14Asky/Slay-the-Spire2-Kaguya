@@ -1,0 +1,8 @@
+[gd_resource type="SpineSkeletonDataResource" load_steps=3 format=3]
+
+[ext_resource type="SpineAtlasResource" path="res://scenes/hinamods/spine/kaguya.atlas" id="1_uwpjr"]
+[ext_resource type="SpineSkeletonFileResource" path="res://scenes/hinamods/spine/kaguya.skel" id="2_l4io5"]
+
+[resource]
+atlas_res = ExtResource("1_uwpjr")
+skeleton_file_res = ExtResource("2_l4io5")

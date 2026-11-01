@@ -22,9 +22,9 @@ using System.Threading.Tasks;
 namespace Kaguya.HinaMods.Relics;
 
 /// <summary>
-/// 辉夜的耳机
-/// 普通遗物
-/// 战斗开始时：随机获得1张歌者牌加入手牌顶部
+/// 辉夜的耳机（HinaPhonographRelic）
+/// 本地化键：KAGUYA-HINA_PHONOGRAPH_RELIC.title / .description
+/// 卡面：每场战斗开始时，将1张随机[purple]歌声[/purple]牌加入[gold]手牌[/gold]。
 /// </summary>
 public sealed class HinaPhonographRelic : HinaRelics
 {
@@ -51,7 +51,7 @@ public sealed class HinaPhonographRelic : HinaRelics
             .Where(c =>
                 c.CustomTags != null
                 && c.CustomTags.Any()
-                && c.CustomTags.Contains(CustomCardTags.SINGER))
+                && c.CustomTags.Contains(CustomCardTags.ECHO))
             .ToList();
 
         // 容错（完全不变）

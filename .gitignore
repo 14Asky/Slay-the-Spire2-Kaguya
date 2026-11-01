@@ -36,7 +36,14 @@ _*
 /英语课堂总结 中文版.docx
 
 # Debug audio files (not for distribution)
-debug_audio/
+# 目录整体忽略；下面三首是主菜单 BGM，必须入库，否则换机器/重装会丢失
+debug_audio/*
+!debug_audio/Remember.ogg
+!debug_audio/LoveMyself.ogg
+!debug_audio/HappySyn.ogg
+!debug_audio/Remember.ogg.import
+!debug_audio/LoveMyself.ogg.import
+!debug_audio/HappySyn.ogg.import
 
 # NuGet packages
 *.nupkg

@@ -1,6 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://8tdh7eq5n1mv"]
-
-[ext_resource type="Texture2D" uid="uid://c34gafh6t8avu" path="res://HinaMods/Images/Powers/growth_power.png" id="1_7p00r"]
-
-[resource]
-atlas = ExtResource("1_7p00r")

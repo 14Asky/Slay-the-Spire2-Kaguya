@@ -1,4 +1,4 @@
-{
+﻿{
 	"KAGUYA-SMOOTHIE.title": "冰沙",
 	"KAGUYA-SMOOTHIE.description": "从[gold]抽牌堆[/gold]和[gold]弃牌堆[/gold]各选择一张牌[gold]回忆[/gold]。",
 	"KAGUYA-PANCAKE.title": "松饼",
@@ -9,11 +9,17 @@
 	"KAGUYA-APPLE_CANDY.description": "若处于[gold]月读[/gold]，进入[gold]现实[/gold]；反之，进入[gold]月读[/gold]。",
 	
 	"KAGUYA-SUPPORT_POTION.title": "支援药水",
-	"KAGUYA-SUPPORT_POTION.description": "随机将2张[blue]支援牌[/blue]加入你的手牌。",
+	"KAGUYA-SUPPORT_POTION.description": "随机将2张[blue]支援牌[/blue]加入你的手牌，这些牌本回合可以免费打出。",
 
 	"KAGUYA-MOON_POTION.title": "月亮药水",
-	"KAGUYA-MOON_POTION.description": "获得3层[gold]月夜[/gold]。",
+	"KAGUYA-MOON_POTION.description": "获得6层[gold]月夜[/gold]。",
 
 	"KAGUYA-STAR_NIGHT_POTION.title": "循声药水",
-	"KAGUYA-STAR_NIGHT_POTION.description": "你打出的下一张牌后，该牌获得[gold]重放[/gold]1和[gold]虚无[/gold]。"
+	"KAGUYA-STAR_NIGHT_POTION.description": "你打出的下一张牌后，该牌获得[gold]重放[/gold]1和[gold]虚无[/gold]。",
+	"KAGUYA-LEGACY_MOON_POTION.title": "月亮药水",
+	"KAGUYA-LEGACY_MOON_POTION.description": "获得3层[gold]月夜[/gold]。",
+	"KAGUYA-LEGACY_STAR_NIGHT_POTION.title": "循声药水",
+	"KAGUYA-LEGACY_STAR_NIGHT_POTION.description": "你打出的下一张牌后，该牌获得[gold]重放[/gold]1和[gold]虚无[/gold]。",
+	"KAGUYA-LEGACY_SUPPORT_POTION.title": "支援药水",
+	"KAGUYA-LEGACY_SUPPORT_POTION.description": "随机将2张[blue]支援牌[/blue]加入你的手牌。"
 }

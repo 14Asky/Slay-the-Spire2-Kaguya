@@ -1,39 +1,40 @@
-using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
-using Kaguya.HinaMods;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kaguya.HinaMods.Cards;
 
+/// <summary>
+/// 安可（Encore）
+/// 本地化键：KAGUYA-ENCORE.title / .description
+/// 1费 · 能力牌 · 稀有 · 目标：自身
+/// 卡面：每回合使你打出的前1张牌返回[gold]手牌[/gold]。
+/// 代码实测：EncorePower=1
+/// 升级：EncorePower +1
+/// </summary>
 public sealed class Encore : HinaModsCard
 {
-    //public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
-    // 官方原生写法：单元素数组（替代反编译的伪类型）
+    // 动态变量：每回合回收的牌数（基础1，升级2）
     protected override IEnumerable<DynamicVar> CanonicalVars => new[]
     {
-        new IntVar("Replay", 1)
+        new PowerVar<EncorePower>(1m)
     };
 
-    // 官方原生写法：单元素数组（完美等效）
     protected override IEnumerable<IHoverTip> GetCustomHoverTips()
     {
         return new IHoverTip[]
         {
-             HoverTipFactory.Static(StaticHoverTip.ReplayStatic)
+            HoverTipFactory.FromPower<EncorePower>()
         };
     }
 
-    // 3费 → 升级2费
-    public Encore() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public Encore() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
     }
 
@@ -41,32 +42,20 @@ public sealed class Encore : HinaModsCard
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
 
-        // 获取所有卡牌堆
-        CardPile draw = PileType.Draw.GetPile(Owner);
-        CardPile hand = PileType.Hand.GetPile(Owner);
-        CardPile discard = PileType.Discard.GetPile(Owner);
-        CardPile exhaust = PileType.Exhaust.GetPile(Owner);
+        await PowerCmd.Apply<EncorePower>(
+            choiceContext,
+            Owner.Creature,
+            DynamicVars[nameof(EncorePower)].BaseValue,
+            Owner.Creature,
+            this);
 
-        // 筛选所有歌者卡牌
-        var allSingerCards = draw.Cards
-            .Concat(hand.Cards)
-            .Concat(discard.Cards)
-            .Concat(exhaust.Cards)
-            .OfType<HinaModsCard>()
-            .Where(c => c.CustomTags.Contains(CustomCardTags.SINGER))
-            .ToList();
-
-        // 给所有歌者牌 +1重放
-        foreach (var card in allSingerCards)
-        {
-            card.BaseReplayCount += 1;
-            CardCmd.Preview(card);
-        }
+        // 本能力自身是 CardType.Power，EncorePower 计数时已按「能力牌不计入」排除，
+        // 因此这里无需（也不应）再记录来源卡引用。
     }
 
-    // 升级：费用-1
+    // 升级：每回合回收的牌数 +1（1 → 2）
     protected override void OnUpgrade()
     {
-        base.EnergyCost.UpgradeBy(-1);
+        DynamicVars[nameof(EncorePower)].UpgradeValueBy(1m);
     }
 }

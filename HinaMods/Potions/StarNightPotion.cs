@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 namespace Kaguya.HinaMods.Potions;
 
 /// <summary>
-/// 星夜药水
-/// 战斗使用：下一张打出的牌获得重放+消耗
+/// 循声药水（StarNightPotion）
+/// 本地化键：KAGUYA-STAR_NIGHT_POTION.title / .description
+/// 卡面：你打出的下一张牌后，该牌获得[gold]重放[/gold]1和[gold]虚无[/gold]。
 /// </summary>
 [Pool(typeof(HinaModsPotionPool))]
 public sealed class StarNightPotion : CustomPotionModel

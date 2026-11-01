@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://p1h4m1lw2tpe"
+path="res://.godot/imported/kaguya.atlas-4290d0d24bfb66ddbb2bd03d5391109e.spatlas"
+
+[deps]
+
+source_file="res://scenes/hinamods/spine/kaguya.atlas"
+dest_files=["res://.godot/imported/kaguya.atlas-4290d0d24bfb66ddbb2bd03d5391109e.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

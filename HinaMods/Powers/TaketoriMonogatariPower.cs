@@ -53,6 +53,9 @@ public sealed class TaketoriMonogatariPower : CustomPowerModel
         generated.AddKeyword(CardKeyword.Ethereal);
         generated.SetToFreeThisTurn();
 
+        // 「获得+免费」标记：这类牌打出时不消耗月夜
+        Kaguya.HinaMods.Cards.HinaModsCard.MarkFreePlay(generated);
+
         // 修正：移除 addedByPlayer 参数，使用正确签名 (card, pileType, creator)
         await CardPileCmd.AddGeneratedCardToCombat(generated, PileType.Hand, player);
 

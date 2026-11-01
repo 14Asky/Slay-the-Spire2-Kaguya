@@ -1,4 +1,4 @@
-{
+﻿{
 "YACHIYO_SHRINE.title": "八千代神龛",
 	"YACHIYO_SHRINE.description": "拾起时，将一张 [gold]Remember[/gold] 加入你的牌组。",
 	"YACHIYO_SHRINE.flavor":"虚拟主播月见八千代的限定款神龛！代表着一切的起始。",
@@ -151,11 +151,11 @@
 	"KAGUYA-EIGHT_THOUSAND_YEARS_LONGING.title": "八千年的思念",
 	"KAGUYA-EIGHT_THOUSAND_YEARS_LONGING.description": "拾起时，将一张[green]决心+[/green]加入你的[gold]牌组[/gold]。",
 	"KAGUYA-EIGHT_THOUSAND_YEARS_LONGING.flavor": "[gold]我怎么现在才意识到呢...[/gold]","KAGUYA-HINA_MODS_FORTUNE_RELIC.title": "辉夜的手镯",
-  "KAGUYA-HINA_MODS_FORTUNE_RELIC.description": "首次战斗开始时获得80层[blue]岁月[/blue]。\n每回合开始时，获得{FortunePower}层[gold]月夜[/gold]。",
+  "KAGUYA-HINA_MODS_FORTUNE_RELIC.description": "回合开始时，获得{MoonlightPower}层[gold]月夜[/gold]。",
   "KAGUYA-HINA_MODS_FORTUNE_RELIC.flavor": "[red]我要吃松饼了……[/red]",
 
   "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.title": "月见伞",
-  "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "每回合开始时，获得{FortunePower}层[gold]月夜[/gold]。\n每场战斗开始时，将1张[blue]支援打击[/blue]，[blue]疾驰[/blue]和[blue]招架[/blue]加入[gold]手牌[/gold]。",
+  "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "回合开始时，获得{MoonlightPower}层[gold]月夜[/gold]。",
   "KAGUYA-HINA_MODS_ANCIENT_FORTUNE_RELIC.flavor": "[purple]八千代的伞型武器，可以为你提供帮助。[/purple]",
 
   "KAGUYA-HINA_PHONOGRAPH_RELIC.title": "辉夜的耳机",
@@ -163,11 +163,11 @@
   "KAGUYA-HINA_PHONOGRAPH_RELIC.flavor": "[purple]辉夜喜爱的耳机...[/purple]",
 
   "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title": "原光之竹",
-  "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "你的回合结束时，获得等同于你当前回合打出的卡牌数除以3的[gold]月夜[/gold]层数。",
+  "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "你的回合结束时，若你没有任何[gold]格挡[/gold]，获得等同于[gold]月夜[/gold]层数的[gold]格挡[/gold]，最多10点。",
   "KAGUYA-HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.flavor": "[gold]原光之竹，承载着月夜的光辉。[/gold]",
 
   "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.title": "辉夜的智能手机",
-  "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "你每回合首次打出[blue]5[/blue]张牌时，获得1点能量。",
+  "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.description": "每场战斗开始时，获得{MoonlightPower}层[gold]月夜[/gold]。",
   "KAGUYA-HINA_KAGUYA_SMARTPHONE_RELIC.flavor": "[blue]辉夜喜爱的手机...[/blue]",
 
   "KAGUYA-SUN_HEADDRESS_RELIC.title": "太阳头饰",
@@ -175,15 +175,15 @@
   "KAGUYA-SUN_HEADDRESS_RELIC.flavor": "[gold]抵达完美结局后...[/gold]",
 
   "KAGUYA-MOON_HEADDRESS_RELIC.title": "八千代的发簪",
-  "KAGUYA-MOON_HEADDRESS_RELIC.description": "每回合第一次打出卡牌获得[gold]月夜[/gold]时，获得2层[gold]月夜[/gold]。",
+  "KAGUYA-MOON_HEADDRESS_RELIC.description": "每当你获得[gold]月夜[/gold]时，额外获得1层[gold]月夜[/gold]。",
   "KAGUYA-MOON_HEADDRESS_RELIC.flavor": "[gold]八千代喜爱的发簪...[/gold]",
   
   "KAGUYA-YACHIYO_FAN_RELIC.title": "八千代的折扇",
-  "KAGUYA-YACHIYO_FAN_RELIC.description": "回合开始时，每存在一个意图为[gold]攻击意图[/gold]的敌人，就将1张[blue]招架[/blue]加入你的[gold]手牌[/gold]。",
+  "KAGUYA-YACHIYO_FAN_RELIC.description": "每回合当你的能量变为0时，随机获得1张升级后的0费[blue]支援[/blue]牌。",
   "KAGUYA-YACHIYO_FAN_RELIC.flavor": "[blue]月见八千代战斗服中的折扇...[/blue]",
 
   "KAGUYA-STAR_GLASSES_RELIC.title": "星星眼镜",
-  "KAGUYA-STAR_GLASSES_RELIC.description": "每当你打出[purple]歌声牌[/purple]时，获得2层[gold]活力[/gold]。",
+  "KAGUYA-STAR_GLASSES_RELIC.description": "每场战斗中，你打出的第一张[purple]歌声[/purple]牌获得[gold]重放[/gold]1。",
   "KAGUYA-STAR_GLASSES_RELIC.flavor": "[purple]辉夜演出时佩戴的眼镜...[/purple]",
 
   "SEA_GLASS.KAGUYA-HINA_CHARACTER.title": "兔子玻璃",
@@ -211,5 +211,23 @@
 
 	"KAGUYA-TECH_CONTACT_LENS.title": "科技美瞳",
 	"KAGUYA-TECH_CONTACT_LENS.description": "战斗开始时，进入[gold]月读[/gold]。",
-	"KAGUYA-TECH_CONTACT_LENS.flavor": "欢迎来到月读！"
+	"KAGUYA-TECH_CONTACT_LENS.flavor": "欢迎来到月读！",
+	"KAGUYA-LEGACY_HINA_KAGUYA_SMARTPHONE_RELIC.title": "辉夜的智能手机",
+	"KAGUYA-LEGACY_HINA_KAGUYA_SMARTPHONE_RELIC.description": "你每回合首次打出[blue]5[/blue]张牌时，获得1点能量。",
+	"KAGUYA-LEGACY_HINA_MODS_ANCIENT_FORTUNE_RELIC.title": "月见伞",
+	"KAGUYA-LEGACY_HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "每回合开始时，获得{LegacyFortunePower}层[gold]月夜[/gold]。\n每场战斗开始时，将1张[blue]支援打击[/blue]，[blue]疾驰[/blue]和[blue]招架[/blue]加入[gold]手牌[/gold]。",
+	"KAGUYA-LEGACY_HINA_MODS_FORTUNE_RELIC.title": "辉夜的手镯",
+	"KAGUYA-LEGACY_HINA_MODS_FORTUNE_RELIC.description": "首次战斗开始时获得80层[blue]岁月[/blue]。\n每回合开始时，获得{LegacyFortunePower}层[gold]月夜[/gold]。",
+	"KAGUYA-LEGACY_HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title": "原光之竹",
+	"KAGUYA-LEGACY_HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "你的回合结束时，获得等同于你当前回合打出的卡牌数除以3的[gold]月夜[/gold]层数。",
+	"KAGUYA-LEGACY_HINA_PHONOGRAPH_RELIC.title": "辉夜的耳机",
+	"KAGUYA-LEGACY_HINA_PHONOGRAPH_RELIC.description": "每场战斗开始时，将1张随机[purple]歌声[/purple]牌加入[gold]手牌[/gold]。",
+	"KAGUYA-LEGACY_MOON_HEADDRESS_RELIC.title": "八千代的发簪",
+	"KAGUYA-LEGACY_MOON_HEADDRESS_RELIC.description": "每回合第一次打出卡牌获得[gold]月夜[/gold]时，获得2层[gold]月夜[/gold]。",
+	"KAGUYA-LEGACY_STAR_GLASSES_RELIC.title": "星星眼镜",
+	"KAGUYA-LEGACY_STAR_GLASSES_RELIC.description": "每当你打出[purple]歌声牌[/purple]时，获得2层[gold]活力[/gold]。",
+	"KAGUYA-LEGACY_SUN_HEADDRESS_RELIC.title": "太阳头饰",
+	"KAGUYA-LEGACY_SUN_HEADDRESS_RELIC.description": "你的[gold]抽牌堆[/gold]中没有牌时，你的手牌会被额外打出一次。",
+	"KAGUYA-LEGACY_YACHIYO_FAN_RELIC.title": "八千代的折扇",
+	"KAGUYA-LEGACY_YACHIYO_FAN_RELIC.description": "回合开始时，每存在一个意图为[gold]攻击意图[/gold]的敌人，就将1张[blue]招架[/blue]加入你的[gold]手牌[/gold]。"
 }

@@ -1,4 +1,4 @@
-{
+﻿{
 	"KAGUYA-NON_KAGUYA_CHARACTERS_SEE_KAGUYA_CONTENT.title": "非辉夜姬角色也会遇到辉夜姬增改内容",
 	"KAGUYA-UPDATE_POPUP.title": "超时空辉夜姬Mod 发现新版本！",
 	"KAGUYA-UPDATE_POPUP.body": "当前版本：{0}\n最新版本：{1}\n请前往 创意工坊 下载最新版本。\n（如果您不是Beta分支玩家，请无视这条推送）",
@@ -8,5 +8,8 @@
 	"KAGUYA-ALLOW_ANCIENT_COEXISTENCE.title": "允许mod与原版先古之民共存（不包括Yachiyo）",
 	"KAGUYA-ALLOW_MEMORY_FRAGMENT_FOR_ALL_CHARACTERS.title": "允许非辉夜姬角色获得记忆碎片",
 	"KAGUYA-ALLOW_MAIN_MENU_SCENE_REPLACEMENT.title":"允许替换主菜单背景（需重启游戏生效）",
-	"KAGUYA-ALLOW_MAIN_MENU_BGM_REPLACEMENT.title":"允许替换主菜单背景音乐（需重启游戏生效）"
+	"KAGUYA-ALLOW_MAIN_MENU_BGM_REPLACEMENT.title":"允许替换主菜单背景音乐（需重启游戏生效）",
+	"KAGUYA-HINA_VERSION.title": "辉夜角色版本",
+	"KAGUYA-HINA_VERSION.New": "新",
+	"KAGUYA-HINA_VERSION.Legacy": "旧"
 }

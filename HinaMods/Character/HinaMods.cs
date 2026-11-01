@@ -1,5 +1,7 @@
 using BaseLib.Abstracts;
 using Godot;
+using MegaCrit.Sts2.Core.Animation;
+using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
@@ -8,6 +10,8 @@ using Kaguya.HinaMods.Potions;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using Kaguya.HinaMods.Cards;
 using Kaguya.HinaMods.Extensions;
+using Kaguya.HinaMods.Visuals;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using System;
 using System.Collections.Generic;
 using Kaguya.HinaMods.Relics;
@@ -15,6 +19,11 @@ using Kaguya.HinaMods.Relics;
 namespace Kaguya.HinaMods.Character;
 
 // 自定义角色核心类，继承游戏官方占位符角色模型
+/// <summary>
+/// 辉夜（HinaCharacter）
+/// 本地化键：KAGUYA-HINA_CHARACTER.title / .description
+/// 卡面：她是好奇心旺盛的少女，从月亮而来，于七色游戏电线杆中现身。性格开朗爱撒娇，有时略显随心所欲。遇彩叶后，她理解了人类情感、懂得爱与抗争，曾回月亮，却因彩叶的歌声决心重返地球。
+/// </summary>
 public class HinaCharacter: PlaceholderCharacterModel
 {
 	// 角色唯一ID
@@ -41,25 +50,55 @@ public class HinaCharacter: PlaceholderCharacterModel
 	public override int StartingHp => 75;
 
 	// 初始卡组：2张攻击牌 + 1张防御牌
-	public override IEnumerable<CardModel> StartingDeck => [
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsAttack>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsBlock>(),
-		ModelDb.Card<HinaModsMoonLeverage>(),
-		ModelDb.Card<HinaModsMoonStrike>(),
-		
-	];
+	// 起始卡组按版本切换：经典版沿用 master 的「4 打 + 4 防 + 卖萌(MoonLeverage) + 月击(MoonStrike)」
+	public override IEnumerable<CardModel> StartingDeck => BuildStartingDeck();
+
+	private static IEnumerable<CardModel> BuildStartingDeck()
+	{
+		if (Kaguya.KaguyaModConfig.UseLegacyHina)
+		{
+			return [
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonLeverage>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonStrike>(),
+			];
+		}
+		return [
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<ActCute>(),
+			ModelDb.Card<Playful>(),
+		];
+	}
 
 	// 初始遗物：燃烧之血
 	// 原代码：燃烧之血
 	// public override IReadOnlyList<RelicModel> StartingRelics => new List<RelicModel> { ModelDb.GetById<RelicModel>(new ModelId("RELIC", "BURNING_BLOOD")) }.AsReadOnly();
 
-	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<HinaModsFortuneRelic>()];
+	// 初始遗物按版本切换：经典版用 Legacy 版本，否则会被版本过滤挡掉，开局没有遗物
+	public override IReadOnlyList<RelicModel> StartingRelics => BuildStartingRelics();
+
+	private static IReadOnlyList<RelicModel> BuildStartingRelics()
+	{
+		if (Kaguya.KaguyaModConfig.UseLegacyHina)
+		{
+			return [ModelDb.Relic<Kaguya.HinaMods.Legacy.Relics.LegacyHinaModsFortuneRelic>()];
+		}
+		return [ModelDb.Relic<HinaModsFortuneRelic>()];
+	}
 
 
 	// 绑定自定义卡牌池
@@ -74,7 +113,40 @@ public class HinaCharacter: PlaceholderCharacterModel
 		这里仅配置了最基础的资源作为占位，用来区分自定义角色
 		非必须，但建议重命名这些图片资源 */
 	// 自定义角色视觉模型路径
-	public override string CustomVisualPath => "res://scenes/hinamods/HinaVisual.tscn";
+	// Spine 版（骨架数据 scenes/hinamods/spine/kaguya_spine_data.tres，装配逻辑见 HinaMods/Visuals/KaguyaSpineVisual.cs）
+	public override string CustomVisualPath => KaguyaSpineVisual.ScenePath;
+	// 旧的序列帧版立绘：Spine 装配失败时自动回退到这里
+	public const string LegacyVisualPath = KaguyaSpineVisual.LegacyScenePath;
+
+	/// <summary>
+	/// 手动创建立绘节点（Spine 版，失败自动回退旧序列帧版）。
+	/// 场景里的 Visuals 只是普通 Node2D 占位，真正的 SpineSprite 在节点入树前创建并替换——
+	/// 这样 KaguyaSpine.tscn 里不会出现 SpineSprite 这个扩展类型，未装编辑器扩展的人
+	/// 打开场景也不会看到「节点类型不可用」的占位提示。
+	/// 替换必须早于入树：引擎 NCreatureVisuals._Ready 会立刻校验 %Visuals 是 SpineSprite
+	/// 且骨架已加载，否则永久关闭 spine 动画；而入树过程中父节点 busy，add_child 会失败。
+	/// </summary>
+	public override NCreatureVisuals? CreateCustomVisuals()
+	{
+		return KaguyaSpineVisual.CreateVisuals();
+	}
+
+	/// <summary>
+	/// Spine 立绘的动画名映射。
+	/// kaguya.skel 里只有 idle_loop / idle_loop_backup / attack / cast / hurt / die，
+	/// 没有引擎默认要的 low_health_loop / relaxed_loop，
+	/// 所以低血量与放松状态统一回落到 idle_loop，其余按原名对应。
+	/// </summary>
+	public override CreatureAnimator? SetupCustomAnimationStates(MegaSprite controller)
+	{
+		return SetupAnimationState(
+			controller,
+			idleName: AnimState.idleAnim,
+			deadName: AnimState.dieAnim,
+			hitName: AnimState.hurtAnim,
+			attackName: AnimState.attackAnim,
+			castName: AnimState.castAnim);
+	}
 	// 自定义角色图标路径
 	public override string CustomIconTexturePath => "character_icon_char_name.png".CharacterUiPath();
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm7p7n680km40"]
+
+[ext_resource type="Script" path="res://scenes/hinamods/spine/kaguya_spine_preview.gd" id="1_pvrcs"]
+[ext_resource type="SpineSkeletonDataResource" path="res://scenes/hinamods/spine/kaguya_spine_data.tres" id="2_woo1g"]
+
+[node name="KaguyaSpinePreview" type="Node2D"]
+script = ExtResource("1_pvrcs")
+
+[node name="SpineSprite" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_woo1g")
+preview_skin = "Default"
+preview_animation = "-- Empty --"
+preview_frame = false
+preview_time = 0.0
+scale = Vector2(0.32, 0.32)

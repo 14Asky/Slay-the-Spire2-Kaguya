@@ -1,5 +1,6 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -12,57 +13,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// 统一命名空间
 namespace Kaguya.HinaMods.Cards;
 
+/// <summary>
+/// 音符连击（NoteCombo）
+/// 本地化键：KAGUYA-NOTE_COMBO.title / .description
+/// 0费 · 攻击牌 · 罕见 · 目标：随机敌人 · 关键词：歌声
+/// 卡面：造成5点伤害1次。
+///       本回合你每打出一张[purple]歌声[/purple]牌，此牌攻击次数+1。
+/// 代码实测：Damage=5
+/// 升级：Damage +1
+/// </summary>
 public sealed class NoteCombo : HinaModsCard
 {
-    // 严格参考Ricochet 动态变量格式
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(7m, ValueProp.Move)
+        new DamageVar(5m, ValueProp.Move)
     };
 
-    // 歌者专属标签
-    public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.SINGER };
+    // 回音标签
+    public override HashSet<string> CustomTags => new HashSet<string>() { CustomCardTags.ECHO };
 
-    // 构造函数 完全对齐Ricochet
     public NoteCombo()
-        : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy)
+        : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy)
     {
     }
 
-    // 核心打出逻辑 1:1复刻Ricochet + 你的消耗堆写法
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 完全照搬你的代码 获取玩家
         Player player = Owner;
         if (player == null)
             return;
 
-        // 🔥 严格使用你提供的 消耗堆获取方式
-        CardPile exhaustPile = PileType.Exhaust.GetPile(player);
-        List<CardModel> singerCards = exhaustPile.Cards
-            .OfType<HinaModsCard>()
-            .Where(c => c.CustomTags?.Contains(CustomCardTags.SINGER) == true)
-            .Cast<CardModel>()
-            .ToList();
+        // 本回合已打出的回音牌数量（本张牌尚在结算中，不计入）
+        // 用 Owner.Creature.CombatState 而非 CombatManager.Instance.DebugOnlyGetState()：
+        // 后者在联机/非战斗上下文可能返回 null，会让 HappenedThisTurn 恒为 false（计数永远为 0）。
+        ICombatState? combatState = Owner.Creature.CombatState;
+        int echoPlayedThisTurn = combatState == null ? 0 : CombatManager.Instance.History.CardPlaysFinished
+            .Count(e => e.CardPlay.Card.Owner == player
+                && e.HappenedThisTurn(combatState)
+                && e.CardPlay.Card is HinaModsCard hc && hc.HasEcho);
 
-        // 总攻击次数：基础1次 + 消耗堆歌者牌数量
-        int totalHits = 1 + singerCards.Count;
+        int totalHits = 1 + echoPlayedThisTurn;
 
-        // 官方Ricochet 原版链式伤害调用
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(totalHits)
             .FromCard(this, cardPlay)
             .TargetingRandomOpponents(base.CombatState)
-            .WithHitFx("vfx/vfx_attack_slash")
+            .WithHitFx("vfx/vfx_attack_slash", null, SfxHitName)   // 每段命中都响声
             .Execute(choiceContext);
     }
 
-    // 升级逻辑 对齐Ricochet
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(4m);
+        base.DynamicVars.Damage.UpgradeValueBy(1m);
     }
 }

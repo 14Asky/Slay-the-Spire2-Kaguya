@@ -1,4 +1,4 @@
-{
+﻿{
 	"KAGUYA-SMOOTHIE.title": "Smoothie",
 	"KAGUYA-SMOOTHIE.description": "Choose a card from the [gold]draw pile[/gold] and one from the [gold]discard pile[/gold] to [gold]Remember[/gold].",
 	"KAGUYA-PANCAKE.title": "Muffin",
@@ -8,9 +8,15 @@
 	"KAGUYA-APPLE_CANDY.title": "Candy Apple",
 	"KAGUYA-APPLE_CANDY.description": "If in [gold]Tsukuyomi[/gold], enter [gold]Reality[/gold]; otherwise, enter [gold]Tsukuyomi[/gold].",
 	"KAGUYA-SUPPORT_POTION.title": "Support Potion",
-	"KAGUYA-SUPPORT_POTION.description": "Add 2 random [blue]Support[/blue] cards to your hand.",
+	"KAGUYA-SUPPORT_POTION.description": "Add 2 random [blue]Support[/blue] cards to your hand. They cost 0 this turn.",
 	"KAGUYA-MOON_POTION.title": "Moon Potion",
-	"KAGUYA-MOON_POTION.description": "Gain 3 [gold]Moonlight[/gold].",
+	"KAGUYA-MOON_POTION.description": "Gain 6 [gold]Moonlight[/gold].",
 	"KAGUYA-STAR_NIGHT_POTION.title": "Sound-Seeking Potion",
-	"KAGUYA-STAR_NIGHT_POTION.description": "After you play your next card, give it 1 [gold]Replay[/gold] and [gold]Ethereal[/gold]."
+	"KAGUYA-STAR_NIGHT_POTION.description": "After you play your next card, give it 1 [gold]Replay[/gold] and [gold]Ethereal[/gold].",
+	"KAGUYA-LEGACY_MOON_POTION.title": "Moon Potion",
+	"KAGUYA-LEGACY_MOON_POTION.description": "Gain 3 [gold]Moonlight[/gold].",
+	"KAGUYA-LEGACY_STAR_NIGHT_POTION.title": "Sound-Seeking Potion",
+	"KAGUYA-LEGACY_STAR_NIGHT_POTION.description": "After you play your next card, give it 1 [gold]Replay[/gold] and [gold]Ethereal[/gold].",
+	"KAGUYA-LEGACY_SUPPORT_POTION.title": "Support Potion",
+	"KAGUYA-LEGACY_SUPPORT_POTION.description": "Add 2 random [blue]Support[/blue] cards to your hand."
 }

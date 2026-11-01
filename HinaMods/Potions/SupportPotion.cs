@@ -19,6 +19,12 @@ using System.Threading.Tasks;
 namespace Kaguya.HinaMods.Potions;
 
 // 注册到你的自定义药水池
+/// <summary>
+/// 支援药水（SupportPotion）
+/// 本地化键：KAGUYA-SUPPORT_POTION.title / .description
+/// 卡面：随机将2张[blue]支援牌[/blue]加入你的手牌，这些牌本回合可以免费打出。
+/// 代码实测：Cards=2
+/// </summary>
 [Pool(typeof(HinaModsPotionPool))]
 public sealed class SupportPotion : CustomPotionModel
 {
@@ -54,6 +60,7 @@ public sealed class SupportPotion : CustomPotionModel
                 c.CustomTags != null
                 && c.CustomTags.Any()
                 && c.CustomTags.Contains(CustomCardTags.SUPPORT))
+            .Where(c => HinaModsCard.AllowedInRun(c, owner))
             .ToList();
 
         // 容错
@@ -71,6 +78,8 @@ public sealed class SupportPotion : CustomPotionModel
         // 生成卡牌到手牌（官方API，联机稳定）
         foreach (CardModel card in selectedCards)
         {
+            // 这些牌本回合可以免费打出
+            card.SetToFreeThisTurn();
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, owner);
         }
     }

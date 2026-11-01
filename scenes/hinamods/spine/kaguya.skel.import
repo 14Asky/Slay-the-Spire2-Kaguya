@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://cn6kg8awxlw5"
+path="res://.godot/imported/kaguya.skel-dd89e4347a7bee05c3c7165a5566caa6.spskel"
+
+[deps]
+
+source_file="res://scenes/hinamods/spine/kaguya.skel"
+dest_files=["res://.godot/imported/kaguya.skel-dd89e4347a7bee05c3c7165a5566caa6.spskel"]
+
+[params]
+
