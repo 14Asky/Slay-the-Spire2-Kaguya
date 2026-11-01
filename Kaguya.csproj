@@ -3,6 +3,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Version>3.2.1</Version>
+    <AssemblyVersion>3.2.1.0</AssemblyVersion>
+    <FileVersion>3.2.1.0</FileVersion>
     <!-- 合并工程才有「酒寄彩叶」角色：独立辉夜 mod 不定义此常量 -->
     <DefineConstants>$(DefineConstants);HAS_SAKAYORI</DefineConstants>
   </PropertyGroup>
@@ -15,6 +18,7 @@
 
     <MakeDir Directories="$(MSBuildProjectDirectory)\build" />
     <Copy SourceFiles="@(OutputDlls)" DestinationFolder="$(MSBuildProjectDirectory)\build" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Kaguya\Kaguya.json" DestinationFolder="$(MSBuildProjectDirectory)\build" />
  </Target>
   
   <ItemGroup>

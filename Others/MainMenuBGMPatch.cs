@@ -50,6 +50,7 @@ public static class MainMenuBGMPatch
         _bgmPlayer.Play();
 
         AddNextTrackButton(__instance);
+        __instance.TreeExiting += () => CleanupMenu(__instance);
     }
 
     /// <summary>
@@ -59,7 +60,14 @@ public static class MainMenuBGMPatch
     private static void AddNextTrackButton(NMainMenu menu)
     {
         if (GodotObject.IsInstanceValid(_nextButton))
-            return;
+        {
+            if (_nextButton.GetParent() == menu && !_nextButton.IsQueuedForDeletion())
+                return;
+
+            // QueueFree is deferred: the previous menu's button can still be valid
+            // while the replacement menu enters the tree. Do not reuse that button.
+            CleanupNextButton();
+        }
 
         Button btn = new()
         {
@@ -166,6 +174,25 @@ public static class MainMenuBGMPatch
         _bgmPlayer.Stop();
         _bgmPlayer.QueueFree();
         _bgmPlayer = null;
+    }
+
+    private static void CleanupNextButton()
+    {
+        if (GodotObject.IsInstanceValid(_nextButton))
+        {
+            _nextButton.Pressed -= NextTrack;
+            _nextButton.QueueFree();
+        }
+        _nextButton = null;
+    }
+
+    private static void CleanupMenu(NMainMenu menu)
+    {
+        // An old menu must never tear down the replacement menu's player/button.
+        if (GodotObject.IsInstanceValid(_bgmPlayer) && _bgmPlayer.GetParent() == menu)
+            CleanupPlayer();
+        if (GodotObject.IsInstanceValid(_nextButton) && _nextButton.GetParent() == menu)
+            CleanupNextButton();
     }
 
     internal static void ApplyVolume(float volume)
