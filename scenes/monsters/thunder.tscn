@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwayq0x7oyjk7"]
+[gd_scene load_steps=3 format=3 uid="uid://bwayq0x7oyjk7"]
 
-[ext_resource type="Texture2D" uid="uid://cfsbtg21ck6bw" path="res://images/packed/monster/thunder.png" id="1_pclwm"]
+[ext_resource type="Script" uid="uid://dbhjdv18vgrn1" path="res://Others/CustomCreatureVisuals.cs" id="99_script"]
+[ext_resource type="Texture2D" uid="uid://d0j0n4288rtfi" path="res://images/packed/monster/kaguya_thunder.png" id="1_pclwm"]
 
 [node name="Thunder" type="Node2D"]
+script = ExtResource("99_script")
 
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true
