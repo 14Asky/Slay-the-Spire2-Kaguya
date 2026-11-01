@@ -22,6 +22,7 @@
  </Target>
   
   <ItemGroup>
+    <Compile Remove="build/**/*.cs" />
 
 	<Reference Include="0Harmony">
 	  <HintPath>libs\0Harmony.dll</HintPath>
