@@ -1,4 +1,4 @@
-{
+﻿{
 	"YACHIYO_SHRINE.title": "Yachiyo Shrine",
 	"YACHIYO_SHRINE.description": "Upon pickup, add a [gold]Remember[/gold] to your deck.",
 	"YACHIYO_SHRINE.flavor": "A limited-edition shrine of virtual YouTuber Yachiyo! Represents the beginning of everything.",
@@ -204,5 +204,23 @@
 
 	"KAGUYA-TECH_CONTACT_LENS.title": "Tech Contact Lens",
 	"KAGUYA-TECH_CONTACT_LENS.description": "At the start of combat, enter [gold]Tsukuyomi[/gold].",
-	"KAGUYA-TECH_CONTACT_LENS.flavor": "These lenses let you see not just this world, but another."
+	"KAGUYA-TECH_CONTACT_LENS.flavor": "These lenses let you see not just this world, but another.",
+	"KAGUYA-LEGACY_HINA_KAGUYA_SMARTPHONE_RELIC.title": "Kaguya's Smartphone",
+	"KAGUYA-LEGACY_HINA_KAGUYA_SMARTPHONE_RELIC.description": "The first time you play [blue]5[/blue] cards in a turn, gain 1 energy.",
+	"KAGUYA-LEGACY_HINA_MODS_ANCIENT_FORTUNE_RELIC.title": "Moon View Umbrella",
+	"KAGUYA-LEGACY_HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "At the start of each turn, gain {LegacyFortunePower} [gold]Moonlight[/gold].\nAt the start of each combat, add 1 [blue]Support Strike[/blue], 1 [blue]Dash[/blue], and 1 [blue]Parry[/blue] to your [gold]hand[/gold].",
+	"KAGUYA-LEGACY_HINA_MODS_FORTUNE_RELIC.title": "Kaguya's Bracelet",
+	"KAGUYA-LEGACY_HINA_MODS_FORTUNE_RELIC.description": "At the start of your first combat, gain 80 [blue]Moon Sights[/blue].\nAt the start of each turn, gain {LegacyFortunePower} [gold]Moonlight[/gold].",
+	"KAGUYA-LEGACY_HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title": "Original Light Bamboo",
+	"KAGUYA-LEGACY_HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "At the end of your turn, gain [gold]Moonlight[/gold] equal to the number of cards you played this turn divided by 3.",
+	"KAGUYA-LEGACY_HINA_PHONOGRAPH_RELIC.title": "Kaguya's Headphones",
+	"KAGUYA-LEGACY_HINA_PHONOGRAPH_RELIC.description": "At the start of each combat, add 1 random [purple]Song[/purple] card to your [gold]hand[/gold].",
+	"KAGUYA-LEGACY_MOON_HEADDRESS_RELIC.title": "Yachiyo's Hairpin",
+	"KAGUYA-LEGACY_MOON_HEADDRESS_RELIC.description": "The first time you gain [gold]Moonlight[/gold] from playing a card each turn, gain 2 additional [gold]Moonlight[/gold].",
+	"KAGUYA-LEGACY_STAR_GLASSES_RELIC.title": "Star Glasses",
+	"KAGUYA-LEGACY_STAR_GLASSES_RELIC.description": "Whenever you play a [purple]Song[/purple] card, gain 2 [gold]Vigor[/gold].",
+	"KAGUYA-LEGACY_SUN_HEADDRESS_RELIC.title": "Sun Headdress",
+	"KAGUYA-LEGACY_SUN_HEADDRESS_RELIC.description": "When your [gold]draw pile[/gold] is empty, your hand is played an additional time.",
+	"KAGUYA-LEGACY_YACHIYO_FAN_RELIC.title": "Yachiyo's Folding Fan",
+	"KAGUYA-LEGACY_YACHIYO_FAN_RELIC.description": "At the start of your turn, for each enemy with an [gold]attack intent[/gold], add 1 [blue]Parry[/blue] to your [gold]hand[/gold]."
 }

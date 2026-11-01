@@ -1,4 +1,4 @@
-{
+﻿{
 	"KAGUYA-YUJIAN.description": "Whenever you [gold]Scry[/gold], you look at a certain number of cards from the top of your [gold]draw pile[/gold]. Then, you may choose to discard any number of them or none.",
 	"KAGUYA-YUJIAN.title": "Scry",
 	"KAGUYA-TSUKUYOMI.description": "Upon entering, remove 3 stacks of [gold]Overwork[/gold] and gain 1 [gold]Strength[/gold] and 1 [gold]Dexterity[/gold]. Upon exiting, draw 1 card and gain 1 stack of [gold]Overwork[/gold].",
@@ -28,5 +28,13 @@
 	"SUPPORT.title": "Support",
 	"SUPPORT.description": "After playing, gain 1 [gold]Strength[/gold] (Support Attack) or 1 [gold]Dexterity[/gold] (Support Skill) this turn. Lost at the end of the turn.",
 	"SUPPORTCARD.title": "Support Card",
-	"SUPPORTCARD.description": "A Support card: can be obtained by \"gain a random Support card\" effects, and grants temporary [gold]Strength[/gold] or [gold]Dexterity[/gold] when played."
+	"SUPPORTCARD.description": "A Support card: can be obtained by \"gain a random Support card\" effects, and grants temporary [gold]Strength[/gold] or [gold]Dexterity[/gold] when played.",
+	"MOONLIGHT.description": "Channel the power of Kaguya, consume Moon View, and accumulate Moonlight stacks.",
+	"MOONLIGHT.title": "Moonlight",
+	"MOONVIEW.description": "Can only be played by consuming corresponding Moon Sights.",
+	"MOONVIEW.title": "Moon View",
+	"SINGER.description": "When played, this card goes into the [gold]exhaust pile[/gold]. At the end of the turn, it returns to the [gold]draw pile[/gold].",
+	"SINGER.title": "Song",
+	"SINGERCARD.description": "Song cards played this turn go into the exhaust pile and return to the draw pile at the end of the turn.",
+	"SINGERCARD.title": "Song Card"
 }

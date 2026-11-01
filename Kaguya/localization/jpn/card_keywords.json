@@ -1,4 +1,4 @@
-{
+﻿{
 	"KAGUYA-YUJIAN.description": "[gold]山札[/gold]の上からX枚のカードを見る。その後、その中から好きな枚数を捨てる。",
 	"KAGUYA-YUJIAN.title": "占術",
 	"KAGUYA-TSUKUYOMI.description": "移行時、[gold]過労[/gold]3を失う、[gold]筋力[/gold]を1と[gold]敏捷[/gold]を1得る。離脱時、カードを1枚引き、[gold]過労[/gold]1を得る。",
@@ -28,5 +28,13 @@
 	"SUPPORT.title": "支援",
 	"SUPPORT.description": "プレイ後、このターン[gold]筋力[/gold]1（[blue]支援[/blue]アタック）または[gold]敏捷[/gold]1（[blue]支援[/blue]スキル）を得る。ターン終了時に失う。",
 	"SUPPORTCARD.title": "支援カード",
-	"SUPPORTCARD.description": "支援体系のカード。「ランダムな支援カードを得る」効果で入手できる。プレイするとこのターンの一時的な[gold]筋力[/gold]か[gold]敏捷[/gold]を得る。"
+	"SUPPORTCARD.description": "支援体系のカード。「ランダムな支援カードを得る」効果で入手できる。プレイするとこのターンの一時的な[gold]筋力[/gold]か[gold]敏捷[/gold]を得る。",
+	"MOONLIGHT.description": "かぐやの力を受け継ぎ、[gold]月見[/gold]1消費したたび、[gold]月夜[/gold]1を得る。",
+	"MOONLIGHT.title": "月夜",
+	"MOONVIEW.description": "対応する[gold]歳月[/gold]を消費してプレイできる。",
+	"MOONVIEW.title": "月見",
+	"SINGER.description": "プレイ時に[gold]廃棄札[/gold]に置く、そしてターン終了時に[gold]山札[/gold]の一番上に置く。",
+	"SINGER.title": "歌声",
+	"SINGERCARD.description": "プレイ時に[gold]廃棄札[/gold]に置く、そしてターン終了時に[gold]山札[/gold]の一番上に置く。",
+	"SINGERCARD.title": "歌声カード"
 }

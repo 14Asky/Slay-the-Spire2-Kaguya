@@ -1,4 +1,4 @@
-{
+﻿{
 	"YACHIYO_SHRINE.title": "ヤチヨの神棚",
 	"YACHIYO_SHRINE.description": "取得時、[gold]Remember[/gold]を1枚[gold]デッキ[/gold]に追加する。",
 	"YACHIYO_SHRINE.flavor": "仮想空間『ツクヨミ』の管理人、ライバー月見ヤチヨの神棚（）！すべての始まりを象徴する。",
@@ -213,5 +213,23 @@
 
 	"KAGUYA-TECH_CONTACT_LENS.title": "スマコン",
 	"KAGUYA-TECH_CONTACT_LENS.description": "戦闘開始時、[gold]ツクヨミ[/gold]に移行する。",
-	"KAGUYA-TECH_CONTACT_LENS.flavor": "ツクヨミへようこそ！"
+	"KAGUYA-TECH_CONTACT_LENS.flavor": "ツクヨミへようこそ！",
+	"KAGUYA-LEGACY_HINA_KAGUYA_SMARTPHONE_RELIC.title": "かぐやのスマホ",
+	"KAGUYA-LEGACY_HINA_KAGUYA_SMARTPHONE_RELIC.description": "毎ターン、カードを[blue]5[/blue]枚プレイした時、1エネルギーを得る。",
+	"KAGUYA-LEGACY_HINA_MODS_ANCIENT_FORTUNE_RELIC.title": "月見傘",
+	"KAGUYA-LEGACY_HINA_MODS_ANCIENT_FORTUNE_RELIC.description": "ターン開始時、[gold]月夜[/gold]{LegacyFortunePower}を得る。\n戦闘開始時、[blue]支援ストライク[/blue]、[blue]疾走[/blue]、[blue]受け流し[/blue]を1枚ずつ[gold]手札[/gold]に加える。",
+	"KAGUYA-LEGACY_HINA_MODS_FORTUNE_RELIC.title": "かぐやのブレスレット",
+	"KAGUYA-LEGACY_HINA_MODS_FORTUNE_RELIC.description": "初回の戦闘開始時、[blue]歳月[/blue]80を得る。\nターン開始時、[gold]月夜[/gold]{LegacyFortunePower}を得る。",
+	"KAGUYA-LEGACY_HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.title": "もと光る竹",
+	"KAGUYA-LEGACY_HINA_ORIGINAL_LIGHT_BAMBOO_RELIC.description": "ターン終了時、このターンカード3枚にプレイしたたび、[gold]月夜[/gold]1を得る。",
+	"KAGUYA-LEGACY_HINA_PHONOGRAPH_RELIC.title": "かぐやのイヤホン",
+	"KAGUYA-LEGACY_HINA_PHONOGRAPH_RELIC.description": "戦闘開始時、ランダムな[purple]歌声[/purple]カードを1枚[gold]手札[/gold]に加える。",
+	"KAGUYA-LEGACY_MOON_HEADDRESS_RELIC.title": "ヤチヨの簪",
+	"KAGUYA-LEGACY_MOON_HEADDRESS_RELIC.description": "毎ターン初めてカードをプレイして[gold]月夜[/gold]を得た時、さらに[gold]月夜[/gold]2を得る。",
+	"KAGUYA-LEGACY_STAR_GLASSES_RELIC.title": "星のメガネ",
+	"KAGUYA-LEGACY_STAR_GLASSES_RELIC.description": "[purple]歌声カード[/purple]をプレイするたびに、[gold]活力[/gold]2を得る。",
+	"KAGUYA-LEGACY_SUN_HEADDRESS_RELIC.title": "太陽のヘアバンド",
+	"KAGUYA-LEGACY_SUN_HEADDRESS_RELIC.description": "[gold]山札[/gold]にカードが1枚もない時、手札のカードは追加でもう一度プレイする。",
+	"KAGUYA-LEGACY_YACHIYO_FAN_RELIC.title": "ヤチヨの扇子",
+	"KAGUYA-LEGACY_YACHIYO_FAN_RELIC.description": "ターン開始時、[gold]攻撃意图[/gold]の敵1体につき、[blue]受け流し[/blue]1枚を[gold]手札[/gold]に加える。"
 }

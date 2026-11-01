@@ -50,25 +50,55 @@ public class HinaCharacter: PlaceholderCharacterModel
 	public override int StartingHp => 75;
 
 	// 初始卡组：2张攻击牌 + 1张防御牌
-	public override IEnumerable<CardModel> StartingDeck => [
-		ModelDb.Card<Strike>(),
-		ModelDb.Card<Strike>(),
-		ModelDb.Card<Strike>(),
-		ModelDb.Card<Strike>(),
-		ModelDb.Card<Block>(),
-		ModelDb.Card<Block>(),
-		ModelDb.Card<Block>(),
-		ModelDb.Card<Block>(),
-		ModelDb.Card<ActCute>(),
-		ModelDb.Card<Playful>(),
-		
-	];
+	// 起始卡组按版本切换：经典版沿用 master 的「4 打 + 4 防 + 卖萌(MoonLeverage) + 月击(MoonStrike)」
+	public override IEnumerable<CardModel> StartingDeck => BuildStartingDeck();
+
+	private static IEnumerable<CardModel> BuildStartingDeck()
+	{
+		if (Kaguya.KaguyaModConfig.UseLegacyHina)
+		{
+			return [
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsAttack>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBlock>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonLeverage>(),
+				ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonStrike>(),
+			];
+		}
+		return [
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Strike>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<Block>(),
+			ModelDb.Card<ActCute>(),
+			ModelDb.Card<Playful>(),
+		];
+	}
 
 	// 初始遗物：燃烧之血
 	// 原代码：燃烧之血
 	// public override IReadOnlyList<RelicModel> StartingRelics => new List<RelicModel> { ModelDb.GetById<RelicModel>(new ModelId("RELIC", "BURNING_BLOOD")) }.AsReadOnly();
 
-	public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<HinaModsFortuneRelic>()];
+	// 初始遗物按版本切换：经典版用 Legacy 版本，否则会被版本过滤挡掉，开局没有遗物
+	public override IReadOnlyList<RelicModel> StartingRelics => BuildStartingRelics();
+
+	private static IReadOnlyList<RelicModel> BuildStartingRelics()
+	{
+		if (Kaguya.KaguyaModConfig.UseLegacyHina)
+		{
+			return [ModelDb.Relic<Kaguya.HinaMods.Legacy.Relics.LegacyHinaModsFortuneRelic>()];
+		}
+		return [ModelDb.Relic<HinaModsFortuneRelic>()];
+	}
 
 
 	// 绑定自定义卡牌池

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using BaseLib.Abstracts;
 using Godot;
 using Kaguya.HinaMods.Cards.Rare;
@@ -42,7 +45,38 @@ public class HinaModsCardPool : CustomCardPoolModel
 	// 非无色卡牌（角色专属）
 	public override bool IsColorless => false;
 
+	/// <summary>
+	/// 卡池最终过滤。
+	/// 引擎的 <c>CardPoolModel.AllCards</c> 在 <c>GenerateAllCards()</c> 之后还会执行
+	/// <c>ModHelper.ConcatModelsFromMods</c>，把带 <c>PoolAttribute</c> 的模型**自动追加**进来——
+	/// 也就是说只改 GenerateAllCards 的清单，另一套版本的卡仍然会混进池里。
+	/// 这里在最终出口按命名空间剔一遍，才是真正生效的开关。
+	/// </summary>
+	public override IEnumerable<CardModel> AllCards
+	{
+		get
+		{
+			bool legacy = KaguyaModConfig.UseLegacyHina;
+			foreach (CardModel card in base.AllCards)
+			{
+				bool isLegacy = card.GetType().Namespace?.StartsWith("Kaguya.HinaMods.Legacy", StringComparison.Ordinal) == true;
+				if (isLegacy == legacy)
+				{
+					yield return card;
+				}
+			}
+		}
+	}
+
 	protected override CardModel[] GenerateAllCards()
+	{
+		// 经典版：走 master 分支的实现（HinaMods/Legacy 下的 Legacy* 卡）
+		if (KaguyaModConfig.UseLegacyHina)
+			return GenerateLegacyCards();
+		return GenerateNewCards();
+	}
+
+	private static CardModel[] GenerateNewCards()
 	{
 		return new CardModel[]
 		{
@@ -134,6 +168,92 @@ public class HinaModsCardPool : CustomCardPoolModel
 			ModelDb.Card<YachiyosAid>(),
 			ModelDb.Card<Gather>(),
 		};
+	}
 
+	/// <summary>
+	/// 经典版卡池（master 分支的内容）。
+	/// 每移植一张旧卡就在这里登记一条；未登记的不会出现在经典版卡池。
+	/// </summary>
+	private static CardModel[] GenerateLegacyCards()
+	{
+		return new CardModel[]
+		{
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyGenerateSupportCard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.SupportCards.Common.LegacyGenerateSupportStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacyHinaModsMoonBarrier>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonEclipse>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonEclipseStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonScar>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMuffin>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyMoonTideReturn>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerAllStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerGuard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerSelfDebuff>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsClearGame>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsOmurice>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsBirth>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyDailySong>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerHoldLine>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerRecycle>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyMoonlightTripleStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyFullMoonStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportAllocation>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonFinalStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacySingerDraw>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonDraw>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacyHinaModsFortuneExpend>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacyHinaModsBreakEvil>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyExhaustSingerGuard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyNoteCombo>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsMoonConcerto>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportStrikeAuraCard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacyHomeRun>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyGrowth>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerSupportGuard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportBurst>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerBulwark>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyParryParry>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyTsukimiDraw>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyTsukimiFrenzy>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyGameLife>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyStarNightFree>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Rare.LegacySingerFugue>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerWaitBlock>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerReshape>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyMoonLightAria>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportRhythmCard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportEnergyCharge>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportMoonlightCall>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerMoonStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportAuraCard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerEchoCopy>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyTsukimiForm>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyEncore>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacyRallySupportCard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacyHeavenlyRaimentCard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyHinaModsLeap>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyTsukimiRobe>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySingerConvert>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacySingerCascade>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Rare.LegacySingerComboStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportObliteration>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Rare.LegacyHinaModsMoonlight>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyConcertedPreparation>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportAssemble>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Rare.LegacyFinalPerformance>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.SupportCards.Moons.LegacyHinaModsTsukimiBlessing>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Rare.LegacyHinaModsMoonlightRecall>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.SupportCards.Common.LegacyHinaModsWinStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.Uncommon.LegacySingerComb>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyLeapStrike>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyGraduationPerformance>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacySupportForgeCard>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyMoonlightSlash>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyMoonlightOverflow>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyConfluence>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyMultiSupportGather>(),
+			ModelDb.Card<Kaguya.HinaMods.Legacy.Cards.LegacyMoonlightTeamBless>(),
+		};
 	}
 }

@@ -56,6 +56,13 @@ public static class KaguyaSpineVisual
     /// </summary>
     public static NCreatureVisuals? CreateVisuals()
     {
+        // 经典版：直接走旧版序列帧立绘（HinaVisual.tscn）。
+        // 只有那套资源带 MoonsIdle / MoonsAttack / MoonsHit / MoonsDead ——
+        // 月之赐福（8000 层）的立绘切换依赖它的 AnimatedSprite2D「Visuals」节点，
+        // Spine 骨架里没有对应动画，所以经典版必须用旧视觉。
+        if (Kaguya.KaguyaModConfig.UseLegacyHina)
+            return CreateLegacyVisuals();
+
         NCreatureVisuals? visuals = Instantiate(ScenePath);
         if (visuals == null)
             return CreateLegacyVisuals();

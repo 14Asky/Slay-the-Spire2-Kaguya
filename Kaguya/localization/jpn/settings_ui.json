@@ -1,4 +1,4 @@
-{
+﻿{
 	"KAGUYA-NON_KAGUYA_CHARACTERS_SEE_KAGUYA_CONTENT.title": "輝夜姫以外のキャラクターも輝夜姫の追加コンテンツに遭遇する",
 	"KAGUYA-UPDATE_POPUP.title": "新しいバージョンがあります！",
 	"KAGUYA-UPDATE_POPUP.body": "現在：{0}\n最新：{1}\nSteamで最新バージョンをダウンロードしてください。\n（もしベータブランチのプレイヤーでない場合は、この通知を無視してください。）",
@@ -8,5 +8,8 @@
 	"KAGUYA-ALLOW_ANCIENT_COEXISTENCE.title": "MODとバニラの古代人を共存させる（Yachiyoを除く）",
 	"KAGUYA-ALLOW_MEMORY_FRAGMENT_FOR_ALL_CHARACTERS.title": "輝夜姫以外のキャラクターも記憶の欠片を取得可能",
 	"KAGUYA-ALLOW_MAIN_MENU_SCENE_REPLACEMENT.title": "メインメニューの背景を置き換えることを許可（再起動が必要）",
-	"KAGUYA-ALLOW_MAIN_MENU_BGM_REPLACEMENT.title": "メインメニューのBGMを置き換えることを許可（再起動が必要）"
+	"KAGUYA-ALLOW_MAIN_MENU_BGM_REPLACEMENT.title": "メインメニューのBGMを置き換えることを許可（再起動が必要）",
+	"KAGUYA-HINA_VERSION.title": "輝夜姫のキャラクターバージョン",
+	"KAGUYA-HINA_VERSION.New": "新",
+	"KAGUYA-HINA_VERSION.Legacy": "旧"
 }

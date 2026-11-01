@@ -92,7 +92,12 @@ public sealed partial class HinaMoonlightHud : Control
 			Visible = true;
 		}
 
-		int amount = (int)(creature.GetPower<MoonlightPower>()?.Amount ?? 0m);
+		// 月夜层数按版本挂在不同的能力上：新版是 MoonlightPower，经典版是 LegacyFortunePower。
+		// 两个都要试，否则切到经典版后 HUD 会恒定读 0 层。
+		int amount = (int)(
+			creature.GetPower<MoonlightPower>()?.Amount
+			?? creature.GetPower<Kaguya.HinaMods.Legacy.Powers.LegacyFortunePower>()?.Amount
+			?? 0m);
 		float brightness = Mathf.Clamp(amount / FullBrightStacks, 0f, 1f);
 
 		// 值没变就不动 Label、不重绘 —— 0 层时 amount 恒为 0，
