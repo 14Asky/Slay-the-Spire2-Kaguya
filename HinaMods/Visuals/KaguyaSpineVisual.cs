@@ -1,5 +1,6 @@
 using BaseLib.Extensions;
 using Godot;
+using System;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 
 namespace Kaguya.HinaMods.Visuals;
@@ -7,20 +8,10 @@ namespace Kaguya.HinaMods.Visuals;
 /// <summary>
 /// 辉夜战斗立绘（Spine 版）的装配工具。
 ///
-/// 关键点：
-///   1. 骨架数据走**资源**（<c>scenes/hinamods/spine/kaguya_spine_data.tres</c>），
-///      不再用 <c>load_from_file</c> 读原始 .skel/.atlas。
-///      好处：`.tres` 引用的导入产物（.spskel/.spatlas）会被导出器当作普通资源打进 pck，
-///      **不依赖 export_presets 的 include_filter** —— 上一版就是因为 pck 里没带 .skel/.atlas
-///      导致运行时 `skel=30 / atlas=15`、立绘不可见。前提是这批资源已在编辑器里导入过。
-///   2. <c>SpineSprite</c> 是 GDExtension 类型。场景里 <c>Visuals</c> 先放普通 <c>Node2D</c> 占位，
-///      真正的 SpineSprite 在节点**入树之前**创建并替换 —— 这样 .tscn 里不写 SpineSprite，
-///      没有装编辑器扩展的人打开场景也不会弹「节点类型不可用」。
-///   3. 替换时机是硬约束：引擎 <c>NCreatureVisuals._Ready</c> 会立刻 <c>GetNode("%Visuals")</c>
-///      并检查 <c>GetSkeleton()?.GetData() != null</c>，不满足就永久关闭 spine 动画；
-///      而入树过程中父节点 busy（"Parent node is busy setting up children"），add_child 会失败。
-///   4. 装配失败（数据缺失 / 扩展没加载）时回退到旧的序列帧立绘 <c>HinaVisual.tscn</c>，
-///      不会再出现「角色隐形」。
+/// 导入资源必须通过内部数据校验；空壳资源改用原始 skel/atlas 重建。
+/// SpineSprite 的骨架、数据与动画状态均验证成功后，才替换场景占位节点。
+/// 以上操作在入树前完成，避免 NCreatureVisuals._Ready 使用无效的 Spine 绑定。
+/// 任一步失败都回退到 HinaVisual.tscn，保留旧的序列帧动作。
 /// </summary>
 public static class KaguyaSpineVisual
 {
@@ -49,6 +40,12 @@ public static class KaguyaSpineVisual
 
     private static Resource? _cachedData;
     private static bool _legacyRegistered;
+    private static bool _diagnosticsLogged;
+    private const string FallbackMeta = "kaguya_spine_fallback";
+    private static readonly string[] RequiredAnimations = { "idle_loop", "attack", "cast", "hurt", "die" };
+
+    public static bool IsLegacyFallback(Node? visuals) =>
+        GodotObject.IsInstanceValid(visuals) && visuals.HasMeta(FallbackMeta);
 
     /// <summary>
     /// 创建辉夜立绘：Spine 版优先，失败则回退旧序列帧版。
@@ -65,14 +62,29 @@ public static class KaguyaSpineVisual
 
         NCreatureVisuals? visuals = Instantiate(ScenePath);
         if (visuals == null)
-            return CreateLegacyVisuals();
+            return CreateFallback();
 
-        if (Install(visuals))
-            return visuals;
+        try
+        {
+            if (Install(visuals))
+                return visuals;
+        }
+        catch (Exception ex)
+        {
+            _cachedData = null;
+            GD.PushWarning($"[Kaguya] Spine 装配异常: {ex}");
+        }
 
         GD.PushWarning("[Kaguya] Spine 立绘装配失败，回退到旧的序列帧立绘");
         visuals.Free();
-        return CreateLegacyVisuals();
+        return CreateFallback();
+    }
+
+    private static NCreatureVisuals? CreateFallback()
+    {
+        var fallback = CreateLegacyVisuals();
+        fallback?.SetMeta(FallbackMeta, true);
+        return fallback;
     }
 
     /// <summary>兜底：旧的序列帧立绘（HinaVisual.tscn）。</summary>
@@ -96,7 +108,7 @@ public static class KaguyaSpineVisual
     {
         Node2D? placeholder = root.GetNodeOrNull<Node2D>(VisualsName);
         if (placeholder != null && placeholder.GetClass() == SpineClass)
-            return true; // 已经是 SpineSprite
+            return IsSpriteReady(placeholder, out _);
 
         Resource? data = LoadSkeletonData();
         if (data == null)
@@ -105,6 +117,16 @@ public static class KaguyaSpineVisual
         Node2D? spine = CreateSpineSprite();
         if (spine == null)
             return false;
+
+        // 在交出占位节点前验证真正的原生对象；非空的 Resource/SpineSprite 可能只是空壳。
+        spine.Set("skeleton_data_res", data);
+        if (!IsSpriteReady(spine, out string reason))
+        {
+            GD.PushWarning($"[Kaguya] SpineSprite 无效: {reason}");
+            _cachedData = null;
+            spine.Free();
+            return false;
+        }
 
         int index = placeholder?.GetIndex() ?? 0;
         Vector2 position = placeholder?.Position ?? FallbackPosition;
@@ -128,8 +150,6 @@ public static class KaguyaSpineVisual
         spine.Visible = visible;
 
         // 骨架必须在入树前装好：NCreatureVisuals._Ready 立刻校验 GetSkeleton().GetData()
-        spine.Set("skeleton_data_res", data);
-
         root.AddChild(spine);
         spine.Owner = root; // 让 %Visuals 登记进父节点的唯一名表
         spine.UniqueNameInOwner = true;
@@ -146,45 +166,132 @@ public static class KaguyaSpineVisual
 
     private static NCreatureVisuals? Instantiate(string path)
     {
-        PackedScene? scene = ResourceLoader.Load<PackedScene>(path);
-        if (scene == null)
+        try
         {
-            GD.PushError($"[Kaguya] 找不到立绘场景 {path}");
+            PackedScene? scene = ResourceLoader.Load<PackedScene>(path);
+            if (scene == null)
+            {
+                GD.PushError($"[Kaguya] 找不到立绘场景 {path}");
+                return null;
+            }
+
+            Node? root = scene.Instantiate();
+            if (root is not NCreatureVisuals visuals)
+            {
+                GD.PushError($"[Kaguya] {path} 没有被转换成 NCreatureVisuals（实际 {root?.GetType().Name ?? "null"}）");
+                root?.Free();
+                return null;
+            }
+
+            return visuals;
+        }
+        catch (Exception ex)
+        {
+            GD.PushWarning($"[Kaguya] 立绘场景加载异常 {path}: {ex.Message}");
             return null;
         }
-
-        Node? root = scene.Instantiate();
-        if (root is not NCreatureVisuals visuals)
-        {
-            GD.PushError($"[Kaguya] {path} 没有被转换成 NCreatureVisuals（实际 {root?.GetType().Name ?? "null"}）");
-            root?.Free();
-            return null;
-        }
-
-        return visuals;
     }
 
     private static Resource? LoadSkeletonData()
     {
-        if (_cachedData != null)
+        LogDiagnostics();
+        if (IsDataReady(_cachedData, out _))
             return _cachedData;
+        _cachedData = null;
 
-        // 首选：编辑器导入好的 .tres（依赖 .spskel/.spatlas 导入产物）
-        _cachedData = ResourceLoader.Load<Resource>(SkeletonDataPath);
-        if (_cachedData != null)
-            return _cachedData;
+        Resource? imported = null;
+        try { imported = ResourceLoader.Load<Resource>(SkeletonDataPath); }
+        catch (Exception ex) { GD.PushWarning($"[Kaguya] 导入骨架加载异常: {ex.Message}"); }
+        if (IsDataReady(imported, out string reason))
+            return _cachedData = imported;
 
-        // 兜底：直接用 spine-godot 运行时读原始 .skel/.atlas。
-        // 用于「导出时没加载到编辑器扩展、.spskel 没被打进 pck」的情况——
-        // 此时只要 include_filter 带了 *.skel,*.atlas，这条路就能跑通。
-        GD.PushWarning($"[Kaguya] {SkeletonDataPath} 加载失败，改用运行时读取原始骨架文件");
-        _cachedData = BuildSkeletonDataAtRuntime();
+        GD.PushWarning($"[Kaguya] 导入骨架无效 ({SkeletonDataPath}): {reason}；尝试原始文件");
+        var rebuilt = BuildSkeletonDataAtRuntime();
+        if (IsDataReady(rebuilt, out reason))
+        {
+            _cachedData = rebuilt;
+            GD.Print($"[Kaguya] Spine 原始文件重建成功，骨架版本={rebuilt.Call("get_version")}");
+        }
+        else
+            GD.PushWarning($"[Kaguya] 原始骨架重建无效: {reason}，将使用旧立绘");
         return _cachedData;
+    }
+
+    private static bool IsDataReady(GodotObject? data, out string reason)
+    {
+        try { return ValidateData(data, out reason); }
+        catch (Exception ex) { reason = ex.Message; return false; }
+    }
+
+    private static bool ValidateData(GodotObject? data, out string reason)
+    {
+        reason = "骨架数据未加载";
+        if (!GodotObject.IsInstanceValid(data) || !data.HasMethod("is_skeleton_data_loaded") ||
+            !data.Call("is_skeleton_data_loaded").AsBool())
+            return false;
+
+        var atlas = data.Call("get_atlas_res").AsGodotObject();
+        if (!GodotObject.IsInstanceValid(atlas) || !atlas.HasMethod("get_textures"))
+        {
+            reason = "图集未加载";
+            return false;
+        }
+        var textures = atlas.Call("get_textures").AsGodotArray();
+        if (textures.Count == 0) { reason = "图集没有贴图"; return false; }
+        foreach (var entry in textures)
+        {
+            if (entry.AsGodotObject() is not Texture2D texture || !GodotObject.IsInstanceValid(texture) ||
+                texture.GetWidth() <= 0 || texture.GetHeight() <= 0)
+            { reason = "图集贴图无效"; return false; }
+        }
+        foreach (string animation in RequiredAnimations)
+        {
+            if (data.Call("find_animation", animation).AsGodotObject() == null)
+            { reason = $"缺少动作 {animation}"; return false; }
+        }
+        reason = "ok";
+        return true;
+    }
+
+    /// <summary>直接检查原生对象，避开 MegaSpine 将 Object(null) 包成非空绑定的问题。</summary>
+    public static bool IsSpriteReady(GodotObject? sprite, out string reason)
+    {
+        reason = "SpineSprite 不可用";
+        try
+        {
+            if (!GodotObject.IsInstanceValid(sprite) || sprite.GetClass() != SpineClass)
+                return false;
+            var skeleton = sprite.Call("get_skeleton").AsGodotObject();
+            if (!GodotObject.IsInstanceValid(skeleton)) { reason = "实际骨架为空"; return false; }
+            if (!IsDataReady(skeleton.Call("get_data").AsGodotObject(), out reason))
+                return false;
+            if (!GodotObject.IsInstanceValid(sprite.Call("get_animation_state").AsGodotObject()))
+            { reason = "动画状态为空"; return false; }
+            return true;
+        }
+        catch (Exception ex) { reason = ex.Message; return false; }
+    }
+
+    private static void LogDiagnostics()
+    {
+        if (_diagnosticsLogged) return;
+        _diagnosticsLogged = true;
+        GD.Print($"[Kaguya] Spine 环境: OS={OS.GetName()} Godot={Engine.GetVersionInfo()["string"]} " +
+                 $"DLL={typeof(KaguyaSpineVisual).Assembly.Location} version={typeof(KaguyaSpineVisual).Assembly.GetName().Version} " +
+                 $"SpineSprite={ClassDB.ClassExists(SpineClass)}");
+        foreach (string path in new[] { SkeletonDataPath, SkeletonPath, AtlasPath, "res://scenes/hinamods/spine/kaguya.png" })
+        {
+            using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
+            GD.Print($"[Kaguya] Spine 文件: {path} resource={ResourceLoader.Exists(path)} bytes={file?.GetLength().ToString() ?? "missing"}");
+        }
     }
 
     /// <summary>运行时用 load_from_file / load_from_atlas_file 拼骨架数据。</summary>
     private static Resource? BuildSkeletonDataAtRuntime()
     {
+        if (!ClassDB.ClassExists("SpineSkeletonFileResource") || !ClassDB.ClassExists("SpineAtlasResource") ||
+            !ClassDB.ClassExists("SpineSkeletonDataResource"))
+            return null;
         GodotObject? skel = ClassDB.Instantiate("SpineSkeletonFileResource").AsGodotObject();
         GodotObject? atlas = ClassDB.Instantiate("SpineAtlasResource").AsGodotObject();
         GodotObject? data = ClassDB.Instantiate("SpineSkeletonDataResource").AsGodotObject();
@@ -210,6 +317,7 @@ public static class KaguyaSpineVisual
 
     private static Node2D? CreateSpineSprite()
     {
+        if (!ClassDB.ClassExists(SpineClass)) return null;
         GodotObject? obj = ClassDB.Instantiate(SpineClass).AsGodotObject();
         if (obj is Node2D node)
             return node;

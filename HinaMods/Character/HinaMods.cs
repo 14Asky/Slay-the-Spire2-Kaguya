@@ -139,6 +139,11 @@ public class HinaCharacter: PlaceholderCharacterModel
 	/// </summary>
 	public override CreatureAnimator? SetupCustomAnimationStates(MegaSprite controller)
 	{
+		if (!KaguyaSpineVisual.IsSpriteReady(controller?.BoundObject, out string reason))
+		{
+			GD.PushWarning($"[Kaguya] 跳过无效 Spine 动画初始化: {reason}");
+			return null;
+		}
 		return SetupAnimationState(
 			controller,
 			idleName: AnimState.idleAnim,

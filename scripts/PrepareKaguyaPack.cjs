@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const root = path.resolve(__dirname, '../build');
-const bytes = fs.readFileSync(process.argv[2] || path.join(root, 'Kaguya-v3.2.1-candidate.pck'));
+const input = process.argv[2];
+if (!input) throw Error('Usage: node scripts/PrepareKaguyaPack.cjs <exported-candidate.pck>');
+const bytes = fs.readFileSync(input);
 if (bytes.readUInt32LE(0) !== 0x43504447) throw Error('Invalid PCK');
 const version = bytes.readUInt32LE(4), base = Number(bytes.readBigUInt64LE(24));
 let offset = version === 3 ? Number(bytes.readBigUInt64LE(32)) : 96;
@@ -23,9 +25,10 @@ for (let i = 0; i < count; i++) {
 }
 // Spine's importer writes zero-byte marker resources. Its runtime loader also needs
 // the original skeleton and atlas, which Godot's normal export omitted.
-for (const name of ['scenes/hinamods/spine/kaguya.skel', 'scenes/hinamods/spine/kaguya.atlas']) {
-  if (inventory.some(e => e.path === 'res://' + name)) throw Error('Unexpected duplicate raw Spine asset');
+for (const name of ['scenes/hinamods/spine/kaguya.skel', 'scenes/hinamods/spine/kaguya.atlas', 'scenes/hinamods/spine/kaguya.png']) {
+  const existing = inventory.findIndex(e => e.path === 'res://' + name);
+  if (existing !== -1) inventory.splice(existing, 1);
   inventory.push({path: 'res://' + name, source: path.join(root, '..', name)});
 }
-fs.writeFileSync(path.join(root, 'pack-v321-inventory.json'), JSON.stringify(inventory));
-console.log(JSON.stringify({validatedEntries: count, addedRawSpineAssets: 2, entriesToPack: inventory.length}));
+fs.writeFileSync(path.join(root, 'pack-inventory.json'), JSON.stringify(inventory));
+console.log(JSON.stringify({validatedEntries: count, rawSpineAssets: 3, entriesToPack: inventory.length}));

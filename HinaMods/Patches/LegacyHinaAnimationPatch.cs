@@ -2,6 +2,7 @@ using System;
 using Godot;
 using HarmonyLib;
 using Kaguya.HinaMods.Legacy.Powers;
+using Kaguya.HinaMods.Visuals;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 
@@ -14,9 +15,8 @@ namespace Kaguya.HinaMods.Patches;
 /// 把 AnimatedSprite2D 切到对应动作，并挂一个 <c>animation_finished</c> 回调切回待机。
 /// **没有这个补丁，攻击/受击会停在最后一帧不动**（就是现在报的问题）。
 ///
-/// 只在经典版生效：
-/// - 新版用 Spine，动作与循环由 Spine 自己管理，再 patch 反而会打架
-/// - 新版视觉里也没有 <c>HinaMods → Visuals</c> 这个 AnimatedSprite2D 节点
+/// 经典版及 Spine 失败后的序列帧回退使用此补丁。
+/// 正常的新版 Spine 立绘由原生动画状态机管理。
 /// </summary>
 [HarmonyPatch(typeof(NCreature), "SetAnimationTrigger")]
 public static class LegacyHinaAnimationPatch
@@ -25,7 +25,7 @@ public static class LegacyHinaAnimationPatch
 
     public static void Postfix(NCreature __instance, string trigger)
     {
-        if (!Kaguya.KaguyaModConfig.UseLegacyHina)
+        if (!Kaguya.KaguyaModConfig.UseLegacyHina && !KaguyaSpineVisual.IsLegacyFallback(__instance.Visuals))
             return;
 
         if (__instance.Entity == null || !__instance.Entity.IsPlayer)
@@ -114,6 +114,8 @@ public static class LegacyHinaAnimationPatch
                 Callable.From(() =>
                 {
                     if (!GodotObject.IsInstanceValid(anim) || !GodotObject.IsInstanceValid(node))
+                        return;
+                    if (anim.Animation.ToString().EndsWith("Dead", StringComparison.Ordinal))
                         return;
                     // 按「当前是否已变身」决定待机动画，而不是按刚播完的动画名。
                     // 变身可能发生在动作播放中途（打出能力牌），那时动作名还是普通 Attack，
