@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -71,6 +72,9 @@ public sealed class StringChorus : HinaModsCard
 
             await CardPileCmd.AddGeneratedCardToCombat(
                 gift, PileType.Draw, ally, CardPilePosition.Random);
+            // 官方 BladeSymphony 每生成一张都 Wait 0.1s，否则连续生成会堆在同一帧、
+            // 卡面停在界面上不归位（表现为「卡牌悬浮」）。
+            await Cmd.Wait(0.1f);
         }
 
 #if HAS_SAKAYORI
@@ -96,6 +100,7 @@ public sealed class StringChorus : HinaModsCard
 
         await CardPileCmd.AddGeneratedCardToCombat(
             created, PileType.Hand, Owner, CardPilePosition.Top);
+        await Cmd.Wait(0.1f);   // 同上，避免变化出的卡停在界面上
     }
 
     /// <summary>
@@ -118,9 +123,14 @@ public sealed class StringChorus : HinaModsCard
     /// <summary>该玩家是不是彩叶（按角色 Id 判断，避免与彩叶侧类型强耦合）。</summary>
     private static bool IsSakayori(Player player)
     {
+        // 角色 Id 形如 KAGUYA-SAKAYORI_IROHA；不同版本前缀可能变化，这里只认核心段。
         string? id = player.Character?.Id.Entry;
-        return !string.IsNullOrEmpty(id)
-               && id.Contains("SAKAYORI_IROHA", StringComparison.OrdinalIgnoreCase);
+        if (string.IsNullOrEmpty(id))
+            return false;
+
+        bool hit = id.Contains("SAKAYORI", StringComparison.OrdinalIgnoreCase);
+        GD.Print($"[Kaguya] 合拍：目标角色 Id={id}，是否彩叶={hit}");
+        return hit;
     }
 
     /// <summary>
