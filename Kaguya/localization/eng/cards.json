@@ -451,7 +451,7 @@
 	"KAGUYA-VAST_SKY.title": "Vast Sky",
 	"KAGUYA-VAST_SKY.description": "Deal {CalculatedDamage:diff()} damage, and deal half that damage to all other enemies.\n[gold]Strength[/gold] affects this card {StrengthMult:diff()} times.",
 	"KAGUYA-STRING_CHORUS.title": "In Tempo",
-	"KAGUYA-STRING_CHORUS.description": "Choose an [gold]ally[/gold] and add an {IfUpgraded:show:upgraded |}[purple]Chorus[/purple] to their [gold]draw pile[/gold].\nAfter you play this card, it becomes an {IfUpgraded:show:upgraded |}[purple]Chorus[/purple].\nIf the chosen ally is [blue]Sakayori Iroha[/blue], reduce their [gold]Overwork[/gold] by {OverworkReduce:diff()} and that ally draws {Cards:diff()} cards.",
+	"KAGUYA-STRING_CHORUS.description": "Choose an [gold]ally[/gold] and make them generate an {IfUpgraded:show:upgraded |}[purple]Chorus[/purple].\nAfter you play this card, it becomes an {IfUpgraded:show:upgraded |}[purple]Chorus[/purple].",
 	"KAGUYA-FULL_MOON.title": "Full Moon",
 	"KAGUYA-FULL_MOON.description": "[gold]Moonlight[/gold] {MoonCost:diff()}: every [gold]ally[/gold] with less than {EnergyTo:diff()} Energy is refilled to {EnergyTo:diff()} Energy.",
 	"KAGUYA-MOON_SET.title": "Moonset",
