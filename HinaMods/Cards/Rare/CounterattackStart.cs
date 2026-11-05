@@ -61,6 +61,9 @@ public class CounterattackStart : HinaModsCard
             this);
 
         // 月夜5：消耗 5 层月夜 → 返回手牌 + 本回合费用 -1
+        // 用基类的 EffectiveMoonCost 即可：SkipsMoonlightCost 现在只认「生成方显式标记的免费」，
+        // 不会再因为本回合费用被减到 0 而误免月夜。
+        // （历史坑：本牌每次返回都 AddThisTurn(-1)，费用归零后若不扣月夜就会无限返回。）
         decimal requiredMoon = EffectiveMoonCost;
         if (!await TryConsumeMoonlight(choiceContext, requiredMoon, this))
             return;
