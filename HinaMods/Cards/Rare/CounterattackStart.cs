@@ -61,10 +61,15 @@ public class CounterattackStart : HinaModsCard
             this);
 
         // 月夜5：消耗 5 层月夜 → 返回手牌 + 本回合费用 -1
-        // 用基类的 EffectiveMoonCost 即可：SkipsMoonlightCost 现在只认「生成方显式标记的免费」，
-        // 不会再因为本回合费用被减到 0 而误免月夜。
-        // （历史坑：本牌每次返回都 AddThisTurn(-1)，费用归零后若不扣月夜就会无限返回。）
-        decimal requiredMoon = EffectiveMoonCost;
+        //
+        // ⚠ 这里**不用** EffectiveMoonCost / SkipsMoonlightCost，直接取变量值：
+        //    本牌的月夜是「效果代价」，不是「打出门槛」，所以无论从哪个渠道获得
+        //    （癫狂之触 / 欧洛巴斯之酸 / 液态记忆 / 攻击药水 …）都必须照扣。
+        //    历史坑：本牌每次返回都 AddThisTurn(-1)，费用累积到 0 后，旧的
+        //    SkipsMoonlightCost（含 CostModifiers.Local == 0 分支）会把 0 费误判成免费，
+        //    导致月夜不再扣除、牌无限返回手牌。
+        //    写死取值后，即使基类规则再变，这张牌也不会退化成无限循环。
+        decimal requiredMoon = DynamicVars[MoonCostVarName].BaseValue;
         if (!await TryConsumeMoonlight(choiceContext, requiredMoon, this))
             return;
 
