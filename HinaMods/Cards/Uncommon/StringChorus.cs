@@ -50,8 +50,11 @@ public sealed class StringChorus : HinaModsCard
             CardModel gift = CombatState.CreateCard<Chorus>(ally);
             ForceUpgradeIfNeeded(gift);
 
+            // creator 传施法者本人（Owner），不是接收者 ally。
+            // 官方同理：Shiv.CreateInHand(player, n, combatState, base.Owner) ——
+            // 卡进谁的堆由 card.Owner 决定，creator 只用于历史记录与 AfterCardGeneratedForCombat 钩子。
             await CardPileCmd.AddGeneratedCardToCombat(
-                gift, PileType.Draw, ally, CardPilePosition.Random);
+                gift, PileType.Draw, Owner, CardPilePosition.Random);
             // 每生成一张间隔一下，否则卡面会堆在同一帧、停在界面上不归位。
             await Cmd.Wait(0.1f);
         }
