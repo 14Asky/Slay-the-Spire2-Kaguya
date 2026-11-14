@@ -1,25 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0wew4nprid0m"]
+[gd_scene load_steps=2 format=3 uid="uid://b0wew4nprid0m"]
 
-[ext_resource type="Script" uid="uid://8imghy10jt4d" path="res://Others/CustomCombatBackground.cs" id="1_ihjxk"]
+[ext_resource type="Script" path="res://Others/CustomCombatBackground.cs" id="1_ihjxk"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kdrju"]
-load_path = "res://images/backgrounds/tsukito_bosatsu_original.ctex"
-
-[node name="Control" type="TextureRect"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -876.0
-offset_top = -432.0
-offset_right = 924.0
-offset_bottom = 460.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_kdrju")
+[node name="Control" type="Control"]
+mouse_filter = 2
 script = ExtResource("1_ihjxk")
 
 [node name="Layer_00" type="Control" parent="."]
 unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+mouse_filter = 2

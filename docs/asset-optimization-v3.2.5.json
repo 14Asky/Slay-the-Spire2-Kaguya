@@ -4,9 +4,9 @@
   "policy": "无损压缩；不缩放、不减色、不抽帧，不改变音频采样率、声道、编码包或循环设置。",
   "pck": {
     "beforeBytes": 391848252,
-    "afterBytes": 300556476,
-    "savedBytes": 91291776,
-    "reductionPercent": 23.2977,
+    "afterBytes": 300555884,
+    "savedBytes": 91292368,
+    "reductionPercent": 23.2979,
     "entries": 3013,
     "uniquePayloads": 2103,
     "deduplicatedBytes": 47945885,
@@ -218,18 +218,19 @@
   },
   "artifacts": {
     "Kaguya.dll": {
-      "bytes": 1584640,
-      "sha256": "57245ff092a8e47a4ecfe740a02c1db7c85e6e4e5a0b8ac639471a31494d2724"
+      "bytes": 1586688,
+      "sha256": "76696776bac953e24d67d9adb2a54b4ef430fd9fcfc3d7860f0b883c13dd7863"
     },
     "Kaguya.json": {
       "bytes": 481,
       "sha256": "039ea9de769c012a52477d45c09e52e325600afd53383102f48d9bfed4b71943"
     },
     "Kaguya.pck": {
-      "bytes": 300556476,
-      "sha256": "88bf2410ee826eb2d7d4555a6c0690ba1df533a2de2c565f42afcfd4d157bb01"
+      "bytes": 300555884,
+      "sha256": "5f47eae4fd669e97d7fdc6db63ca072fc220c973a81e42c6f3ce682c6a02ee0d"
     }
   },
   "workshop": "未上传，按用户要求等待后续指示",
-  "followupSourceCrosscheck": "docs/sts2-0.113-source-crosscheck.json"
+  "followupSourceCrosscheck": "docs/sts2-0.113-source-crosscheck.json",
+  "followupBosatsuEntryFix": "docs/bosatsu-entry-fix-v3.2.5.json"
 }

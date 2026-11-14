@@ -1,0 +1,168 @@
+{
+  "date": "2026-11-14",
+  "version": "3.2.5",
+  "targetGame": "0.113.0",
+  "baselineCommit": "63567d0b619de0071ed2e91df7a46abf4a4a45c0",
+  "status": "fixed_and_windows_regression_passed",
+  "symptom": "连续切换房间后进入第四幕月人菩萨战，首回合没有能量和手牌；重新启动游戏再读档可以恢复。",
+  "evidence": {
+    "playerLog": "godot2026-11-14T16.59.29.log",
+    "line": 3652,
+    "exception": "System.ObjectDisposedException: Object name: 'Godot.GDScript'",
+    "stack": [
+      "KaguyaMoonTextPool.GetInstance",
+      "KaguyaMoonText.SpawnInstant",
+      "TsukitoBosatsu.SpawnAtRandom",
+      "TsukitoBosatsu.AfterAddedToRoom",
+      "CombatManager.StartCombatInternal"
+    ],
+    "loadedCopy": "游戏本地 mods/Kaguya.dll 与 mods/Kaguya.pck；与修复前冻结包哈希一致。",
+    "nativeSource": [
+      "src/Core/Assets/PreloadManager.cs: LoadRoomAssets",
+      "src/Core/Assets/AssetCache.cs: UnloadMissedCacheAssets / DisposeAtEndOfFrame",
+      "src/Core/Nodes/NSceneContainer.cs: SetCurrentScene",
+      "src/Core/Combat/CombatManager.cs: StartCombatInternal"
+    ],
+    "reproduction": {
+      "result": "build/native-v325-integration-moontext-baseline-results/result.json",
+      "resultSha256": "7e1299b0306d01e436e1346ae3f5cf965341d134f2ead6a927bf04163e9efa3f",
+      "expectedFailureReproduced": true
+    }
+  },
+  "cause": "原代码在每个战斗房间 Ready 时提前加载飘字脚本，并用静态字段保留池。切房时旧房间已移出树但可能尚未销毁，Setup 只检查对象是否有效就复用旧池；游戏的房间缓存已释放池持有的脚本。使用该脚本产生异常，终止 AfterAddedToRoom，首回合的能量与发牌流程未被执行。重启清空池后首次读档不触发这一连续切房条件。",
+  "changes": [
+    {
+      "file": "Others/KaguyaMoonText.cs",
+      "details": "从当前 NCombatRoom 获取飘字池，按需创建，移除全局静态池、每场战斗的 Ready 补丁及手动调用 Ready。"
+    },
+    {
+      "file": "Others/KaguyaMoonText.cs",
+      "details": "脚本用独立加载实例，避免借用游戏切房缓存；使用前校验有效性和可实例化状态，过滤已销毁或排队销毁的节点，退出房间清理引用。"
+    },
+    {
+      "file": "Others/KaguyaMoonText.cs",
+      "details": "统一飘字入口，捕获装饰特效的创建/执行异常，清理失败节点并记录一次诊断，让 Boss 必要能力与首回合继续初始化；后续可以重试。"
+    },
+    {
+      "files": [
+        "scenes/backgrounds/tsukito_bosatsu_boss_encounter/layers/tsukito_bosatsu_boss_encounter_bg_00.tscn",
+        "scenes/backgrounds/tsukito_bosatsu_boss_encounter/tsukito_bosatsu_boss_encounter_background.tscn"
+      ],
+      "details": "按用户最新要求，菩萨战斗房间明确使用不透明纯黑背景。纯黑区域覆盖视口且不拦截鼠标，保留原 Boss 镜头设置。"
+    },
+    {
+      "files": [
+        "scripts/PrepareKaguyaPack.cjs",
+        "scripts/VerifyKaguyaPack.cjs"
+      ],
+      "details": "打包时保留并检查纯黑背景，防止后续复用旧 PCK 时恢复图片背景。"
+    }
+  ],
+  "validation": {
+    "build": {
+      "errors": 0,
+      "warnings": 114,
+      "warningKind": "既有 CS8632",
+      "log": "build/bosatsu-entry-fix-build.log"
+    },
+    "patchedNativeMethods": 48,
+    "reports": [
+      {
+        "scenario": "integration-moontext-fixed",
+        "passed": true,
+        "checks": 8,
+        "phase": "飘字修复，黑背景调整前",
+        "result": "build/native-v325-integration-moontext-fixed-results/result.json",
+        "sha256": "1fb92dd6404ceb4f7dc8c41858971a8b32cfef54e2a4a2de3f9bdbfd463ac1a3"
+      },
+      {
+        "scenario": "integration-moontext-video-black",
+        "passed": true,
+        "checks": 13,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-moontext-video-black-results/result.json",
+        "sha256": "5784e90df3989f3c6e5b5c5f5913ccff747d94639d84793b0c0421a743c09858"
+      },
+      {
+        "scenario": "integration-moontext-fault-video-skip-black",
+        "passed": true,
+        "checks": 15,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-moontext-fault-video-skip-black-results/result.json",
+        "sha256": "19d1f74217206e58e93ffd4b63e20e313cbdbedf457c5e8745e620d0c1719ebf"
+      },
+      {
+        "scenario": "integration-continue-moontext-black",
+        "passed": true,
+        "checks": 4,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-continue-moontext-black-results/result.json",
+        "sha256": "e05653520c855c0412e26f77c1beee926b8dd95e8dd281cea99e28d1bf6d58cf"
+      },
+      {
+        "scenario": "integration-moontext-iroha-black",
+        "passed": true,
+        "checks": 11,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-moontext-iroha-black-results/result.json",
+        "sha256": "6e21ad648d99a9cfabbbca9a906c6dd01938ec473b7dd1d9bf29691ee12a3e74"
+      },
+      {
+        "scenario": "integration-models-bosatsu-black",
+        "passed": true,
+        "checks": 19,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-models-bosatsu-black-results/result.json",
+        "sha256": "18d6e99ebf612a03cd2e0cf5a4db9ae303c23c82876925335c472cbb52f0c3fa"
+      }
+    ],
+    "checksPassed": 70,
+    "finalCandidateChecksPassed": 62,
+    "coverage": [
+      "从第四幕已有战斗经原生地图入口进入菩萨房",
+      "开场视频自然播放结束",
+      "点击跳过开场视频",
+      "辉夜和彩叶的首回合能量、手牌与第二回合",
+      "Boss 高维生物和终焉计时初始化完成",
+      "注入飘字加载异常后战斗继续，随后恢复飘字",
+      "脚本被 Dispose 且旧节点被释放后的重建",
+      "菩萨存档在新进程恢复并继续下一回合",
+      "纯黑背景实际渲染、覆盖视口、鼠标穿透",
+      "模型、卡图、原有背景资源与 Boss 音乐、Joy 迁移、选卡隔离、运行时补丁"
+    ],
+    "limits": [
+      "Windows 0.113 独立副本与隔离测试存档；Android 未测试。",
+      "音频使用 Dummy 驱动；本轮未复跑完整三首菜单 BGM 测试。音频等其他 3011 项 PCK 内容逐字节未变。",
+      "故障防护使用主动注入的加载异常与实际 Dispose 验证；没有在玩家安装包中删除资源。",
+      "前次 Boss 回归直接进入战斗，缺少连续切换战斗房间的场景；本轮已补测。"
+    ],
+    "screenshot": "build/native-v325-integration-moontext-video-black-results/boss-first-turn.png"
+  },
+  "pack": {
+    "success": true,
+    "entries": 3013,
+    "changed": [
+      "scenes/backgrounds/tsukito_bosatsu_boss_encounter/layers/tsukito_bosatsu_boss_encounter_bg_00.tscn",
+      "scenes/backgrounds/tsukito_bosatsu_boss_encounter/tsukito_bosatsu_boss_encounter_background.tscn"
+    ],
+    "unchangedEntries": 3011,
+    "beforeSha256": "88bf2410ee826eb2d7d4555a6c0690ba1df533a2de2c565f42afcfd4d157bb01",
+    "afterSha256": "5f47eae4fd669e97d7fdc6db63ca072fc220c973a81e42c6f3ce682c6a02ee0d"
+  },
+  "artifacts": {
+    "Kaguya.dll": {
+      "bytes": 1586688,
+      "sha256": "76696776bac953e24d67d9adb2a54b4ef430fd9fcfc3d7860f0b883c13dd7863"
+    },
+    "Kaguya.json": {
+      "bytes": 481,
+      "sha256": "039ea9de769c012a52477d45c09e52e325600afd53383102f48d9bfed4b71943"
+    },
+    "Kaguya.pck": {
+      "bytes": 300555884,
+      "sha256": "5f47eae4fd669e97d7fdc6db63ca072fc220c973a81e42c6f3ce682c6a02ee0d"
+    }
+  },
+  "backupBeforeFix": "build/backup-v325-before-bosatsu-entry-fix",
+  "workshop": "未更新，等待用户指示"
+}

@@ -32,8 +32,6 @@ const backgroundPath = 'images/backgrounds/tsukito_bosatsu_original.ctex';
 const background = entries.get(backgroundPath);
 if (!background?.equals(fs.readFileSync(backgroundPath))) throw Error('Missing or outdated original Boss background');
 for (const scene of [
-  'scenes/backgrounds/tsukito_bosatsu_boss_encounter/tsukito_bosatsu_boss_encounter_background.tscn',
-  'scenes/backgrounds/tsukito_bosatsu_boss_encounter/layers/tsukito_bosatsu_boss_encounter_bg_00.tscn',
   'scenes/backgrounds/final_act/final_act_background.tscn',
   'scenes/backgrounds/final_act/layers/final_act_bg_00.tscn'
 ]) {
@@ -41,6 +39,15 @@ for (const scene of [
   if (!data?.equals(fs.readFileSync(scene)) || !data.toString().includes('res://' + backgroundPath))
     throw Error('Background scene does not use the packaged original texture: ' + scene);
 }
+const bossBackground = 'scenes/backgrounds/tsukito_bosatsu_boss_encounter/tsukito_bosatsu_boss_encounter_background.tscn';
+const bossLayer = 'scenes/backgrounds/tsukito_bosatsu_boss_encounter/layers/tsukito_bosatsu_boss_encounter_bg_00.tscn';
+for (const scene of [bossBackground, bossLayer]) {
+  const data = entries.get(scene);
+  if (!data?.equals(fs.readFileSync(scene)) || /Texture|glory|load_path/i.test(data.toString()))
+    throw Error('Boss room must keep the requested plain black background: ' + scene);
+}
+if (!entries.get(bossLayer).toString().includes('color = Color(0, 0, 0, 1)'))
+  throw Error('Boss background is not opaque black');
 for (const lang of ['zhs', 'eng', 'jpn']) {
   const name = 'Kaguya/localization/' + lang + '/cards.json';
   const data = entries.get(name);
@@ -50,5 +57,6 @@ for (const lang of ['zhs', 'eng', 'jpn']) {
     throw Error('Joy localization would collide with vanilla: ' + name);
 }
 console.log(JSON.stringify({ success: true, entries: count, rawSpine: spine, texture, bgm, bossBgm,
+  bossBackground: { appearance: 'plain black', scene: bossBackground, layer: bossLayer },
   originalBackground: { path: backgroundPath, bytes: background.length, sha256: crypto.createHash('sha256').update(background).digest('hex') }
 }, null, 2));

@@ -1,12 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b75n5w6ahi8yy"]
+[gd_scene format=3 uid="uid://b75n5w6ahi8yy"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kdrju"]
-load_path = "res://images/backgrounds/tsukito_bosatsu_original.ctex"
-
-[node name="Control" type="TextureRect"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_kdrju")
+[node name="BlackBackground" type="ColorRect"]
+offset_left = -4096.0
+offset_top = -4096.0
+offset_right = 4096.0
+offset_bottom = 4096.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

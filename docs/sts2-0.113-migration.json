@@ -94,7 +94,7 @@
     {
       "area": "其他 Harmony 与反射",
       "status": "已修改",
-      "details": "源码复核删除重复调用地图同步器的补丁；改正 UpdateChecker 对 Mod.path 的反射对象。当前启动挂接 49 个模组目标方法。"
+      "details": "源码复核删除重复调用地图同步器的补丁；改正 UpdateChecker 对 Mod.path 的反射对象。当前启动挂接 48 个模组目标方法。 后续修复移除飘字池的全局 NCombatRoom.Ready 补丁。"
     },
     {
       "area": "CreatureCmd.Kill",
@@ -209,6 +209,11 @@
       "area": "金刚一阶段贴图",
       "status": "已修改",
       "details": "复测发现旧代码请求不存在的 tsukito_kongo_phase1.png；统一为该怪物场景实际使用的 TsukitoKongo.png，转阶段及死亡奖励 11 项复测通过。"
+    },
+    {
+      "area": "菩萨连续切房与飘字资源",
+      "status": "已修改",
+      "details": "按房间延迟创建特效池，独立加载脚本并检查失效资源；装饰异常不能中断首回合。详见 bosatsu-entry-fix-v3.2.5.json。"
     }
   ],
   "preserved": {
@@ -216,7 +221,8 @@
     "savedProperties": "不变",
     "gameplayValues": "不变",
     "explicitFreeMoonlightIssue": "另案处理",
-    "legacy0111Release": "build/backup-before-v325-migration-20261114"
+    "legacy0111Release": "build/backup-before-v325-migration-20261114",
+    "bosatsuBackground": "按用户最新要求固定为纯黑背景；第四幕其他场景资源不变。"
   },
   "validation": {
     "status": "passed_windows_automated",
@@ -226,7 +232,7 @@
       "warnings": 114,
       "warningKind": "CS8632",
       "architectureChanged": false,
-      "log": "build/source113-crosscheck-build.log"
+      "log": "build/bosatsu-entry-fix-build.log"
     },
     "results": [
       {
@@ -508,6 +514,54 @@
         "checks": 30,
         "result": "build/native-v325-menu-source113-results/result.json",
         "sha256": "8a6161a21e4c67ccb9fef1c16df164bb8686df643c69b8b7ba2bd54215535e60"
+      },
+      {
+        "scenario": "integration-moontext-fixed",
+        "passed": true,
+        "checks": 8,
+        "phase": "飘字修复，黑背景调整前",
+        "result": "build/native-v325-integration-moontext-fixed-results/result.json",
+        "sha256": "1fb92dd6404ceb4f7dc8c41858971a8b32cfef54e2a4a2de3f9bdbfd463ac1a3"
+      },
+      {
+        "scenario": "integration-moontext-video-black",
+        "passed": true,
+        "checks": 13,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-moontext-video-black-results/result.json",
+        "sha256": "5784e90df3989f3c6e5b5c5f5913ccff747d94639d84793b0c0421a743c09858"
+      },
+      {
+        "scenario": "integration-moontext-fault-video-skip-black",
+        "passed": true,
+        "checks": 15,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-moontext-fault-video-skip-black-results/result.json",
+        "sha256": "19d1f74217206e58e93ffd4b63e20e313cbdbedf457c5e8745e620d0c1719ebf"
+      },
+      {
+        "scenario": "integration-continue-moontext-black",
+        "passed": true,
+        "checks": 4,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-continue-moontext-black-results/result.json",
+        "sha256": "e05653520c855c0412e26f77c1beee926b8dd95e8dd281cea99e28d1bf6d58cf"
+      },
+      {
+        "scenario": "integration-moontext-iroha-black",
+        "passed": true,
+        "checks": 11,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-moontext-iroha-black-results/result.json",
+        "sha256": "6e21ad648d99a9cfabbbca9a906c6dd01938ec473b7dd1d9bf29691ee12a3e74"
+      },
+      {
+        "scenario": "integration-models-bosatsu-black",
+        "passed": true,
+        "checks": 19,
+        "phase": "飘字修复与纯黑背景的最终候选包",
+        "result": "build/native-v325-integration-models-bosatsu-black-results/result.json",
+        "sha256": "18d6e99ebf612a03cd2e0cf5a4db9ae303c23c82876925335c472cbb52f0c3fa"
       }
     ],
     "network": {
@@ -537,17 +591,18 @@
   "assetOptimization": "docs/asset-optimization-v3.2.5.json",
   "artifacts": {
     "Kaguya.dll": {
-      "bytes": 1584640,
-      "sha256": "57245ff092a8e47a4ecfe740a02c1db7c85e6e4e5a0b8ac639471a31494d2724"
+      "bytes": 1586688,
+      "sha256": "76696776bac953e24d67d9adb2a54b4ef430fd9fcfc3d7860f0b883c13dd7863"
     },
     "Kaguya.json": {
       "bytes": 481,
       "sha256": "039ea9de769c012a52477d45c09e52e325600afd53383102f48d9bfed4b71943"
     },
     "Kaguya.pck": {
-      "bytes": 300556476,
-      "sha256": "88bf2410ee826eb2d7d4555a6c0690ba1df533a2de2c565f42afcfd4d157bb01"
+      "bytes": 300555884,
+      "sha256": "5f47eae4fd669e97d7fdc6db63ca072fc220c973a81e42c6f3ce682c6a02ee0d"
     }
   },
-  "sourceCrosscheck": "docs/sts2-0.113-source-crosscheck.json"
+  "sourceCrosscheck": "docs/sts2-0.113-source-crosscheck.json",
+  "bosatsuEntryFix": "docs/bosatsu-entry-fix-v3.2.5.json"
 }

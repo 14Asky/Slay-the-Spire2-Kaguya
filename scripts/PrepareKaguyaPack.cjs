@@ -18,7 +18,7 @@ for (const [name, data] of packed) {
   inventory.push({path: 'res://' + name, source: destination});
 }
 // Keep raw Spine data and migration resources in sync even when reusing a prior
-// export. The original Boss background must not depend on the game's import cache.
+// export. Keep the Boss room black and the final act's image independent of the game's import cache.
 const sourceOverrides = [
   'scenes/hinamods/spine/kaguya.skel', 'scenes/hinamods/spine/kaguya.atlas', 'scenes/hinamods/spine/kaguya.png',
   'images/backgrounds/tsukito_bosatsu_original.ctex',
