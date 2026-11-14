@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Acts;
 using MegaCrit.Sts2.Core.Models.Encounters;
-using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
@@ -28,30 +27,6 @@ namespace Kaguya;
 [HarmonyPatch]
 public static class Act4Logic
 {
-    // 状态同步修复
-    [HarmonyPatch(typeof(RunManager), nameof(RunManager.SetActInternal))]
-    [HarmonyPostfix]
-    public static void Postfix_SyncAct(RunManager __instance, int actIndex)
-    {
-        if (actIndex == 3)
-        {
-            var state = AccessTools.Property(typeof(RunManager), "State").GetValue(__instance) as RunState;
-            if (state == null) return;
-
-            var syncField = AccessTools.GetDeclaredFields(typeof(RunManager))
-                .FirstOrDefault(f => f.FieldType == typeof(MapSelectionSynchronizer));
-            if (syncField != null)
-            {
-                var synchronizer = syncField.GetValue(__instance) as MapSelectionSynchronizer;
-                if (synchronizer != null)
-                {
-                    AccessTools.Method(typeof(MapSelectionSynchronizer), "BeforeMapGenerated")?.Invoke(synchronizer, null);
-                    GD.Print("[Act 4 Mod] 同步器状态已强制更新至第四幕，解决地图点击无响应。");
-                }
-            }
-        }
-    }
-
     // 第四层注入与结局跳转
     [HarmonyPatch(typeof(RunManager), nameof(RunManager.EnterNextAct))]
     [HarmonyPrefix]
@@ -143,14 +118,7 @@ public static class Act4Logic
         var currentRoom = state.CurrentRoom;
         if (currentRoom is EventRoom er && er.CanonicalEvent is KaguyaEnding)
         {
-            instance.OnEnded(true);
-
-            foreach (var player in state.Players)
-            {
-                await CreatureCmd.Kill(player.Creature, force: true);
-                await Cmd.CustomScaledWait(0.25f, 0.5f);
-            }
-
+            await instance.WinRun();
             return;
         }
         else
@@ -158,7 +126,7 @@ public static class Act4Logic
             var endingEvent = ModelDb.Event<KaguyaEnding>();
             if (endingEvent == null)
             {
-                instance.OnEnded(true);
+                await instance.WinRun();
                 return;
             }
             ClearScreens();

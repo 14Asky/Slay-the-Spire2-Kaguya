@@ -152,20 +152,12 @@ public static class UpdateChecker
 
                 if ((idField.GetValue(manifest) as string) != ModId) continue;
 
-                var pathField = manifest.GetType().GetField("path");
+                var pathField = mod.GetType().GetField("path");
                 if (pathField != null)
                 {
-                    var modPath = pathField.GetValue(manifest) as string;
+                    var modPath = pathField.GetValue(mod) as string;
                     if (!string.IsNullOrEmpty(modPath))
                         return Path.Combine(modPath, $"{ModId}.json");
-                }
-
-                var directoryField = manifest.GetType().GetField("directory");
-                if (directoryField != null)
-                {
-                    var directory = directoryField.GetValue(manifest) as string;
-                    if (!string.IsNullOrEmpty(directory))
-                        return Path.Combine(directory, $"{ModId}.json");
                 }
             }
         }

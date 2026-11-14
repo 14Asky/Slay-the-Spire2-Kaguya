@@ -218,8 +218,8 @@
   },
   "artifacts": {
     "Kaguya.dll": {
-      "bytes": 1585664,
-      "sha256": "e6bc224a3307fff9cdecfb159b5fb492e9dfdb9f7dff59c45ba46230b2ac8249"
+      "bytes": 1584640,
+      "sha256": "57245ff092a8e47a4ecfe740a02c1db7c85e6e4e5a0b8ac639471a31494d2724"
     },
     "Kaguya.json": {
       "bytes": 481,
@@ -230,5 +230,6 @@
       "sha256": "88bf2410ee826eb2d7d4555a6c0690ba1df533a2de2c565f42afcfd4d157bb01"
     }
   },
-  "workshop": "未上传，按用户要求等待后续指示"
+  "workshop": "未上传，按用户要求等待后续指示",
+  "followupSourceCrosscheck": "docs/sts2-0.113-source-crosscheck.json"
 }

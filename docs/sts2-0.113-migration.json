@@ -39,7 +39,7 @@
     {
       "area": "第四幕与结局",
       "status": "已修改",
-      "details": "MultiplayerScalingModel 使用 Models 命名空间；OnEnded 的 PostRunProgressUpdateResult 传给结算界面。"
+      "details": "MultiplayerScalingModel 使用 Models 命名空间；OnEnded 的 PostRunProgressUpdateResult 传给结算界面。 源码复核补充：备用结束分支改为原生 WinRun，确保打开结算界面。"
     },
     {
       "area": "遗物工厂",
@@ -93,8 +93,8 @@
     },
     {
       "area": "其他 Harmony 与反射",
-      "status": "无需修改",
-      "details": "启动时 50 个模组方法挂接成功；第四幕反射成员、地图资源路径和菜单补丁均继续使用实际 DLL 的现有成员。"
+      "status": "已修改",
+      "details": "源码复核删除重复调用地图同步器的补丁；改正 UpdateChecker 对 Mod.path 的反射对象。当前启动挂接 49 个模组目标方法。"
     },
     {
       "area": "CreatureCmd.Kill",
@@ -226,7 +226,7 @@
       "warnings": 114,
       "warningKind": "CS8632",
       "architectureChanged": false,
-      "log": "build/migration-v325-build-release.log"
+      "log": "build/source113-crosscheck-build.log"
     },
     "results": [
       {
@@ -460,6 +460,54 @@
         "checks": 22,
         "result": "build/native-v325-cost-optimized-results/result.json",
         "sha256": "f46662b8a75c44d6b192bcd9c8849437da194b607b312fcc197883a51d4274a6"
+      },
+      {
+        "scenario": "integration-act4-sourceaudit-fixed",
+        "phase": "用户提供 0.113 解包源码复核后",
+        "passed": true,
+        "checks": 6,
+        "result": "build/native-v325-integration-act4-sourceaudit-fixed-results/result.json",
+        "sha256": "234c713c62b8432d645695123540874fec3a96901a7c149745daf01be2a34d28"
+      },
+      {
+        "scenario": "integration-network-sourceaudit-host",
+        "phase": "用户提供 0.113 解包源码复核后",
+        "passed": true,
+        "checks": 6,
+        "result": "build/native-v325-integration-network-sourceaudit-host-results/result.json",
+        "sha256": "9ad046751cafdf0d1e3360a11f458bd7c538aa1bd1cee9acfb1f1ca24a118c5e"
+      },
+      {
+        "scenario": "integration-network-sourceaudit-client",
+        "phase": "用户提供 0.113 解包源码复核后",
+        "passed": true,
+        "checks": 6,
+        "result": "build/native-v325-integration-network-sourceaudit-client-results/result.json",
+        "sha256": "ff2635e698a98b342676745ae0e5e60953c7e4eba699d7c1879a557ff11a75fc"
+      },
+      {
+        "scenario": "integration-models-sourceaudit",
+        "phase": "用户提供 0.113 解包源码复核后",
+        "passed": true,
+        "checks": 19,
+        "result": "build/native-v325-integration-models-sourceaudit-results/result.json",
+        "sha256": "149d645db1fe6aa798528a064ac0355e5b7468581591f2226af9a0ce23135e56"
+      },
+      {
+        "scenario": "integration-act4-source113-normal",
+        "phase": "用户提供 0.113 解包源码复核后",
+        "passed": true,
+        "checks": 7,
+        "result": "build/native-v325-integration-act4-source113-normal-results/result.json",
+        "sha256": "478c1cb6f475b6b8cd4e07e33fbb919e9be4c309d1e672e779b398e731b5a981"
+      },
+      {
+        "scenario": "menu-source113",
+        "phase": "用户提供 0.113 解包源码复核后",
+        "passed": true,
+        "checks": 30,
+        "result": "build/native-v325-menu-source113-results/result.json",
+        "sha256": "8a6161a21e4c67ccb9fef1c16df164bb8686df643c69b8b7ba2bd54215535e60"
       }
     ],
     "network": {
@@ -472,7 +520,8 @@
       "音频使用 Dummy 驱动验证播放状态和控制逻辑，未做人耳试听。",
       "旧存档继续游戏使用完整运行存档构造的 v20 代表性样本，经原生迁移；非玩家提供的真实 0.111 存档。",
       "Blitz、Dread 仅测启动和进入战斗，未扩展专属第四幕规则。",
-      "压缩前完成完整迁移检查，压缩后复测资源与关键流程；最终仅金刚路径一行修正后重测金刚场景。"
+      "压缩前完成完整迁移检查，压缩后复测资源与关键流程；最终仅金刚路径一行修正后重测金刚场景。",
+      "再次核对用户提供的 0.113 源码后追加三处修正，最终 DLL 又通过模型、菜单、两条结局路径和双端地图投票检查。"
     ],
     "nonBlockingLogs": [
       "基线也有的预加载 Invalid Task ID 信息。",
@@ -488,8 +537,8 @@
   "assetOptimization": "docs/asset-optimization-v3.2.5.json",
   "artifacts": {
     "Kaguya.dll": {
-      "bytes": 1585664,
-      "sha256": "e6bc224a3307fff9cdecfb159b5fb492e9dfdb9f7dff59c45ba46230b2ac8249"
+      "bytes": 1584640,
+      "sha256": "57245ff092a8e47a4ecfe740a02c1db7c85e6e4e5a0b8ac639471a31494d2724"
     },
     "Kaguya.json": {
       "bytes": 481,
@@ -499,5 +548,6 @@
       "bytes": 300556476,
       "sha256": "88bf2410ee826eb2d7d4555a6c0690ba1df533a2de2c565f42afcfd4d157bb01"
     }
-  }
+  },
+  "sourceCrosscheck": "docs/sts2-0.113-source-crosscheck.json"
 }
