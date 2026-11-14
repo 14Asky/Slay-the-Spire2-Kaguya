@@ -32,8 +32,10 @@ namespace Kaguya.Monsters
         private int GuardDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 6, 5);
         private const int GuardBlock = 4;
 
+        protected override string VisualsPath => "res://scenes/monsters/battle_soldier_a.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/battle_soldier_a.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {

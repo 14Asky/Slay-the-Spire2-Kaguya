@@ -1,34 +1,37 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
+const { readPck } = require('./lib/KaguyaPck.cjs');
 const root = path.resolve(__dirname, '../build');
 const input = process.argv[2];
 if (!input) throw Error('Usage: node scripts/PrepareKaguyaPack.cjs <exported-candidate.pck>');
-const bytes = fs.readFileSync(input);
-if (bytes.readUInt32LE(0) !== 0x43504447) throw Error('Invalid PCK');
-const version = bytes.readUInt32LE(4), base = Number(bytes.readBigUInt64LE(24));
-let offset = version === 3 ? Number(bytes.readBigUInt64LE(32)) : 96;
-const count = bytes.readUInt32LE(offset); offset += 4;
+const packed = readPck(input);
+const count = packed.size;
 const staging = fs.mkdtempSync(path.join(root, 'pack-staging-'));
 const inventory = [];
-for (let i = 0; i < count; i++) {
-  const size = bytes.readUInt32LE(offset); offset += 4;
-  const name = bytes.subarray(offset, offset + size).toString().replace(/\0+$/, '').replace(/^res:\/\//, ''); offset += size;
-  const start = base + Number(bytes.readBigUInt64LE(offset)), length = Number(bytes.readBigUInt64LE(offset + 8));
-  const md5 = bytes.subarray(offset + 16, offset + 32).toString('hex'), flags = bytes.readUInt32LE(offset + 32); offset += 36;
+const retired = JSON.parse(fs.readFileSync(path.join(__dirname, 'unused-assets.json'), 'utf8')).assets;
+const excluded = new Set(retired.flatMap(a => [a.path, a.path + '.import', ...a.imported]));
+for (const [name, data] of packed) {
+  if (excluded.has(name)) continue;
   const destination = path.resolve(staging, name);
-  if (!destination.startsWith(path.resolve(staging) + path.sep) || flags !== 0) throw Error('Unsafe PCK entry: ' + name);
-  const data = bytes.subarray(start, start + length);
-  if (crypto.createHash('md5').update(data).digest('hex') !== md5) throw Error('PCK checksum failed: ' + name);
+  if (!destination.startsWith(path.resolve(staging) + path.sep)) throw Error('Unsafe PCK entry: ' + name);
   fs.mkdirSync(path.dirname(destination), {recursive: true}); fs.writeFileSync(destination, data);
   inventory.push({path: 'res://' + name, source: destination});
 }
-// Spine's importer writes zero-byte marker resources. Its runtime loader also needs
-// the original skeleton and atlas, which Godot's normal export omitted.
-for (const name of ['scenes/hinamods/spine/kaguya.skel', 'scenes/hinamods/spine/kaguya.atlas', 'scenes/hinamods/spine/kaguya.png']) {
+// Keep raw Spine data and migration resources in sync even when reusing a prior
+// export. The original Boss background must not depend on the game's import cache.
+const sourceOverrides = [
+  'scenes/hinamods/spine/kaguya.skel', 'scenes/hinamods/spine/kaguya.atlas', 'scenes/hinamods/spine/kaguya.png',
+  'images/backgrounds/tsukito_bosatsu_original.ctex',
+  'scenes/backgrounds/tsukito_bosatsu_boss_encounter/tsukito_bosatsu_boss_encounter_background.tscn',
+  'scenes/backgrounds/tsukito_bosatsu_boss_encounter/layers/tsukito_bosatsu_boss_encounter_bg_00.tscn',
+  'scenes/backgrounds/final_act/final_act_background.tscn',
+  'scenes/backgrounds/final_act/layers/final_act_bg_00.tscn',
+  ...['zhs', 'eng', 'jpn'].map(lang => 'Kaguya/localization/' + lang + '/cards.json')
+];
+for (const name of sourceOverrides) {
   const existing = inventory.findIndex(e => e.path === 'res://' + name);
   if (existing !== -1) inventory.splice(existing, 1);
   inventory.push({path: 'res://' + name, source: path.join(root, '..', name)});
 }
 fs.writeFileSync(path.join(root, 'pack-inventory.json'), JSON.stringify(inventory));
-console.log(JSON.stringify({validatedEntries: count, rawSpineAssets: 3, entriesToPack: inventory.length}));
+console.log(JSON.stringify({validatedEntries: count, retiredAssets: retired.length, rawSpineAssets: 3, sourceOverrides: sourceOverrides.length, entriesToPack: inventory.length}));

@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -59,7 +60,7 @@ public sealed class SuddenlyLookBack : HinaModsCard
         if (candidates.Count == 0)
             return;
 
-        Owner.RunState.Rng.CombatCardSelection.Shuffle(candidates);
+        candidates.UnstableShuffle(Owner.RunState.Rng.CombatCardSelection);
 
         int playCount = exhausted < candidates.Count ? exhausted : candidates.Count;
         await HinaModsCard.PlayCardsSafely(choiceContext, candidates.Take(playCount).ToList());

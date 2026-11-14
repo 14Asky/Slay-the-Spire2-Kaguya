@@ -32,7 +32,7 @@ namespace Kaguya.Monsters
     public sealed class TsukitoKongo : CustomMonsterModel
     {
         // 视觉资源路径
-        private const string Phase1Visual = "images/packed/monster/tsukito_kongo_phase1.png";
+        private const string Phase1Visual = "images/packed/monster/TsukitoKongo.png";
         private const string Phase2Visual = "images/packed/monster/tsukito_kongo_phase2.png";
         private const string Phase3Visual = "images/packed/monster/tsukito_kongo_phase3.png";
 
@@ -82,8 +82,10 @@ namespace Kaguya.Monsters
 
         public override bool ShouldDisappearFromDoom => false;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_kongo.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_kongo.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -304,7 +306,7 @@ namespace Kaguya.Monsters
         }
 
         // 死亡时记录一阶段力量
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
             if (creature != Creature) return;
             if (Creature.HasPower<KongoPhaseTransitionPower>())
@@ -365,7 +367,7 @@ namespace Kaguya.Monsters
                 }
             }
 
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+            await base.AfterDeath(choiceContext, creature, source, wasRemovalPrevented, deathAnimLength);
         }
 
         // 复活逻辑
@@ -411,7 +413,7 @@ namespace Kaguya.Monsters
             await PowerCmd.Apply<HighDimensionalBeingPower>(ctx, Creature, 7, Creature, null);
 
             // 播放循环音乐（Moon.mp3）
-            var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Moon.mp3");
+            var stream = PreloadManager.Cache.GetAsset<AudioStream>(TmpSfx.GetPath("Moon.mp3"));
             if (stream is AudioStreamMP3 mp3)
                 mp3.Loop = true;
             _musicHandle = NDebugAudioManager.Instance.Play("Moon.mp3");

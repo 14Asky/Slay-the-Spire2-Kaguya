@@ -33,8 +33,10 @@ namespace Kaguya.Monsters
         private int ScatterDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 2, 1);
         private int ScatterHitCount => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 4, 3);
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_bag.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_bag.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -91,9 +93,9 @@ namespace Kaguya.Monsters
         }
 
         // ---------- 死亡时升级记忆碎片 ----------
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+            await base.AfterDeath(choiceContext, creature, source, wasRemovalPrevented, deathAnimLength);
 
             var players = Creature.CombatState?.Players.Where(p => p.Creature.IsAlive).ToList();
             if (players != null)

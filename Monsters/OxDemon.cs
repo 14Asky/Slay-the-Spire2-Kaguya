@@ -41,8 +41,10 @@ namespace Kaguya.Monsters
         private const int VulnerableAmount = 2;
         private int ChargeDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 14, 11);
 
+        protected override string VisualsPath => "res://scenes/monsters/ox_demon.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/ox_demon.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         public override async Task AfterAddedToRoom()
         {

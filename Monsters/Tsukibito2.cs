@@ -27,8 +27,10 @@ namespace Kaguya.Monsters
         private const int HealAmount = 12;
         private const int StrengthGain = 2;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukibito.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukibito.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {

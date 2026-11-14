@@ -46,8 +46,10 @@ namespace Kaguya.Monsters
         private MoveState _phase2ChargeState;
         private MoveState _phase2ScatterState;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_tenchu.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_tenchu.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -125,12 +127,6 @@ namespace Kaguya.Monsters
 
                 sprite.Texture = newTexture;
             }
-        }
-
-        // 死亡处理（无转阶段）
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
-        {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
         }
 
         // 战斗开始：设置视觉，并添加高维生物（8层）

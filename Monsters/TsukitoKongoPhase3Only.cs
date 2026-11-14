@@ -45,8 +45,10 @@ namespace Kaguya.Monsters
 
         private MoveState _phase3GoldenBodyState, _phase3SmashState, _phase3BlinkState, _phase3ZenState;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_kongo.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_kongo.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -130,11 +132,6 @@ namespace Kaguya.Monsters
                 node.CreateTween().TweenProperty(sprite, "scale", sprite.Scale, 0.8f)
                     .From(sprite.Scale * 0.5f).SetEase(Tween.EaseType.Out);
             }
-        }
-
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
-        {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
         }
 
         public override async Task AfterAddedToRoom()

@@ -33,8 +33,10 @@ namespace Kaguya.Monsters
         private const int RipDamage = 14;
         private const int WeakAmount = 2;
 
+        protected override string VisualsPath => "res://scenes/monsters/ox_demon_arthropod.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/ox_demon_arthropod.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         public override async Task AfterAddedToRoom()
         {

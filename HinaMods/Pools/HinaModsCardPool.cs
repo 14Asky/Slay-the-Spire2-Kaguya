@@ -139,7 +139,7 @@ public class HinaModsCardPool : CustomCardPoolModel
 			ModelDb.Card<SupportWeaponSwap>(),
 			ModelDb.Card<WorldsNumberOnePrincess>(),
 			ModelDb.Card<CelestialForm>(),
-			ModelDb.Card<Encore>(),
+			ModelDb.Card<global::Kaguya.HinaMods.Cards.Encore>(),
 			ModelDb.Card<AllRoundSupport>(),
 			ModelDb.Card<MoonGate>(),
 			ModelDb.Card<Peach>(),

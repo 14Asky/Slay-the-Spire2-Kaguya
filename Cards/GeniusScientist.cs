@@ -24,8 +24,6 @@ public class GeniusScientist : CustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    private bool _innateAdded;
-
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new CardsVar(1)

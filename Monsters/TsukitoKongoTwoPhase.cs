@@ -48,8 +48,10 @@ namespace Kaguya.Monsters
 
         private MoveState _phase2GongState, _phase2SoundStrikeState, _phase2ShockwaveState;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_kongo.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_kongo.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {

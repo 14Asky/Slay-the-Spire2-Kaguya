@@ -48,7 +48,7 @@ namespace Kaguya.Relics
                 await CardCmd.TransformToRandom(card, Owner.RunState.Rng.Niche);
             }
 
-            await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, HpLoss, false);
+            await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, HpLoss, cardSource: null);
         }
     }
 }

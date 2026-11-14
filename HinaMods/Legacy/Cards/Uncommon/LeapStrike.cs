@@ -13,7 +13,6 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Kaguya.HinaMods;
 using Kaguya.HinaMods.Character;
-using Kaguya.HinaMods.Legacy.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

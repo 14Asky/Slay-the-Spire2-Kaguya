@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using Kaguya.Monsters;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Kaguya.Powers
 
         public void DoRevive() => _isReviving = false;
 
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
             if (!wasRemovalPrevented && creature == Owner && Owner.Monster is TsukitoKongo kongo)
             {

@@ -74,8 +74,10 @@ namespace Kaguya.Monsters
 
         public override bool ShouldDisappearFromDoom => false;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_zuisho.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_zuisho.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         public async Task TriggerDeadState()
         {
@@ -311,7 +313,7 @@ namespace Kaguya.Monsters
         }
 
         // 死亡处理
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
             if (creature != Creature) return;
             if (Creature.HasPower<ZuishoPhaseTransitionPower>())
@@ -321,7 +323,7 @@ namespace Kaguya.Monsters
                 NDebugAudioManager.Instance.Stop(_musicHandle.Value);
                 _musicHandle = null;
             }
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+            await base.AfterDeath(choiceContext, creature, source, wasRemovalPrevented, deathAnimLength);
         }
 
         // 战斗开始
@@ -340,7 +342,7 @@ namespace Kaguya.Monsters
             await PowerCmd.Apply<HighDimensionalBeingPower>(choiceContext, Creature, 5, Creature, null);
 
             // 播放循环音乐（Moon.mp3）
-            var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Moon.mp3");
+            var stream = PreloadManager.Cache.GetAsset<AudioStream>(TmpSfx.GetPath("Moon.mp3"));
             if (stream is AudioStreamMP3 mp3)
                 mp3.Loop = true;
             _musicHandle = NDebugAudioManager.Instance.Play("Moon.mp3");

@@ -37,8 +37,10 @@ namespace Kaguya.Monsters
         private int ParryBlockCount => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 7, 6);
         private const int ParryBlockPerHit = 1;
 
+        protected override string VisualsPath => "res://scenes/monsters/iro_p.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/iro_p.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -96,9 +98,9 @@ namespace Kaguya.Monsters
         }
 
         // 死亡时从KaguyaRelicPool中给予稀有遗物
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+            await base.AfterDeath(choiceContext, creature, source, wasRemovalPrevented, deathAnimLength);
             if (creature != Creature) return;
 
             var players = Creature.CombatState?.Players.Where(p => p.Creature.IsAlive).ToList();

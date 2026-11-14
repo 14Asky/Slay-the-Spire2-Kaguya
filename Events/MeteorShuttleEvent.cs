@@ -49,7 +49,7 @@ namespace Kaguya.Events
         {
             int currentMaxHp = Owner.Creature.MaxHp;
             int halfMaxHp = (int)Math.Ceiling(currentMaxHp / 2.0);
-            await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, halfMaxHp, false);
+            await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, halfMaxHp, cardSource: null);
 
             SetEventFinished(L10NLookup("METEOR_SHUTTLE_EVENT.pages.RESIST.description"));
 

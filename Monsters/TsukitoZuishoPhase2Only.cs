@@ -50,8 +50,10 @@ namespace Kaguya.Monsters
 
         private MoveState _slamState, _slashState, _clashState, _rageState;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_zuisho.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_zuisho.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {

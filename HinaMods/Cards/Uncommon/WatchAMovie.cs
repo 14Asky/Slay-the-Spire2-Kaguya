@@ -2,6 +2,7 @@ using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -107,7 +108,7 @@ public sealed class WatchAMovie : HinaModsCard
             if (songs.Count > take)
             {
                 // 歌声牌多于本次抽牌数 → 随机挑出 take 张（其余留在原处，不会被提前抽到）
-                player.RunState.Rng.CombatCardSelection.Shuffle(songs);
+                songs.UnstableShuffle(player.RunState.Rng.CombatCardSelection);
             }
 
             // 倒序提到堆顶：MoveToTopInternal 每次都 Insert(0)，倒着来才能保持挑选顺序

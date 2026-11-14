@@ -1,0 +1,234 @@
+{
+  "version": "3.2.5",
+  "date": "2026-11-14",
+  "policy": "无损压缩；不缩放、不减色、不抽帧，不改变音频采样率、声道、编码包或循环设置。",
+  "pck": {
+    "beforeBytes": 391848252,
+    "afterBytes": 300556476,
+    "savedBytes": 91291776,
+    "reductionPercent": 23.2977,
+    "entries": 3013,
+    "uniquePayloads": 2103,
+    "deduplicatedBytes": 47945885,
+    "deduplication": "保留每个资源路径；只有 SHA256 和完整字节均一致的不可变载荷才共用包内偏移。"
+  },
+  "sourcePng": {
+    "checkedBeforeRemoval": 1090,
+    "retained": 984,
+    "retainedCompressed": 820,
+    "retainedBytesSaved": 43617437,
+    "method": "仅重新压缩 IDAT；解压后的像素过滤数据和其余 PNG 块完全一致。"
+  },
+  "runtimeTextures": {
+    "pathsVerified": 986,
+    "method": "Godot WebP 纹理重新无损编码，并在游戏实际引擎中逐项比较 RGBA SHA256。",
+    "originalBackgroundRgbaSha256": "ea425e856f36ed5b78aef6fb319705621be42985c8699f78db348fc17e1e1b0d"
+  },
+  "audio": {
+    "retainedStreams": 56,
+    "compressedStreams": 55,
+    "bytesSaved": 717857,
+    "method": "ResourceSaver.FLAG_COMPRESS；MP3 数据/Ogg 编码包、时长与循环配置逐项回读相等。",
+    "mainMenuTracks": [
+      "HappySyn",
+      "LoveMyself",
+      "Remember"
+    ],
+    "transcodingApplied": false
+  },
+  "unusedAssets": {
+    "removedAssets": 110,
+    "removedFilesIncludingImports": 219,
+    "removedOldAnimationFrames": 75,
+    "removedSourceBytesAfterPngCompression": 33235015,
+    "manifest": "scripts/unused-assets.json",
+    "basis": "639 个模型的 3578 项运行时路径、C#/GDScript/场景/UID 引用及动态命名规则交叉核对；压缩前后 3578 项路径完全一致。",
+    "preserved": "Spine 原始文件、旧立绘、Yachiyo 帧动画、Boss 原背景、动态事件素材、原生 UI 命名资源与工坊封面。"
+  },
+  "codeCleanup": {
+    "forwardingAfterDeathOverridesRemoved": 4,
+    "duplicateUsingsRemoved": 8,
+    "unreadUnsavedPrivateFieldsRemoved": 3,
+    "portraitGettersSimplified": 2,
+    "packTooling": "共用 PCK 读取器；用支持载荷合并的 Node 写入器替换旧 Godot 写入器。",
+    "gameplayValuesChanged": false
+  },
+  "validation": {
+    "buildErrors": 0,
+    "buildWarnings": 114,
+    "warningKind": "CS8632：既有 nullable 注释上下文",
+    "results": [
+      {
+        "scenario": "integration-models-asset-audit-pixel-check-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 21,
+        "result": "build/native-v325-integration-models-asset-audit-pixel-check-optimized-results/result.json",
+        "sha256": "1b86d4a826642fdee0c0d5bd1be86fdbedaae4f16f7a61e6fc297f32eeb2c841"
+      },
+      {
+        "scenario": "menu-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 30,
+        "result": "build/native-v325-menu-optimized-results/result.json",
+        "sha256": "e2b0198e08801c7f738e03fba9f68fa6ea1553552d0903010c76ba31dd2a0920"
+      },
+      {
+        "scenario": "spine-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 21,
+        "result": "build/native-v325-spine-optimized-results/result.json",
+        "sha256": "a0654a9c2e9c580113e9935a74230300ceeee818968592dd608f8f6a8357deb4"
+      },
+      {
+        "scenario": "spine-missing-skel-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 14,
+        "result": "build/native-v325-spine-missing-skel-optimized-results/result.json",
+        "sha256": "f8b4754800597e69468da2ebf3ba229604da51a1f02875bd028923f53fb20a32"
+      },
+      {
+        "scenario": "spine-missing-atlas-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 14,
+        "result": "build/native-v325-spine-missing-atlas-optimized-results/result.json",
+        "sha256": "f8b4754800597e69468da2ebf3ba229604da51a1f02875bd028923f53fb20a32"
+      },
+      {
+        "scenario": "spine-missing-texture-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 14,
+        "result": "build/native-v325-spine-missing-texture-optimized-results/result.json",
+        "sha256": "f8b4754800597e69468da2ebf3ba229604da51a1f02875bd028923f53fb20a32"
+      },
+      {
+        "scenario": "integration-standard-legacy-transform-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 10,
+        "result": "build/native-v325-integration-standard-legacy-transform-optimized-results/result.json",
+        "sha256": "eac9a2a0efd9d4f01153fdf57d8df3e60071f01f10ec1a682147b068d28cfbf1"
+      },
+      {
+        "scenario": "integration-standard-iroha-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 4,
+        "result": "build/native-v325-integration-standard-iroha-optimized-results/result.json",
+        "sha256": "0a595ca9ab0fe8750915e691c6dc827216ba55df138c344caac9458e09b24f8f"
+      },
+      {
+        "scenario": "integration-mechanics-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 10,
+        "result": "build/native-v325-integration-mechanics-optimized-results/result.json",
+        "sha256": "98b596ccc8d4835be468f48f276c104b8919f775996b548d00aa71f27246b1c2"
+      },
+      {
+        "scenario": "integration-boss-bosatsu-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 9,
+        "result": "build/native-v325-integration-boss-bosatsu-optimized-results/result.json",
+        "sha256": "25284a3ef14c5b9624470910ba1d736584f4e4550f4d37544623d5445d37ca0b"
+      },
+      {
+        "scenario": "integration-act4-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 7,
+        "result": "build/native-v325-integration-act4-optimized-results/result.json",
+        "sha256": "41a1c38eeb52aafb93e77240a609ec2dc9f7cbfbc40901317fbc6828bd17ed46"
+      },
+      {
+        "scenario": "integration-goodending-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 17,
+        "result": "build/native-v325-integration-goodending-optimized-results/result.json",
+        "sha256": "e76d3360ba0c7bf61c47cc977bbf807033d1c541f5f02b2075e07d7f08c7ff04"
+      },
+      {
+        "scenario": "integration-network-optimized-host",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 13,
+        "result": "build/native-v325-integration-network-optimized-host-results/result.json",
+        "sha256": "4ce7806ff98650b4e8c7f03af1bcba8b7d20a493624840d24b19b073fed4c663"
+      },
+      {
+        "scenario": "integration-network-optimized-client",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 13,
+        "result": "build/native-v325-integration-network-optimized-client-results/result.json",
+        "sha256": "51ba96e8906fc6a64b62bc60ac9a2fcffbf52146ce04e23932ea3f8b27b0d020"
+      },
+      {
+        "scenario": "integration-boss-kongo-release",
+        "phase": "最终 DLL：金刚一阶段路径修正后复测",
+        "passed": true,
+        "checks": 11,
+        "result": "build/native-v325-integration-boss-kongo-release-results/result.json",
+        "sha256": "a3a420aeedb7d96ca98a9aa23318b27aa67f86430e5c9365f70915decd60e18b"
+      },
+      {
+        "scenario": "cost-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 22,
+        "result": "build/native-v325-cost-optimized-results/result.json",
+        "sha256": "f46662b8a75c44d6b192bcd9c8849437da194b607b312fcc197883a51d4274a6"
+      }
+    ],
+    "network": {
+      "rngSha256": "f95b97efe49b27224e2317cf273d693c3f2d430f507e848d08b1e348717ae2e9",
+      "stateSha256": "49d2fdd62d808e48cfa371338f8cd294b60bc4cba55b614e62e553195e688503"
+    },
+    "android": "未测试",
+    "audioLimit": "自动化以 Dummy 音频驱动验证资源、播放状态、续播和音量控制；未做人耳试听。"
+  },
+  "localBackups": [
+    "build/backup-before-v325-migration-20261114",
+    "build/backup-v325-before-size-optimization",
+    "build/asset-source-backup"
+  ],
+  "reproduction": {
+    "requires": [
+      "Node.js",
+      "Python 3 + Pillow（本次 13.0.0）",
+      "MegaDot 4.5.1 mono"
+    ],
+    "note": "在项目根目录运行；source.pck 为已经验证的游戏资源导出包。每次最终输出使用新文件名，防止误覆盖。普通 Godot 重新导出会重新生成纹理，需再次执行优化。",
+    "commands": [
+      "node scripts/PrepareKaguyaPack.cjs source.pck",
+      "python scripts/OptimizeKaguyaTextures.py build/pack-inventory.json",
+      "MegaDot --headless --path . --script scripts/OptimizeKaguyaAudio.gd -- source.pck build/pack-inventory.json build/audio-resource-optimization-v325",
+      "node scripts/ApplyKaguyaPackOptimizations.cjs build/pack-inventory.json build/texture-optimization-report.json build/audio-resource-optimization-v325/report.json build/optimized-pack-inventory.json",
+      "node scripts/WriteKaguyaPack.cjs build/optimized-pack-inventory.json build/Kaguya-new.pck",
+      "node scripts/VerifyKaguyaPack.cjs build/Kaguya-new.pck"
+    ],
+    "pngTool": "scripts/OptimizeSourcePngs.py 接收含 assets:[{path:...}] 的资源审计 JSON；会备份再做无损 IDAT 压缩。"
+  },
+  "artifacts": {
+    "Kaguya.dll": {
+      "bytes": 1585664,
+      "sha256": "e6bc224a3307fff9cdecfb159b5fb492e9dfdb9f7dff59c45ba46230b2ac8249"
+    },
+    "Kaguya.json": {
+      "bytes": 481,
+      "sha256": "039ea9de769c012a52477d45c09e52e325600afd53383102f48d9bfed4b71943"
+    },
+    "Kaguya.pck": {
+      "bytes": 300556476,
+      "sha256": "88bf2410ee826eb2d7d4555a6c0690ba1df533a2de2c565f42afcfd4d157bb01"
+    }
+  },
+  "workshop": "未上传，按用户要求等待后续指示"
+}

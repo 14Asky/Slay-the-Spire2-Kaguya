@@ -33,8 +33,10 @@ namespace Kaguya.Monsters
         private int HeavyDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 22, 20);
         private const int StrengthGain = 4;
 
+        protected override string VisualsPath => "res://scenes/monsters/thunder.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/thunder.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -104,9 +106,9 @@ namespace Kaguya.Monsters
         }
 
         // 死亡掉落：每个存活玩家都获得一个随机遗物（从 LandmineTrap 或 LeiBigSword 中选）
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+            await base.AfterDeath(choiceContext, creature, source, wasRemovalPrevented, deathAnimLength);
             if (creature != Creature) return;
 
             // 获取所有存活的玩家

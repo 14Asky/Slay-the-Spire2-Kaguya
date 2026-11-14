@@ -10,7 +10,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using Kaguya.HinaMods;
-using Kaguya.HinaMods.Legacy.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

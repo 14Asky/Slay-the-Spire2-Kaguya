@@ -1,0 +1,993 @@
+{
+  "basis": "核对 639 个模型的 3578 项运行时资源路径、场景/GDScript/C# 引用、UID 与动态序列；保留原生 UI 命名约定、封面及回退资源。",
+  "assets": [
+    {
+      "path": "audios/Kaguya.bank",
+      "reason": "当前模型、场景及脚本均无引用，亦非动态序列或回退素材",
+      "imported": [],
+      "sha256": "5d2c9bf2e1cc1274ad06cc70d1f6a9fa59cec5ea3cde730936083fca38dc9b97",
+      "bytes": 22752
+    },
+    {
+      "path": "debug_audio/Ray.mp3",
+      "reason": "未使用的旧音频；当前入口使用视频内音轨或 Ogg 文件",
+      "imported": [
+        ".godot/imported/Ray.mp3-e767f67d65b81ad6353942f65315f1fc.mp3str"
+      ],
+      "sha256": "e59fd0409e4d3881d40612959c7700bfd5f75b3a55def89d3f4f38b20d516d82",
+      "bytes": 2164535
+    },
+    {
+      "path": "debug_audio/sakayori_iroha_select.mp3",
+      "reason": "未使用的旧音频；当前入口使用视频内音轨或 Ogg 文件",
+      "imported": [
+        ".godot/imported/sakayori_iroha_select.mp3-d137319ab39c8b8404e678cf81e7c9f5.mp3str"
+      ],
+      "sha256": "e752f3e721577670e0a75549bf847b4b1ba70f054d7ac9e8d63ea39ae6e5a525",
+      "bytes": 27092
+    },
+    {
+      "path": "images/powers/happy_end_power.jpg",
+      "reason": "当前模型、场景及脚本均无引用，亦非动态序列或回退素材",
+      "imported": [
+        ".godot/imported/happy_end_power.jpg-73a34e78eebd994cf3e96702776d7361.ctex"
+      ],
+      "sha256": "2cebe6f3c9b534cc140647e107e24cb91ed55648400854a8946c21c356dff5e5",
+      "bytes": 32663
+    },
+    {
+      "path": "images/powers/temp_strength_down.png",
+      "reason": "当前模型、场景及脚本均无引用，亦非动态序列或回退素材",
+      "imported": [
+        ".godot/imported/temp_strength_down.png-e984dd8e78e0fd6d9d41c50694cfefb7.ctex"
+      ],
+      "sha256": "b9bbe3733d7686587a209e4d38d7ccca12835970efd50f6cd3eead29d0aa1a0b",
+      "bytes": 15418
+    },
+    {
+      "path": "images/powers/tired_power.png",
+      "reason": "当前模型、场景及脚本均无引用，亦非动态序列或回退素材",
+      "imported": [
+        ".godot/imported/tired_power.png-3c237cc95af4c348540806ed900d554f.ctex"
+      ],
+      "sha256": "4dd6d3ace82c2ece746acd99d7023d8f9eac5d071da1c391219980367e079603",
+      "bytes": 113595
+    },
+    {
+      "path": "images/hinamods/Potions/legacy_moon_potion_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_moon_potion_outline.png-d1dda934b86a978c7d925edcaaef3f2b.ctex"
+      ],
+      "sha256": "2c81e107006885d899840fd3bd4184091b622915c26413ec3ac9376b4cc55c6d",
+      "bytes": 44128
+    },
+    {
+      "path": "images/hinamods/Potions/legacy_star_night_potion_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_star_night_potion_outline.png-871c384c7993f6e2a3f350d69d6609a4.ctex"
+      ],
+      "sha256": "50f3a8a9a1df116f134c09dd0885b3bd7025138b1180bc59ce9a0c082c34ab4a",
+      "bytes": 1552576
+    },
+    {
+      "path": "images/hinamods/Potions/legacy_support_potion_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_support_potion_outline.png-1d10c942e6486fa821493953d4c4247e.ctex"
+      ],
+      "sha256": "47191b0d7864e51ea89fd36b89fbbd85855eb04fbb56874a4b1055700e35c950",
+      "bytes": 34511
+    },
+    {
+      "path": "images/hinamods/relics/legacy_hina_kaguya_smartphone_relic_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_hina_kaguya_smartphone_relic_outline.png-c1f3f7b600c6a9d8a6052f9ce2b640a1.ctex"
+      ],
+      "sha256": "37ce937dbb31e0ab15dcbcc3aa7d80167d7d6e8c692602a1946671924a36a74c",
+      "bytes": 34685
+    },
+    {
+      "path": "images/hinamods/relics/legacy_hina_mods_ancient_fortune_relic_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_hina_mods_ancient_fortune_relic_outline.png-896da049d00a912e83e2dbe0c42eaf19.ctex"
+      ],
+      "sha256": "b21c2be45ca9bd3082313bc8ce8438fe1314225fb9377858ab80cca864089ae3",
+      "bytes": 8157
+    },
+    {
+      "path": "images/hinamods/relics/legacy_hina_mods_fortune_relic_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_hina_mods_fortune_relic_outline.png-65f48c6372abd5f3f8b4ebd77501cf3d.ctex"
+      ],
+      "sha256": "5e507083a8f90b60d5eff13b15a4c7bc08712c44f0c2091a2687c51c02a20847",
+      "bytes": 31519
+    },
+    {
+      "path": "images/hinamods/relics/legacy_hina_original_light_bamboo_relic_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_hina_original_light_bamboo_relic_outline.png-9aa3c7b6735005fa4c32cd72410e965c.ctex"
+      ],
+      "sha256": "8e1efd261b789a4c693f1c433a7f4950d83e04bd52472407a190507b06077cf2",
+      "bytes": 35276
+    },
+    {
+      "path": "images/hinamods/relics/legacy_hina_phonograph_relic_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_hina_phonograph_relic_outline.png-035b8040786a6263416eec3fab50bcd7.ctex"
+      ],
+      "sha256": "df9c8a755d0651e36cf56f8d1ca3e6384de18db89999c58d29d2968c0b8d2805",
+      "bytes": 71801
+    },
+    {
+      "path": "images/hinamods/relics/legacy_sun_headdress_relic_outline.png",
+      "reason": "Legacy 实例已显式复用当前图标，旧副本不再引用",
+      "imported": [
+        ".godot/imported/legacy_sun_headdress_relic_outline.png-4f3d96100dad9baa905c2b85de66e8a6.ctex"
+      ],
+      "sha256": "3fe28808f6f2ed06aedb7471eb5ce9234d29b215fc5dac5b75275ef6f6210824",
+      "bytes": 27204
+    },
+    {
+      "path": "images/hinamods/Visual/hinamods_rest_site_1.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/hinamods_rest_site_1.png-cb14f7b83facc61ea014bdea9c75fbf5.ctex"
+      ],
+      "sha256": "e950157dd7a56ecafd20595b531b6ac709bffe5f28be8fe6d263444945621378",
+      "bytes": 63289
+    },
+    {
+      "path": "images/hinamods/Visual/Kaguyaper_merchant.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/Kaguyaper_merchant.png-d1132addc0d0a47639d4a9326ad96497.ctex"
+      ],
+      "sha256": "243f1288680edcb816437e03f9c16397fe549b1d32c6a9c46c2bed82c06706b1",
+      "bytes": 95454
+    },
+    {
+      "path": "images/hinamods/Visual/Kaguyaper_副本.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/Kaguyaper_副本.png-dfde2fd208f8428a2eaa6137ab6d86da.ctex"
+      ],
+      "sha256": "97bde1ed5d240a6a29bcc872581abc8efba0f1aba637503e63732a1e65cb7a35",
+      "bytes": 1946193
+    },
+    {
+      "path": "images/hinamods/Visual/kill.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/kill.png-21988899ca55966c86290680e33d3903.ctex"
+      ],
+      "sha256": "02008c0aa30ecddd6db0764e7b0cd2b0dfc5cb25c8fc5b3caad2e05ad5a2b67e",
+      "bytes": 872850
+    },
+    {
+      "path": "images/hinamods/Visual2/Attack.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/Attack.png-043a9454c1e629d7568d8273e21b4300.ctex"
+      ],
+      "sha256": "e965c448157284bc493635c84cdf7d743e3a9eb88df105c428d4a05bf25197c5",
+      "bytes": 2033976
+    },
+    {
+      "path": "images/hinamods/Visual2/Attack_1.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/Attack_1.png-642a7857ca99c23535be43bd11d3ca50.ctex"
+      ],
+      "sha256": "906c50dcd33e27435d6427e99981e9ac94c8674fa26486d9be23acdb2b8555b3",
+      "bytes": 3461332
+    },
+    {
+      "path": "images/hinamods/Visual2/Kaguyaper.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/Kaguyaper.png-b2b444f04a848168a7b8817d26eebde2.ctex"
+      ],
+      "sha256": "16d74a054b455001fdcb783dc0d8d6b83f63fd054f9930882b333fc266c065ef",
+      "bytes": 2873850
+    },
+    {
+      "path": "images/hinamods/Visual2/KaguyaperPerformance.png",
+      "reason": "旧立绘备份，当前 Spine 与回退场景均不引用",
+      "imported": [
+        ".godot/imported/KaguyaperPerformance.png-30d329ea7c6330dcedd23350410630d0.ctex"
+      ],
+      "sha256": "7821c1c53cb2f62a9d78447de0d20820afb6c8cb53044191db2a7b17dad11f68",
+      "bytes": 4504665
+    },
+    {
+      "path": "images/hinamods/Cards/Big/heavy_strike_card.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/heavy_strike_card.png-b9cbc7912e45438e586277bc1ec8375a.ctex"
+      ],
+      "sha256": "c0d596c131aa1d75ee2e36090b49ea1c30cb33467b7db986917e7359052ed899",
+      "bytes": 508225
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_live_accident.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_live_accident.png-42ca4f894ec326f9eca836a4ac3680e5.ctex"
+      ],
+      "sha256": "a5a844aaa2a1a807172ed916007557543eb17d25c5847fc9e068e5064588a1d3",
+      "bytes": 470191
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_moon_eclipse_strike.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_moon_eclipse_strike.png-22f53ac1494508deedf9d56e47fb6b6e.ctex"
+      ],
+      "sha256": "7357ae2751691a5eb26fc86ecc3929ef73b0975fea255a4f1dd802369bba1f4e",
+      "bytes": 742595
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_muffin.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_muffin.png-387bdfacdf54ee1c25175ec582ac6293.ctex"
+      ],
+      "sha256": "b5e2e7b30cc6931fb3683f06f416696eca8b212db65cdec4a7ae08b0d5244e0d",
+      "bytes": 529916
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_power_fist.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_power_fist.png-cd5051ae6510b3d0819e8351312047f8.ctex"
+      ],
+      "sha256": "76db4934dd8a5ede0f523fdce31ba6be5f0a591061e297fde0be84bd14a0b77a",
+      "bytes": 264680
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_tsukimi_call.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_tsukimi_call.png-6e84ec62c6aab34c7e0d387d03a4ad32.ctex"
+      ],
+      "sha256": "19672f2db17923081e1bfec8438c40ba0993e2ba7836beaa8f3f111ca8c159ff",
+      "bytes": 390505
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_tsukimi_final_strike.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_tsukimi_final_strike.png-88ef0f9ec93ffd4b86a218be3d360e5f.ctex"
+      ],
+      "sha256": "f8f8c9e6622580a561ef0c9ac6f85c3a0c45a7bda015ec8ad29559a40024ff32",
+      "bytes": 347504
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_tsukimi_purge.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_tsukimi_purge.png-1dc7d40848db282820908506caf2c59c.ctex"
+      ],
+      "sha256": "886c9a219c6eb9e35bf5e43b5c3cffd5c5459b9410d837e1615a50eb9d1aea14",
+      "bytes": 383285
+    },
+    {
+      "path": "images/hinamods/Cards/Big/hina_mods_tsukimi_ultimate.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/hina_mods_tsukimi_ultimate.png-eeaee2f02c729fd6f66bcf95bc3747ed.ctex"
+      ],
+      "sha256": "9b1e5cc484067073a722b1f1de4148c5ae7fea455ba063e7741607327382eec8",
+      "bytes": 475406
+    },
+    {
+      "path": "images/hinamods/Cards/Big/singer_aria.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/singer_aria.png-b2adbc2b6a213ab4bf1a63eddcaf3daa.ctex"
+      ],
+      "sha256": "7958190386b6a49b2968c40dc746bf6104178e928dcecf904008391ac2a7fb84",
+      "bytes": 1058940
+    },
+    {
+      "path": "images/hinamods/Cards/Big/singer_fugue1.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/singer_fugue1.png-8166524d706763f2eaa5e4346d323ec0.ctex"
+      ],
+      "sha256": "c4c4d3063329a80b2b694466c9a94123f968932aaaa1762e3503be13a3f92c03",
+      "bytes": 469061
+    },
+    {
+      "path": "images/packed/card_portraits/kaguya/TsukuyomiNightPlus(.png",
+      "reason": "旧卡图或错误命名备份，现有全部模型均使用其他路径",
+      "imported": [
+        ".godot/imported/TsukuyomiNightPlus(.png-7f5727bb61b50857bd025f35f7c2cdc8.ctex"
+      ],
+      "sha256": "3d436878f109ef96f76249bb20cea3f18506169f789c69a167e7ae8baa24094d",
+      "bytes": 805552
+    },
+    {
+      "path": "scenes/monster picture/loop_0001.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0001.png-6de53f09d6a21894a203b331e56b924e.ctex"
+      ],
+      "sha256": "10a6da9b154ff3eae5b6fbf1116e57a2f3675cdc699c4f2db46505e94099fad2",
+      "bytes": 92426
+    },
+    {
+      "path": "scenes/monster picture/loop_0002.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0002.png-6c5cf56665c9ace80ec440aab724ef65.ctex"
+      ],
+      "sha256": "05b25a235420cd17dac64d0f7237f4ea3730c48c4653c98bed7207dbd2114e8e",
+      "bytes": 94795
+    },
+    {
+      "path": "scenes/monster picture/loop_0003.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0003.png-437d3ea1ea871cf7dbd6100a192858f1.ctex"
+      ],
+      "sha256": "6f64b8d6f7466679f606ad5c6e32fa8eaec395d71699b57e28a5027ee6ffc89f",
+      "bytes": 96710
+    },
+    {
+      "path": "scenes/monster picture/loop_0004.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0004.png-21187ca9ed5867a3a0d912acf667bc08.ctex"
+      ],
+      "sha256": "de0cd5f5a888b07783a10cd2ad99ee0fe5779b1bc28a529a704d7d0326407893",
+      "bytes": 93902
+    },
+    {
+      "path": "scenes/monster picture/loop_0005.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0005.png-99622659763a4aa0f17186845f315063.ctex"
+      ],
+      "sha256": "d33bd8f33d5f629b054e4ee45c3b10a52ad9922d086acd57254cfb25db8936b0",
+      "bytes": 92663
+    },
+    {
+      "path": "scenes/monster picture/loop_0006.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0006.png-f2621143b30d8c159b04926b435ead7f.ctex"
+      ],
+      "sha256": "5d2850df4d4786e9f251d68c30956f05e579fdf6669f6d533a6857899e730685",
+      "bytes": 95844
+    },
+    {
+      "path": "scenes/monster picture/loop_0007.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0007.png-4c6ddecc65749873baabd4b83d2e69e1.ctex"
+      ],
+      "sha256": "98809b4902b0e01fe65879b70aa258729ac226a5108eb5c32bbd26f56f45b496",
+      "bytes": 96707
+    },
+    {
+      "path": "scenes/monster picture/loop_0008.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0008.png-da3c3b6830ee3ecc795aec5000a7fc91.ctex"
+      ],
+      "sha256": "3e9da80cc207a240575e6b88a79cd393e9eca7df92f1bf9117f52d7d008f0cdd",
+      "bytes": 92987
+    },
+    {
+      "path": "scenes/monster picture/loop_0009.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0009.png-fd986c410631056672a25e225d96e626.ctex"
+      ],
+      "sha256": "fc9da18894b1d437a853178fa92e4ec81e1e88e357b92de4a8397dc2311e5ede",
+      "bytes": 93104
+    },
+    {
+      "path": "scenes/monster picture/loop_0010.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0010.png-050e1dc8b1c2b1ac349caf5fcf7b1ec9.ctex"
+      ],
+      "sha256": "3ab7a5c71625cf34268efe6f73d5a8038e68b794339e3a51de2f466ed4d3cbc9",
+      "bytes": 92588
+    },
+    {
+      "path": "scenes/monster picture/loop_0011.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0011.png-fbf1102f2e2adf659acbce0476d14528.ctex"
+      ],
+      "sha256": "8e010da9bcff7e1283ff58db56af669b4674fb1a65926361c340c5d77f86cd90",
+      "bytes": 92717
+    },
+    {
+      "path": "scenes/monster picture/loop_0012.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0012.png-20b6bdd48b5289bee64d89348826f096.ctex"
+      ],
+      "sha256": "36ba886e28f5c18bb33c09f7b7d146665674ebdae4dfbf53f9cd17bfc2d3796a",
+      "bytes": 93379
+    },
+    {
+      "path": "scenes/monster picture/loop_0013.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0013.png-53ade14a9f692cd724deb763aa27b928.ctex"
+      ],
+      "sha256": "1f18610b9d7afcfef66205f49bc6320580b4e7ff53dfabe6f4791fc03b0adaf0",
+      "bytes": 93285
+    },
+    {
+      "path": "scenes/monster picture/loop_0014.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0014.png-88aebd0277d35fea1b490bafcb064b9c.ctex"
+      ],
+      "sha256": "1bc50eb13618175fb2aa6b15659d202dc32d36de565c20098a3171dd05aa9467",
+      "bytes": 91507
+    },
+    {
+      "path": "scenes/monster picture/loop_0015.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0015.png-33be27cb1a3743c252d9b9435e11653f.ctex"
+      ],
+      "sha256": "c8f19003bef16cdfe121fdbcfd45fe6e6b453a01b41506840709673e7c7c0be0",
+      "bytes": 92815
+    },
+    {
+      "path": "scenes/monster picture/loop_0016.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0016.png-b77395b16725eb5a57a0b7c44e48e5dd.ctex"
+      ],
+      "sha256": "684d01e3e11451095ffac93cade9d535458b192c9fd6d49f3c82006e67c6e9a0",
+      "bytes": 95273
+    },
+    {
+      "path": "scenes/monster picture/loop_0017.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0017.png-0cdee4190b959934428cd166c3e6824d.ctex"
+      ],
+      "sha256": "558573943d98c9a80a7ff4984d10da1d7346a39a41505ee1ab45d222f39cb17e",
+      "bytes": 93460
+    },
+    {
+      "path": "scenes/monster picture/loop_0018.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0018.png-8f23983e3e5e009cf676c5df378942cf.ctex"
+      ],
+      "sha256": "2820ea1d611ef0f046636c342450be81d8d59617104b0b60d1f873b14196befe",
+      "bytes": 95774
+    },
+    {
+      "path": "scenes/monster picture/loop_0019.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0019.png-9ec11931aa11d879c0fbd283da3ec048.ctex"
+      ],
+      "sha256": "450fcaef2e80bab4ad2fd0f2e52ceb0c84a54e40b44163e040a2871e21e06239",
+      "bytes": 95514
+    },
+    {
+      "path": "scenes/monster picture/loop_0020.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0020.png-71f122a2851047eedaa26874e7076d70.ctex"
+      ],
+      "sha256": "286756526902a32b7fee5de038bbf0d40028c0dafbc6fa66634ace2c0c8afa22",
+      "bytes": 98739
+    },
+    {
+      "path": "scenes/monster picture/loop_0021.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0021.png-c2b321bbcdae942f6842efc160388eb4.ctex"
+      ],
+      "sha256": "d77b95534bd1f8b4d34ac7992a277f44566e2cecafcaeeb6610df971f1c8c6c6",
+      "bytes": 93120
+    },
+    {
+      "path": "scenes/monster picture/loop_0022.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0022.png-9f6bf2814bee419f282efe52ed804d97.ctex"
+      ],
+      "sha256": "ff57945b3a65a962035af1b82c66838f557ad8a17507fd16b3c070eab3e77c4e",
+      "bytes": 94599
+    },
+    {
+      "path": "scenes/monster picture/loop_0023.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0023.png-8264cc2190668540767c6bd120fb7316.ctex"
+      ],
+      "sha256": "0fc2c92528f066a9f700ea5d144b4757b42480f8c7a424145c749cf3bcc6a68f",
+      "bytes": 92053
+    },
+    {
+      "path": "scenes/monster picture/loop_0024.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0024.png-fd6853c0e0cffbc391dc6091515542c4.ctex"
+      ],
+      "sha256": "b2366e2ab6c0c591ce20819cbd7d6b7ae915c9aa0412a4a1332b9f3621914884",
+      "bytes": 97252
+    },
+    {
+      "path": "scenes/monster picture/loop_0025.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0025.png-45019374e363328a0b34cd971528229b.ctex"
+      ],
+      "sha256": "a490345e1d1abe5b855ecb287983dbd7dd7731fd270d2bc59b7df5b0648b1fc5",
+      "bytes": 93514
+    },
+    {
+      "path": "scenes/monster picture/loop_0026.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0026.png-6dd7ff66a2987657ae86686aaab5b51c.ctex"
+      ],
+      "sha256": "a7c5948fd748b7f2b378df223f6e069dbd4f5edb145fb736dbd3054b3b1f4efe",
+      "bytes": 98223
+    },
+    {
+      "path": "scenes/monster picture/loop_0027.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0027.png-c66bd4e3660b793bd5e81c0fc1cfbea4.ctex"
+      ],
+      "sha256": "e9c26e486b871e893d1c43b1a7dbcb7347257fc0743c3328150d38c1eec18b5f",
+      "bytes": 94681
+    },
+    {
+      "path": "scenes/monster picture/loop_0028.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0028.png-6b60e99f342cf35933a5e34328dc33a2.ctex"
+      ],
+      "sha256": "d760bb28d29b9dc88499c0f53e7beb5e39b97a6dd1b5f90780e5e90441753a46",
+      "bytes": 94635
+    },
+    {
+      "path": "scenes/monster picture/loop_0029.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0029.png-df829b1697a6da64cbc3d4ee0707c45c.ctex"
+      ],
+      "sha256": "1e227f84354f1bac95b1f4a224cf6d48ad5ac25cd5a6cf3dd23088ea5e28dbb2",
+      "bytes": 92402
+    },
+    {
+      "path": "scenes/monster picture/loop_0030.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0030.png-dfa06559f612b5fed5a6e193ddcadc80.ctex"
+      ],
+      "sha256": "c26bcd725a2bc1ee9b84a92411e1d715e037c54d7335881dd5b21ce5787a0a39",
+      "bytes": 91123
+    },
+    {
+      "path": "scenes/monster picture/loop_0031.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0031.png-600a7d2b1a601e1b6cb16fb592407535.ctex"
+      ],
+      "sha256": "de97f4d5e7fd326738854c4f428c740f01afdec26ae04097d48e6b05a92b2600",
+      "bytes": 93935
+    },
+    {
+      "path": "scenes/monster picture/loop_0032.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0032.png-097efc8c73d290770234dcb9b0a7295e.ctex"
+      ],
+      "sha256": "21e8cf8c3d5fba6b166f468ed96c7b3a98b067bafdec537380d0b9499393fe86",
+      "bytes": 93512
+    },
+    {
+      "path": "scenes/monster picture/loop_0033.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0033.png-d1a8c2149309d502d6c6599bf76e49e2.ctex"
+      ],
+      "sha256": "ed615d188f945775e35c6343df81d6fa91c4b4d491af31e82b6b1cbe12e1d2d4",
+      "bytes": 93165
+    },
+    {
+      "path": "scenes/monster picture/loop_0034.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0034.png-abf0cef2b5cb2525d9b0e38b773d1485.ctex"
+      ],
+      "sha256": "0a4f4f5d232aaacaa68f32c2c208cc51f1e77a3d1fd072346fee5b0f13a3b4c8",
+      "bytes": 90734
+    },
+    {
+      "path": "scenes/monster picture/loop_0035.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0035.png-878801d0875d7df484ef1e915ef7bcdf.ctex"
+      ],
+      "sha256": "bf7bc7c66c76d100908286c1f69b8edb1402979090efbea224044491603cca68",
+      "bytes": 92096
+    },
+    {
+      "path": "scenes/monster picture/loop_0036.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0036.png-105151cd346464d8269caeec91f09778.ctex"
+      ],
+      "sha256": "67de3923b6abb1aebcb965cfa7e842f912feeb280179ccf7d87c9e0268007e95",
+      "bytes": 94631
+    },
+    {
+      "path": "scenes/monster picture/loop_0037.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0037.png-38317460461b9780e8dbe3a426775c03.ctex"
+      ],
+      "sha256": "83b3660ec1a555e92a0a02425b27513e8b6f2506025476d63830574a592ed6dd",
+      "bytes": 95426
+    },
+    {
+      "path": "scenes/monster picture/loop_0038.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0038.png-afb90b28c97493798b389ef4cb0d5513.ctex"
+      ],
+      "sha256": "ed776068573c2c35273aa8117aa1f76a1f22aaeb2ba8febe4ca830db5602e323",
+      "bytes": 93217
+    },
+    {
+      "path": "scenes/monster picture/loop_0039.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0039.png-68611fc8ac03cd13e585272e9a46f028.ctex"
+      ],
+      "sha256": "b3977a8fccac3984d6fa7eb2194cfa014bede3ff30708136af7ebcb41b61c220",
+      "bytes": 94127
+    },
+    {
+      "path": "scenes/monster picture/loop_0040.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0040.png-56f240262f570ef15337a95be6c4bab8.ctex"
+      ],
+      "sha256": "3bfb3e5b1ddcc73d6eafa974b8160cb205739f994124ec5b7b794ffb252f4844",
+      "bytes": 96086
+    },
+    {
+      "path": "scenes/monster picture/loop_0041.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0041.png-2ff74be96930866aaa5570133c195acf.ctex"
+      ],
+      "sha256": "f74e2224210e51f75264a116f555f34f9091b9d20a2764c998b21a9da16cf5d9",
+      "bytes": 93086
+    },
+    {
+      "path": "scenes/monster picture/loop_0042.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0042.png-f94a0f9bd0d85ee3b385bbd1b3c29f55.ctex"
+      ],
+      "sha256": "1d1b3c532a3925f42dd3676615735ce6606df243f02e3c0b24342e86056f7280",
+      "bytes": 95059
+    },
+    {
+      "path": "scenes/monster picture/loop_0043.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0043.png-606a14997a9bad97ae9a51d6298d7d3f.ctex"
+      ],
+      "sha256": "abf5a954e8f28d635b25d1dddad3255fcd6089b9dc6bfad14da448232a2b7b41",
+      "bytes": 94372
+    },
+    {
+      "path": "scenes/monster picture/loop_0044.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0044.png-6b3270918a9a1b433e3fd8b84edbf790.ctex"
+      ],
+      "sha256": "c7b76526e58a3d1a5a9bdf85b24aece6c359b6902a8d98fdce6990189e2808d5",
+      "bytes": 94385
+    },
+    {
+      "path": "scenes/monster picture/loop_0045.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0045.png-092314aba54f71e9d0cad9b9581b7ff2.ctex"
+      ],
+      "sha256": "60b0ae71fa28b61bd24fb6455f5ca3e06600e902a72e86440f92abe04bd3a03d",
+      "bytes": 89496
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0001.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0001.png-669f0fb0e61e2309699c3f741b618cc6.ctex"
+      ],
+      "sha256": "660c68e423b9bbfa0c17c2a6c1e1a2390fa8ad29ccb416c2de0650b47e9b1a06",
+      "bytes": 81612
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0002.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0002.png-2e25624291ee82d6fe227e663b1262f0.ctex"
+      ],
+      "sha256": "4de037fcc1be2f92372b969d10553306fc05f53372167880db17e07874a2a235",
+      "bytes": 84421
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0003.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0003.png-deecdb05e3eeddaa45627bf74bf1c45b.ctex"
+      ],
+      "sha256": "3f4b2c5e301bdaaec39438cff6baa32ca4fbb563bc68fb576f0b5169af7f2e54",
+      "bytes": 83912
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0004.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0004.png-5b57be20459f9d90c78d19d5f67ced00.ctex"
+      ],
+      "sha256": "026f53961553f5582c69fb1f610e77511cfec1db787fa76cb2f56c7e71c8fe94",
+      "bytes": 81442
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0005.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0005.png-2f9f1067f0037034b0a317d02cbab3ea.ctex"
+      ],
+      "sha256": "50f6f009c3b413962405e823fb6152a6616b5e312877b5613163efa7639aa1bf",
+      "bytes": 83805
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0006.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0006.png-e8153d71a7c853d63d5b8bd04119c3a9.ctex"
+      ],
+      "sha256": "c70e0c55e5496215056a0c435733bf41b665c6a671fab5e035215adb9fb8a383",
+      "bytes": 84850
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0007.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0007.png-60a51b54520a8cba6b2392603d0c8fdb.ctex"
+      ],
+      "sha256": "ec6d1b5575362b6950e7fec3c3ac07a58c029216912a122807053740eaca2459",
+      "bytes": 82192
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0008.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0008.png-ac82ee2030a4229b66d4a15c984cf872.ctex"
+      ],
+      "sha256": "456f89ad8dca5381c46f2489119fb536668a41e6b90a6cddd18181e758fa7697",
+      "bytes": 85299
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0009.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0009.png-65806c308dca8f7c802e731fb40d2004.ctex"
+      ],
+      "sha256": "da49182d7d5a2cda72057568da9cdc3bb602792cde8be8a656806e4e470c7169",
+      "bytes": 83149
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0010.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0010.png-43ec03c14351e881d5f350e92544c3d9.ctex"
+      ],
+      "sha256": "630e3de960d74eb06b6d35215c34db449b1171ba161d774d99247b19cc88572e",
+      "bytes": 83019
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0011.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0011.png-1e6a6880f163aff84951711910e551f2.ctex"
+      ],
+      "sha256": "23b51463b381b86fa43f2cffdc62278c5da675e364d29677b3aadff89bf1b11f",
+      "bytes": 81322
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0012.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0012.png-5982fcbdf448f194b1628afca0f73d16.ctex"
+      ],
+      "sha256": "0a414f0732e23b1f0dd83ade300adf960ec4594992c44e9eca3157c31b52512d",
+      "bytes": 81621
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0013.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0013.png-6a3fa46d7b91d3ad91080a369106f835.ctex"
+      ],
+      "sha256": "2efa8501ca18ad4612c5cc84f8ace467fa95373b2c92a5d83e1a402aa0de54e9",
+      "bytes": 83499
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0014.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0014.png-01b48b708203cb5f98c0ca822a1407a2.ctex"
+      ],
+      "sha256": "3a4fd068537a727d9ea35278dc32668468f9dc4512ba474e782ccebfc9f3a574",
+      "bytes": 85104
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0015.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0015.png-61633066495e4f2311d03373a7c32ed8.ctex"
+      ],
+      "sha256": "00d3384cb4794c3e1b204e18f96fdf19cbcca38b24b3590aa9e791045a4c2304",
+      "bytes": 82681
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0016.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0016.png-1d9445c89beeeb5afada4f0343a1d88e.ctex"
+      ],
+      "sha256": "a784678feda71d3603a5123a2aa0b0c10bfa49c55591c9ecc46b9b7c8d1cdbcd",
+      "bytes": 85868
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0017.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0017.png-dd5cd10108c54b6cfe53172017938f7c.ctex"
+      ],
+      "sha256": "35effa69488bb086c53f6a9dadc89f8a1225eedf3a86bd33387b2a7a62495f17",
+      "bytes": 82737
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0018.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0018.png-6266afde74dcde3d53be912fb612f117.ctex"
+      ],
+      "sha256": "b1d55d55cef68089e2cf72e4059b58a464e518603d597044805cb0ad7b0f65e7",
+      "bytes": 82835
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0019.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0019.png-97fbd5b73a4bbbf43e4f8174a1e94c4f.ctex"
+      ],
+      "sha256": "f2ca335d05eb5fabe4316b263414c6dab4442d6f5826ed8ed7228fb6fe35dd4d",
+      "bytes": 82920
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0020.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0020.png-e7abbe3007ffc4206354fa7a91727c79.ctex"
+      ],
+      "sha256": "99df83277b97d1f56e2c0de8f28e6a7af2255ef66bcb00987fef2af4c2ffa9e0",
+      "bytes": 81921
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0021.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0021.png-d106709d516ed9d9d24c060793896c0b.ctex"
+      ],
+      "sha256": "73b912b3c832ceea814338ff78669f6ff02cfde602fce04b3134d80ab951a27c",
+      "bytes": 83196
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0022.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0022.png-0936ab22f5de5ffce71342a3822b2028.ctex"
+      ],
+      "sha256": "85fda4eaeae523adf725f8be39d1a46726dd77965c97d3d2be1fe47188caeeca",
+      "bytes": 83995
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0023.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0023.png-f099bf378289fd9da404b907c40d21f4.ctex"
+      ],
+      "sha256": "6b6f5ce4efdf776af9434f1d5636281854de143a2ed64197d81d478f082a42b1",
+      "bytes": 83820
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0024.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0024.png-d4415fef9ba3fbbdbbcca9dceb0c59c5.ctex"
+      ],
+      "sha256": "6ade05ed172a45fd7bfb1f761f44a57fc174cd9cbc746681c723a4b8d1ee7295",
+      "bytes": 82191
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0025.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0025.png-217d14054ee7f38ce5267579618e3a68.ctex"
+      ],
+      "sha256": "b716b43a2a9526243eb583a9e5d4c88867fd8fbeddfc16cbb5c617c5a7e26490",
+      "bytes": 82362
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0026.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0026.png-c9eae94da334f6b108d44fe14fda5d06.ctex"
+      ],
+      "sha256": "31cd47a7c3986fb84072be545ba1dd100c4b9cac2ba79c91fa7b771fd90065a9",
+      "bytes": 79348
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0027.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0027.png-97e0dd2eb8b5b4cd6b0bb02811a37908.ctex"
+      ],
+      "sha256": "be8936b829ae082bf1e19d2e58b406d57d25dcd91a92e9129a3cea75d016fd1f",
+      "bytes": 85419
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0028.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0028.png-e914bc00af0ccd1f1164742b7744f32c.ctex"
+      ],
+      "sha256": "9e7d19b15b2ba99442f691db86bcecf67fb911700894eebb3416d4c17a705bd6",
+      "bytes": 80975
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0029.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0029.png-b8d502810c5a8da54ba9200c3b723b02.ctex"
+      ],
+      "sha256": "fb514d1d85243d0232d5cbe396932faa7747542a6335bf72fa2ea0d14fd1fe21",
+      "bytes": 83660
+    },
+    {
+      "path": "scenes/monster picture/noi/loop_0030.png",
+      "reason": "旧的未引用动画帧，现有场景使用 kaguya_loop 系列",
+      "imported": [
+        ".godot/imported/loop_0030.png-5ba84a4f36c3933bec8b121662409718.ctex"
+      ],
+      "sha256": "62c7f5a1b6557f7b308ae24562dc3ed4675ad1c3fbc7178e639c8adbe86016b3",
+      "bytes": 83341
+    }
+  ]
+}

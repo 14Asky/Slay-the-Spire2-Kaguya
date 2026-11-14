@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using Kaguya.HinaMods.Legacy.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

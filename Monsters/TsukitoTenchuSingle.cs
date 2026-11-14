@@ -43,8 +43,10 @@ namespace Kaguya.Monsters
         private const int StrongToneHits = 2;
         private const int StrongToneStrength = 2;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_tenchu.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_tenchu.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {

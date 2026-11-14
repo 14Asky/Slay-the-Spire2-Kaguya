@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Events;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Runs;
-using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Entities.Save;
 
 namespace Kaguya.Events
 {
@@ -41,8 +41,8 @@ namespace Kaguya.Events
         {
             SetEventFinished(L10NLookup("KAGUYA_ENDING.pages.END.description"));
             await Cmd.Wait(0.5f);
-            SerializableRun serializableRun = RunManager.Instance.OnEnded(isVictory: true);
-            NRun.Instance.ShowGameOverScreen(serializableRun);
+            PostRunProgressUpdateResult result = RunManager.Instance.OnEnded(isVictory: true);
+            NRun.Instance.ShowGameOverScreen(result);
         }
     }
 }

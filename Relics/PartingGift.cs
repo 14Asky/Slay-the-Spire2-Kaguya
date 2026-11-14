@@ -42,7 +42,7 @@ namespace Kaguya
                 new ThrowingPlayerChoiceContext(),   // 无需玩家选择的上下文
                 Owner.Creature,
                 DynamicVars.HpLoss.BaseValue,
-                isFromCard: false
+                cardSource: null
             );
 
             // 2. 创建两张卡牌并加入牌组

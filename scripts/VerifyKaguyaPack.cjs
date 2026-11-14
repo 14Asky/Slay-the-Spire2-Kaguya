@@ -2,23 +2,16 @@
 // Usage: node scripts/VerifyKaguyaPack.cjs build/Kaguya.pck
 const fs = require('fs');
 const crypto = require('crypto');
-const bytes = fs.readFileSync(process.argv[2]);
-if (bytes.readUInt32LE(0) !== 0x43504447) throw Error('Invalid PCK header');
-const base = Number(bytes.readBigUInt64LE(24));
-let offset = bytes.readUInt32LE(4) === 3 ? Number(bytes.readBigUInt64LE(32)) : 96;
-const count = bytes.readUInt32LE(offset); offset += 4;
-const entries = new Map();
-for (let i = 0; i < count; i++) {
-  const length = bytes.readUInt32LE(offset); offset += 4;
-  const name = bytes.subarray(offset, offset + length).toString().replace(/\0+$/, '').replace(/^res:\/\//, ''); offset += length;
-  const start = base + Number(bytes.readBigUInt64LE(offset)), size = Number(bytes.readBigUInt64LE(offset + 8));
-  const md5 = bytes.subarray(offset + 16, offset + 32).toString('hex'), flags = bytes.readUInt32LE(offset + 32); offset += 36;
-  const data = bytes.subarray(start, start + size);
-  if (entries.has(name) || flags || data.length !== size || crypto.createHash('md5').update(data).digest('hex') !== md5)
-    throw Error('Invalid PCK entry: ' + name);
-  if (/^(build|scripts|\.git|addons\/spine)\//.test(name) || /\.(dll|pdb|gdextension|docx)$/i.test(name))
+const { readPck } = require('./lib/KaguyaPck.cjs');
+const entries = readPck(process.argv[2]);
+const count = entries.size;
+for (const name of entries.keys()) {
+  if (/^(build|scripts|docs|\.git|addons\/spine)\//.test(name) || /\.(dll|pdb|gdextension|docx)$/i.test(name))
     throw Error('Unexpected distribution file: ' + name);
-  entries.set(name, data);
+}
+for (const asset of JSON.parse(fs.readFileSync(require('path').join(__dirname, 'unused-assets.json'), 'utf8')).assets) {
+  for (const name of [asset.path, asset.path + '.import', ...asset.imported])
+    if (entries.has(name)) throw Error('Retired asset was repackaged: ' + name);
 }
 const spine = {};
 for (const ext of ['skel', 'atlas', 'png']) {
@@ -34,4 +27,28 @@ function requireImported(name) {
 const texture = requireImported('scenes/hinamods/spine/kaguya.png');
 const bgm = Object.fromEntries(['HappySyn', 'LoveMyself', 'Remember'].map(n => [n, requireImported('debug_audio/' + n + '.ogg')]));
 if (!entries.has('scenes/hinamods/HinaVisual.tscn')) throw Error('Missing legacy fallback scene');
-console.log(JSON.stringify({ success: true, entries: count, rawSpine: spine, texture, bgm }, null, 2));
+const bossBgm = Object.fromEntries(['Moon', 'Shun', 'Reply'].map(n => [n, requireImported('debug_audio/' + n + '.mp3')]));
+const backgroundPath = 'images/backgrounds/tsukito_bosatsu_original.ctex';
+const background = entries.get(backgroundPath);
+if (!background?.equals(fs.readFileSync(backgroundPath))) throw Error('Missing or outdated original Boss background');
+for (const scene of [
+  'scenes/backgrounds/tsukito_bosatsu_boss_encounter/tsukito_bosatsu_boss_encounter_background.tscn',
+  'scenes/backgrounds/tsukito_bosatsu_boss_encounter/layers/tsukito_bosatsu_boss_encounter_bg_00.tscn',
+  'scenes/backgrounds/final_act/final_act_background.tscn',
+  'scenes/backgrounds/final_act/layers/final_act_bg_00.tscn'
+]) {
+  const data = entries.get(scene);
+  if (!data?.equals(fs.readFileSync(scene)) || !data.toString().includes('res://' + backgroundPath))
+    throw Error('Background scene does not use the packaged original texture: ' + scene);
+}
+for (const lang of ['zhs', 'eng', 'jpn']) {
+  const name = 'Kaguya/localization/' + lang + '/cards.json';
+  const data = entries.get(name);
+  if (!data?.equals(fs.readFileSync(name))) throw Error('Outdated card localization: ' + name);
+  const loc = JSON.parse(data.toString().replace(/^\uFEFF/, ''));
+  if (!loc['KAGUYA-JOY.title'] || !loc['KAGUYA-JOY.description'] || 'JOY.title' in loc || 'JOY.description' in loc)
+    throw Error('Joy localization would collide with vanilla: ' + name);
+}
+console.log(JSON.stringify({ success: true, entries: count, rawSpine: spine, texture, bgm, bossBgm,
+  originalBackground: { path: backgroundPath, bytes: background.length, sha256: crypto.createHash('sha256').update(background).digest('hex') }
+}, null, 2));

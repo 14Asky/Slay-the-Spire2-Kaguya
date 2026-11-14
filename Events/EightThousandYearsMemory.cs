@@ -141,7 +141,7 @@ namespace Kaguya.Events
         private async Task DoTransform()
         {
             // 扣除生命上限
-            await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, HpLoss, false);
+            await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, HpLoss, cardSource: null);
 
             // 选择一张牌进行变化
             var prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 1, 1)

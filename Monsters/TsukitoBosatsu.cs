@@ -84,8 +84,6 @@ namespace Kaguya.Monsters
             { "彩排太辛苦了，我肚子都饿了", "lianxixinku.mp3" },
             { "等结束了我们去吃松饼好不好？", "chison.mp3" },
         };
-        private int _lastMoonTextTurn = -1;
-
         private static readonly string[][] _moonTextScripts = new string[][] {
             new[] { "我是从月亮上来的！" },
             new[] { "我才不要这么烂的结局，我就想要快乐的结局！", "我要自己创造一个快乐的结局，然后带你一起到达！" },
@@ -130,8 +128,10 @@ namespace Kaguya.Monsters
 
         public override bool ShouldDisappearFromDoom => false;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_bosatsu.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_bosatsu.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -148,7 +148,7 @@ namespace Kaguya.Monsters
         {
             await base.AfterAddedToRoom();
 
-            var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Shun.mp3");
+            var stream = PreloadManager.Cache.GetAsset<AudioStream>(TmpSfx.GetPath("Shun.mp3"));
             if (stream is AudioStreamMP3 mp3)
                 mp3.Loop = true;
             _musicHandle = NDebugAudioManager.Instance.Play("Shun.mp3");
@@ -216,7 +216,7 @@ namespace Kaguya.Monsters
             return _currentSummonTypes.Any(t => !_summonedTypes.Contains(t));
         }
 
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
             if (creature == Creature && !Creature.HasPower<BosatsuPhaseTransitionPower>())
             {
@@ -255,7 +255,7 @@ namespace Kaguya.Monsters
                     SetMoveImmediate(_reviveState, forceTransition: true);
             }
 
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+            await base.AfterDeath(choiceContext, creature, source, wasRemovalPrevented, deathAnimLength);
         }
 
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
@@ -524,7 +524,7 @@ namespace Kaguya.Monsters
                 NDebugAudioManager.Instance.Stop(_musicHandle.Value);
                 _musicHandle = null;
             }
-            var stream = PreloadManager.Cache.GetAsset<AudioStream>("res://audio/Reply.mp3");
+            var stream = PreloadManager.Cache.GetAsset<AudioStream>(TmpSfx.GetPath("Reply.mp3"));
             if (stream is AudioStreamMP3 mp3)
                 mp3.Loop = true;
             _musicHandle = NDebugAudioManager.Instance.Play("Reply.mp3");

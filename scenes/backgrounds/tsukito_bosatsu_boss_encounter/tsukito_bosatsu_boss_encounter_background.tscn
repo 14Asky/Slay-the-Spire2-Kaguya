@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://8imghy10jt4d" path="res://Others/CustomCombatBackground.cs" id="1_ihjxk"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kdrju"]
-load_path = "res://.godot/imported/glory_00.png-9cd8975d8505982b49d6deef275cc130.ctex"
+load_path = "res://images/backgrounds/tsukito_bosatsu_original.ctex"
 
 [node name="Control" type="TextureRect"]
 anchors_preset = 15

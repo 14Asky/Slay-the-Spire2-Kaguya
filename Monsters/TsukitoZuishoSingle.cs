@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves;
@@ -22,7 +23,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Models;
 
 namespace Kaguya.Monsters
 {
@@ -35,8 +35,6 @@ namespace Kaguya.Monsters
         public override int MinInitialHp => 380;
         public override int MaxInitialHp => 400;
 
-        private bool _lastWasDevour = false;   // 用于吞噬冷却? 原版使用随机分支冷却，不需要额外标志
-
         // 阶段1数值（与原版一致）
         private int CrushDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 30, 27);
         private const int CrushStrength = 3;
@@ -47,8 +45,10 @@ namespace Kaguya.Monsters
 
         private MoveState _phase1CrushState, _phase1DevourState, _phase1HungerState;
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_zuisho.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_zuisho.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -139,12 +139,6 @@ namespace Kaguya.Monsters
                         .From(Colors.Black);
                 }
             }
-        }
-
-        // 死亡处理（无转阶段，直接基类）
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
-        {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
         }
 
         // 战斗开始：添加饕餮和高维生物

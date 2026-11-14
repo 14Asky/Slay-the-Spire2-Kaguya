@@ -66,7 +66,7 @@ namespace Kaguya.Relics
             bool isKaguya = Owner.Character is HinaCharacter;
 
             int cardsPlayed = 0;
-            using (CardSelectCmd.PushSelector(new MoonCardSelector()))
+            using (MegaCrit.Sts2.Core.Runs.RunManager.Instance.CardSelectorStack.PushSelector(Owner, new MoonCardSelector()))
             {
                 while (cardsPlayed < MaxCardsToPlay)
                 {

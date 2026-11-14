@@ -39,7 +39,7 @@ namespace Kaguya.Cards
             if (triggerCount > 0)
             {
                 // 扣除生命上限（每触发一次3点）
-                await CreatureCmd.LoseMaxHp(choiceContext, Owner.Creature, 1 * triggerCount, isFromCard: true);
+                await CreatureCmd.LoseMaxHp(choiceContext, Owner.Creature, 1 * triggerCount, cardSource: this);
 
                 // 从手牌中选择最多 triggerCount 张牌增加重放次数
                 var handCards = PileType.Hand.GetPile(Owner).Cards.ToList();

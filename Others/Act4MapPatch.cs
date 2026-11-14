@@ -216,7 +216,7 @@ public static class Act4Logic
     }
 
     // 强制指定怪物
-    [HarmonyPatch(typeof(ActModel), nameof(ActModel.GenerateRooms))]
+    [HarmonyPatch(typeof(ActModel), nameof(ActModel.GenerateRooms), new[] { typeof(MegaCrit.Sts2.Core.Random.Rng), typeof(MegaCrit.Sts2.Core.Unlocks.UnlockState), typeof(bool), typeof(bool) })]
     [HarmonyPostfix]
     public static void Postfix_Rooms(ActModel __instance)
     {

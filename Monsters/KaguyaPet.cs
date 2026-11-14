@@ -12,11 +12,13 @@ namespace Kaguya.Monsters
     {
         public override int MinInitialHp => 9999;
         public override int MaxInitialHp => 9999;
-        public override bool IsHealthBarVisible => false;
+        public override bool IsInteractable => false;
 
         // 使用不含 Spine 的静态场景
+        protected override string VisualsPath => "res://scenes/monsters/kaguya_pet.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/kaguya_pet.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {

@@ -31,8 +31,10 @@ namespace Kaguya.Monsters
         private int ScatterDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 2, 1);
         private int ScatterHitCount => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 4, 3);
 
+        protected override string VisualsPath => "res://scenes/monsters/tsukito_bag.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/tsukito_bag.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -86,11 +88,6 @@ namespace Kaguya.Monsters
                 .WithAttackerFx(null, AttackSfx)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(null);
-        }
-
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
-        {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
         }
 
         public override async Task AfterAddedToRoom()

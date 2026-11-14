@@ -55,7 +55,7 @@ namespace Kaguya.Relics
             await PlayerCmd.LoseGold(GoldCost, Owner);
 
             // 随机获得一个遗物（从遗物池前方抽取）
-            var newRelic = RelicFactory.PullNextRelicFromFront(Owner).ToMutable();
+            var newRelic = RelicFactory.PullNextRelicForRewardFromFront(Owner).ToMutable();
             await RelicCmd.Obtain(newRelic, Owner);
 
             // 替换遗物：移除当前遗物，添加“玩偶大小的女孩”

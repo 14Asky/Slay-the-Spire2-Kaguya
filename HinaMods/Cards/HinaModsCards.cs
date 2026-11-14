@@ -557,13 +557,7 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 		}
 	}
 
-	public override string PortraitPath
-	{
-		get
-		{
-			return CustomPortraitPath;
-		}
-	}
+	public override string PortraitPath => CustomPortraitPath;
 
 	public override string BetaPortraitPath
 	{

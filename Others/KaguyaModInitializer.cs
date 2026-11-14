@@ -36,7 +36,7 @@ namespace KaguyaMod
                 ModHelper.AddModelToPool(typeof(CurseCardPool), typeof(Boring));
                 ModHelper.AddModelToPool(typeof(KaguyaCardPool), typeof(Coax));
                 ModHelper.AddModelToPool(typeof(StatusCardPool), typeof(Happy));
-                ModHelper.AddModelToPool(typeof(StatusCardPool), typeof(Joy));
+                ModHelper.AddModelToPool(typeof(StatusCardPool), typeof(global::Kaguya.Cards.Joy));
                 ModHelper.AddModelToPool(typeof(StatusCardPool), typeof(LostSoul));
                 ModHelper.AddModelToPool(typeof(StatusCardPool), typeof(Pride));
                 ModHelper.AddModelToPool(typeof(StatusCardPool), typeof(Relocate));

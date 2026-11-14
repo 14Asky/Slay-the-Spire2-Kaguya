@@ -1,0 +1,503 @@
+{
+  "version": "3.2.5",
+  "targetGame": "0.113.0",
+  "baseline": {
+    "version": "3.2.4",
+    "commit": "23dd8820809f6e7b27f460969a37dc53d307652a"
+  },
+  "reference": "https://tutorials.sts2modding.com/docs/07-migration-99-100/",
+  "authority": "以工作区 libs/sts2.dll 和实际解析的 BaseLib 为准，迁移网页仅作审计索引。",
+  "dependencies": {
+    "sts2Sha256": "a6cc282c52b96ad2e01d5692b1144b33aa8e3ba4e969582f648ecb13b2f751d7",
+    "baseLibPackage": "Alchyr.Sts2.BaseLib",
+    "versionStrategy": "*",
+    "resolvedVersion": "3.4.8",
+    "runtimeCompatibilityHelper": "0.0.0",
+    "godot": "4.5.1-m.14"
+  },
+  "audit": [
+    {
+      "area": "死亡钩子",
+      "status": "已修改",
+      "details": "审计原有 21 个 AfterDeath 覆写：17 个增加 CardModel? source 并按原逻辑转发；4 个只调用基类的冗余覆写删除，改用继承实现。新版和 Legacy 的转阶段与奖励逻辑保留。"
+    },
+    {
+      "area": "生命上限扣除",
+      "status": "已修改",
+      "details": "5 个 LoseMaxHp 调用：卡牌传 this，事件和遗物传 null；扣除数量未变。"
+    },
+    {
+      "area": "选卡",
+      "status": "已修改",
+      "details": "日/月头饰使用 RunManager.CardSelectorStack.PushSelector(Owner, selector)，继续通过 using 释放。"
+    },
+    {
+      "area": "随机数",
+      "status": "已修改",
+      "details": "辉夜姬、看电影、蓦然回首的三处调用使用 UnstableShuffle，保留候选列表及原随机流。"
+    },
+    {
+      "area": "第四幕与结局",
+      "status": "已修改",
+      "details": "MultiplayerScalingModel 使用 Models 命名空间；OnEnded 的 PostRunProgressUpdateResult 传给结算界面。"
+    },
+    {
+      "area": "遗物工厂",
+      "status": "已修改",
+      "details": "休息选项改用 PullNextRelicForRewardFromFront。"
+    },
+    {
+      "area": "GenerateRooms 补丁",
+      "status": "已修改",
+      "details": "两个补丁均指定 Rng、UnlockState、bool、bool 重载。原三参数直接调用仍可使用默认 isBlitz=false；不扩展专属第四幕规则。"
+    },
+    {
+      "area": "宠物",
+      "status": "已修改",
+      "details": "KaguyaPet 使用 IsInteractable=false。"
+    },
+    {
+      "area": "模型 ID",
+      "status": "已修改",
+      "details": "经用户批准，模组愉悦改为 CARD.KAGUYA-JOY，原版 CARD.JOY 不变。保留效果、名称和卡图；修正 Joy/Encore 同名类型的限定引用。"
+    },
+    {
+      "area": "旧存档",
+      "status": "已修改",
+      "details": "在运行存档 v20→21、历史 v10→11、进度 v23→24 的原生迁移入口转换旧 CARD.JOY。递归覆盖嵌套值；新版本存档和网络数据不进行全局别名替换。"
+    },
+    {
+      "area": "本地化",
+      "status": "已修改",
+      "details": "中、英、日三份卡牌表仅迁移模组 Joy 的两个键，避免覆盖原版 Joy。终焉计时文本未修改。"
+    },
+    {
+      "area": "怪物资源预加载",
+      "status": "已修改",
+      "details": "23 个自定义怪物显式提供实际 VisualsPath，与 CreateCustomVisuals 共用路径，避免预加载不存在的默认场景。"
+    },
+    {
+      "area": "Boss 音乐",
+      "status": "已修改",
+      "details": "5 处预加载改用 TmpSfx.GetPath，确保循环配置和播放器加载同一份 Moon、Shun、Reply 曲目。"
+    },
+    {
+      "area": "Boss 原背景",
+      "status": "已修改",
+      "details": "原背景全部像素保留，纹理作无损重压缩；四个场景引用模组内稳定资源路径，解除原版导入缓存依赖。未改用新版 Glory 背景。"
+    },
+    {
+      "area": "打包检查",
+      "status": "已修改",
+      "details": "刷新三份本地化、四个背景场景和原背景纹理；校验原始 Spine、贴图、旧立绘、三首主菜单曲目及 Boss 曲目。"
+    },
+    {
+      "area": "其他 Harmony 与反射",
+      "status": "无需修改",
+      "details": "启动时 50 个模组方法挂接成功；第四幕反射成员、地图资源路径和菜单补丁均继续使用实际 DLL 的现有成员。"
+    },
+    {
+      "area": "CreatureCmd.Kill",
+      "status": "无需修改",
+      "details": "实际 0.113 DLL 仍提供 Kill(Creature, bool=false) 及集合重载；原调用合法，新增来源重载也已用于死亡回归。"
+    },
+    {
+      "area": "伤害、VFX、奖励",
+      "status": "无需修改",
+      "details": "新参数均有默认值；现有调用继续编译。CardPlay 迁移及卡图保护保持原实现。"
+    },
+    {
+      "area": "Spine 与 Yachiyo",
+      "status": "无需修改",
+      "details": "保留骨架数据验证、原始文件重建、安装验证、旧立绘回退及 Yachiyo 序列帧动画。"
+    },
+    {
+      "area": "基础模型新增成员",
+      "status": "未使用",
+      "members": [
+        "箭矢/旋律钩子",
+        "ModifyDamageMultiplicativeLate",
+        "ModifyPreBlockDamageTarget",
+        "TryReplaceDefaultRoomRewards",
+        "ModifyExtraRestSiteMendText",
+        "IsAllowedInBlitz",
+        "新增 Dominion/RunModel 扩展"
+      ]
+    },
+    {
+      "area": "旧模型成员变更",
+      "status": "未使用",
+      "members": [
+        "ShouldTakeExtraTurn",
+        "AfterTakingExtraTurn",
+        "AfterTransformedFrom/To",
+        "RelicModel.IsAllowed 覆写",
+        "IsBeforeAct3TreasureChest",
+        "角色代词属性与 AddDetailsTo 覆写",
+        "AncientEventModel.RelicOption customDonePage",
+        "DebugRandomizeRng 返回值依赖",
+        "ModelId 拷贝构造",
+        "ModelDb.Singleton"
+      ]
+    },
+    {
+      "area": "战斗实体变更",
+      "status": "未使用",
+      "members": [
+        "CombatState 构造参数",
+        "自定义 ICombatState/IRunState 实现",
+        "UndoReadyToEndTurn",
+        "MaxAscensionWhenRunStarted",
+        "SmithCount",
+        "ICardSelectionScreen 实现",
+        "RelicPickingResult 构造",
+        "BranchingPlayerChoiceContext"
+      ]
+    },
+    {
+      "area": "多人协议及平台变更",
+      "status": "未使用",
+      "details": "模组未自建网络连接、Lobby、JoinFlow、消息、同步器接口或平台成就服务；测试探针不随模组发布。"
+    },
+    {
+      "area": "商店与 HoverTip 变更",
+      "status": "未使用",
+      "members": [
+        "MerchantEntry 子类购买接口",
+        "MerchantCardEntry 构造",
+        "MerchantInventory.AllEntries 具体类型依赖",
+        "NMerchantRoom",
+        "CreateForMerchant",
+        "HoverTip 只读属性赋值"
+      ]
+    },
+    {
+      "area": "地图、模式、存档和时间线变更",
+      "status": "未使用",
+      "members": [
+        "GameMode.Custom",
+        "GameModeExtension",
+        "AscensionManager 构造",
+        "AscensionHelper 改签名",
+        "RunState 创建接口",
+        "ProgressSaveManager 自定义实现",
+        "CloudSaveStore.directoryPath",
+        "PrefsSaveManager 构造",
+        "NEpochCard/NUnlockEpochScreen"
+      ]
+    },
+    {
+      "area": "UI 与测试接口变更",
+      "status": "未使用",
+      "members": [
+        "手写 N 节点信号调用",
+        "NTopBar 旧类型",
+        "SetCreatureIsInteractable",
+        "MegaSlotNode 构造",
+        "NMegaTextEdit 继承",
+        "旧卡牌库 SortingOrders",
+        "AutoSlay 旧接口",
+        "SetRelicOverride"
+      ]
+    },
+    {
+      "area": "枚举数值与原版模型行为",
+      "status": "无需修改",
+      "details": "未以整数持久化 HpLossHookPhase/GameMode，也未挂接迁移页中行为变化的原版卡牌、能力和怪物；未使用 AmbergrisPower。"
+    },
+    {
+      "area": "金刚一阶段贴图",
+      "status": "已修改",
+      "details": "复测发现旧代码请求不存在的 tsukito_kongo_phase1.png；统一为该怪物场景实际使用的 TsukitoKongo.png，转阶段及死亡奖励 11 项复测通过。"
+    }
+  ],
+  "preserved": {
+    "modelIds": "除已批准的 Joy 外不变",
+    "savedProperties": "不变",
+    "gameplayValues": "不变",
+    "explicitFreeMoonlightIssue": "另案处理",
+    "legacy0111Release": "build/backup-before-v325-migration-20261114"
+  },
+  "validation": {
+    "status": "passed_windows_automated",
+    "environment": "独立 Windows 0.113.0 游戏副本、隔离 APPDATA/LOCALAPPDATA、BaseLib 3.4.8 与 Compatibility Helper 0.0.0。实际安装和工坊目录未改动。",
+    "build": {
+      "errors": 0,
+      "warnings": 114,
+      "warningKind": "CS8632",
+      "architectureChanged": false,
+      "log": "build/migration-v325-build-release.log"
+    },
+    "results": [
+      {
+        "scenario": "integration-models-asset-audit-pixel-check-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 21,
+        "result": "build/native-v325-integration-models-asset-audit-pixel-check-optimized-results/result.json",
+        "sha256": "1b86d4a826642fdee0c0d5bd1be86fdbedaae4f16f7a61e6fc297f32eeb2c841"
+      },
+      {
+        "scenario": "menu-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 30,
+        "result": "build/native-v325-menu-optimized-results/result.json",
+        "sha256": "e2b0198e08801c7f738e03fba9f68fa6ea1553552d0903010c76ba31dd2a0920"
+      },
+      {
+        "scenario": "spine-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 21,
+        "result": "build/native-v325-spine-optimized-results/result.json",
+        "sha256": "a0654a9c2e9c580113e9935a74230300ceeee818968592dd608f8f6a8357deb4"
+      },
+      {
+        "scenario": "spine-missing-skel-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 14,
+        "result": "build/native-v325-spine-missing-skel-optimized-results/result.json",
+        "sha256": "f8b4754800597e69468da2ebf3ba229604da51a1f02875bd028923f53fb20a32"
+      },
+      {
+        "scenario": "spine-missing-atlas-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 14,
+        "result": "build/native-v325-spine-missing-atlas-optimized-results/result.json",
+        "sha256": "f8b4754800597e69468da2ebf3ba229604da51a1f02875bd028923f53fb20a32"
+      },
+      {
+        "scenario": "spine-missing-texture-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 14,
+        "result": "build/native-v325-spine-missing-texture-optimized-results/result.json",
+        "sha256": "f8b4754800597e69468da2ebf3ba229604da51a1f02875bd028923f53fb20a32"
+      },
+      {
+        "scenario": "integration-standard-legacy-transform-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 10,
+        "result": "build/native-v325-integration-standard-legacy-transform-optimized-results/result.json",
+        "sha256": "eac9a2a0efd9d4f01153fdf57d8df3e60071f01f10ec1a682147b068d28cfbf1"
+      },
+      {
+        "scenario": "integration-standard-iroha-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 4,
+        "result": "build/native-v325-integration-standard-iroha-optimized-results/result.json",
+        "sha256": "0a595ca9ab0fe8750915e691c6dc827216ba55df138c344caac9458e09b24f8f"
+      },
+      {
+        "scenario": "integration-mechanics-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 10,
+        "result": "build/native-v325-integration-mechanics-optimized-results/result.json",
+        "sha256": "98b596ccc8d4835be468f48f276c104b8919f775996b548d00aa71f27246b1c2"
+      },
+      {
+        "scenario": "integration-boss-bosatsu-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 9,
+        "result": "build/native-v325-integration-boss-bosatsu-optimized-results/result.json",
+        "sha256": "25284a3ef14c5b9624470910ba1d736584f4e4550f4d37544623d5445d37ca0b"
+      },
+      {
+        "scenario": "integration-act4-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 7,
+        "result": "build/native-v325-integration-act4-optimized-results/result.json",
+        "sha256": "41a1c38eeb52aafb93e77240a609ec2dc9f7cbfbc40901317fbc6828bd17ed46"
+      },
+      {
+        "scenario": "integration-goodending-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 17,
+        "result": "build/native-v325-integration-goodending-optimized-results/result.json",
+        "sha256": "e76d3360ba0c7bf61c47cc977bbf807033d1c541f5f02b2075e07d7f08c7ff04"
+      },
+      {
+        "scenario": "integration-network-optimized-host",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 13,
+        "result": "build/native-v325-integration-network-optimized-host-results/result.json",
+        "sha256": "4ce7806ff98650b4e8c7f03af1bcba8b7d20a493624840d24b19b073fed4c663"
+      },
+      {
+        "scenario": "integration-network-optimized-client",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 13,
+        "result": "build/native-v325-integration-network-optimized-client-results/result.json",
+        "sha256": "51ba96e8906fc6a64b62bc60ac9a2fcffbf52146ce04e23932ea3f8b27b0d020"
+      },
+      {
+        "scenario": "integration-standard-new-ready",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 5,
+        "result": "build/native-v325-integration-standard-new-ready-results/result.json",
+        "sha256": "7887228a1f093c63ad6499c32e64e9c77e53b6ce90b4126967d8b089571671a6"
+      },
+      {
+        "scenario": "integration-standard-legacy-ready",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 5,
+        "result": "build/native-v325-integration-standard-legacy-ready-results/result.json",
+        "sha256": "969f7eb3938d108349eb1bba141f5718f7964ff714dc4256b6205871e802f027"
+      },
+      {
+        "scenario": "integration-daily",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 5,
+        "result": "build/native-v325-integration-daily-results/result.json",
+        "sha256": "6f87f2a1ca43d0caaac4726cec7891ce5b7b02f42f662791087a13958e4c364f"
+      },
+      {
+        "scenario": "integration-custom",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 5,
+        "result": "build/native-v325-integration-custom-results/result.json",
+        "sha256": "c2b74e8c884f15fd25061b0ce4222cf7f45d2bcf7b55893db0495de9fd14c087"
+      },
+      {
+        "scenario": "integration-blitz",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 5,
+        "result": "build/native-v325-integration-blitz-results/result.json",
+        "sha256": "d41a3a2a58df8b73cdb5a0e7c85804985293d932dbb4298c2edc88f22401b51f"
+      },
+      {
+        "scenario": "integration-dread",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 5,
+        "result": "build/native-v325-integration-dread-results/result.json",
+        "sha256": "a5142a8ea847a315c677a83bcd81be8bfb580645ec0b77b41cf922b36f75ceb9"
+      },
+      {
+        "scenario": "integration-boss-tenchu",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 9,
+        "result": "build/native-v325-integration-boss-tenchu-results/result.json",
+        "sha256": "63ce448e4e952c89bb5c5f8fcdf25102a612c5dae7541321b18b3c49ed0195ac"
+      },
+      {
+        "scenario": "integration-boss-zuisho-final",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 9,
+        "result": "build/native-v325-integration-boss-zuisho-final-results/result.json",
+        "sha256": "2436c44c32008177bad36d9f1ae018b072b9b0c8437b47e698109affbad875d8"
+      },
+      {
+        "scenario": "integration-goodending-legacy-final",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 17,
+        "result": "build/native-v325-integration-goodending-legacy-final-results/result.json",
+        "sha256": "a7fd23005f508db866758f0e3bd0eaf38d24e83d261c7be484f53fbd0dbd6ebe"
+      },
+      {
+        "scenario": "integration-continue-current",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 4,
+        "result": "build/native-v325-integration-continue-current-results/result.json",
+        "sha256": "0a944880500cdcc8b1d6fae326e9839e4f808fc464eebe9f04904563b3142e06"
+      },
+      {
+        "scenario": "integration-continue-old",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 5,
+        "result": "build/native-v325-integration-continue-old-results/result.json",
+        "sha256": "981ca1e95d3d94e8793f951f41a610178b418d708c33cea37cfc5e97f0dd4682"
+      },
+      {
+        "scenario": "integration-rng-a",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 7,
+        "result": "build/native-v325-integration-rng-a-results/result.json",
+        "sha256": "c433b24f73b3133f684d319f027af29934eb66ccbea0f6be4e26e7dfa28adc4f"
+      },
+      {
+        "scenario": "integration-rng-b",
+        "phase": "迁移后、压缩前",
+        "passed": true,
+        "checks": 7,
+        "result": "build/native-v325-integration-rng-b-results/result.json",
+        "sha256": "fab04aeb5ec2cec7c5adca45267a5e3e6b14059388ef070f4601afa7e7e3c368"
+      },
+      {
+        "scenario": "integration-boss-kongo-release",
+        "phase": "最终 DLL：金刚一阶段路径修正后复测",
+        "passed": true,
+        "checks": 11,
+        "result": "build/native-v325-integration-boss-kongo-release-results/result.json",
+        "sha256": "a3a420aeedb7d96ca98a9aa23318b27aa67f86430e5c9365f70915decd60e18b"
+      },
+      {
+        "scenario": "cost-optimized",
+        "phase": "压缩后复测",
+        "passed": true,
+        "checks": 22,
+        "result": "build/native-v325-cost-optimized-results/result.json",
+        "sha256": "f46662b8a75c44d6b192bcd9c8849437da194b607b312fcc197883a51d4274a6"
+      }
+    ],
+    "network": {
+      "rngSha256": "f95b97efe49b27224e2317cf273d693c3f2d430f507e848d08b1e348717ae2e9",
+      "stateSha256": "49d2fdd62d808e48cfa371338f8cd294b60bc4cba55b614e62e553195e688503"
+    },
+    "moonCost": "22 组状态与 v3.2.4 基线一致；既有显式免费首次免月夜问题另案处理。",
+    "limits": [
+      "Windows 自动化通过；Android 未测试。",
+      "音频使用 Dummy 驱动验证播放状态和控制逻辑，未做人耳试听。",
+      "旧存档继续游戏使用完整运行存档构造的 v20 代表性样本，经原生迁移；非玩家提供的真实 0.111 存档。",
+      "Blitz、Dread 仅测启动和进入战斗，未扩展专属第四幕规则。",
+      "压缩前完成完整迁移检查，压缩后复测资源与关键流程；最终仅金刚路径一行修正后重测金刚场景。"
+    ],
+    "nonBlockingLogs": [
+      "基线也有的预加载 Invalid Task ID 信息。",
+      "探针退出时引擎报告未释放的 RID/ObjectDB 资源。",
+      "故意缺失 Spine 资源的用例保留预期诊断，旧立绘回退成功。"
+    ]
+  },
+  "publication": {
+    "github": "随本次迁移与压缩提交交付至 YujixLiko/Slay-the-Spire2-Kaguya 的 master 分支",
+    "workshop": "用户要求暂停；未更新，等待指示",
+    "frozenLocalFiles": "build/release-v3.2.5-sts2-0.113"
+  },
+  "assetOptimization": "docs/asset-optimization-v3.2.5.json",
+  "artifacts": {
+    "Kaguya.dll": {
+      "bytes": 1585664,
+      "sha256": "e6bc224a3307fff9cdecfb159b5fb492e9dfdb9f7dff59c45ba46230b2ac8249"
+    },
+    "Kaguya.json": {
+      "bytes": 481,
+      "sha256": "039ea9de769c012a52477d45c09e52e325600afd53383102f48d9bfed4b71943"
+    },
+    "Kaguya.pck": {
+      "bytes": 300556476,
+      "sha256": "88bf2410ee826eb2d7d4555a6c0690ba1df533a2de2c565f42afcfd4d157bb01"
+    }
+  }
+}

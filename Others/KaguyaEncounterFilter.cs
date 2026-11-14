@@ -61,7 +61,7 @@ public static class KaguyaEncounterFilter
     }
 }
 
-[HarmonyPatch(typeof(ActModel), nameof(ActModel.GenerateRooms))]
+[HarmonyPatch(typeof(ActModel), nameof(ActModel.GenerateRooms), new[] { typeof(MegaCrit.Sts2.Core.Random.Rng), typeof(MegaCrit.Sts2.Core.Unlocks.UnlockState), typeof(bool), typeof(bool) })]
 public static class KaguyaEliteMonsterFilter
 {
     public static void Postfix(ActModel __instance)

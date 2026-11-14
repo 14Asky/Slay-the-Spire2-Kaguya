@@ -3,6 +3,7 @@ using Godot;
 using Kaguya.HinaMods.Cards.Uncommon;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Factories;
@@ -66,7 +67,7 @@ public sealed class KaguyaHime : HinaModsCard
 
         // 确定性 RNG：联机下各客户端结果一致
         List<CardModel> picked = pool.ToList();
-        player.RunState.Rng.CombatCardGeneration.Shuffle(picked);
+        picked.UnstableShuffle(player.RunState.Rng.CombatCardGeneration);
         if (picked.Count > count)
             picked = picked.GetRange(0, count);
 

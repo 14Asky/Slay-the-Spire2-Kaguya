@@ -36,8 +36,10 @@ namespace Kaguya.Monsters
         private int GongDamage => AscensionHelper.GetValueIfAscension(AscensionLevel.DeadlyEnemies, 5, 4);
         private const int GongDazeCount = 3;
 
+        protected override string VisualsPath => "res://scenes/monsters/battle_soldier_b.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/battle_soldier_b.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         // 战斗开始时添加 InspirationPower
         public override async Task AfterAddedToRoom()

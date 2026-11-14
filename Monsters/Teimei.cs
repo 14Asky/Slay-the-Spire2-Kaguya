@@ -34,8 +34,10 @@ namespace Kaguya.Monsters
         private const int ComboHitCount = 3;
         private const int StrengthGain = 5;
 
+        protected override string VisualsPath => "res://scenes/monsters/teimei.tscn";
+
         public override NCreatureVisuals CreateCustomVisuals()
-            => NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/monsters/teimei.tscn");
+            => NodeFactory<NCreatureVisuals>.CreateFromScene(VisualsPath);
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -86,9 +88,9 @@ namespace Kaguya.Monsters
         }
 
         // 死亡掉落：每个存活玩家随机获得 BrothersDeposit 或 DataUsb
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, CardModel? source, bool wasRemovalPrevented, float deathAnimLength)
         {
-            await base.AfterDeath(choiceContext, creature, wasRemovalPrevented, deathAnimLength);
+            await base.AfterDeath(choiceContext, creature, source, wasRemovalPrevented, deathAnimLength);
             if (creature != Creature) return;
 
             var players = Creature.CombatState?.Players.Where(p => p.Creature.IsAlive).ToList();

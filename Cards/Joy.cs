@@ -1,4 +1,5 @@
 using Godot;
+using BaseLib.Utils.Attributes;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -8,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace Kaguya.Cards
 {
+    [CustomID("KAGUYA-JOY")]
     public sealed class Joy : CardModel
     {
+        public override string PortraitPath => "res://images/packed/card_portraits/status/joy.png";
+
         // 无法升级
         public override int MaxUpgradeLevel => 0;
 
